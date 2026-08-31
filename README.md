@@ -65,6 +65,27 @@ We don't wait for the first person to get sick. We find the warning signal first
 
 <br/>
 
+<div align="center">
+
+<img width="100%" src="https://img.shields.io/badge/-%20-1e3a8a?style=flat-square" height="4"/>
+
+[![Pay With Algo](https://img.shields.io/badge/⚡_PAY_WITH_ALGO-000000?style=for-the-badge&labelColor=1a1200)](#21--algorand-x402-micropayments--pay-to-unlock)
+[![Network](https://img.shields.io/badge/ALGORAND-TESTNET-fef3c7?style=for-the-badge&labelColor=000000&color=fef3c7)](#21--algorand-x402-micropayments--pay-to-unlock)
+[![Finality](https://img.shields.io/badge/SUB--SECOND-FINALITY-451a03?style=for-the-badge&labelColor=1a1200&color=fbbf24)](#21--algorand-x402-micropayments--pay-to-unlock)
+[![Fee](https://img.shields.io/badge/NETWORK_FEE-0.001_ALGO-451a03?style=for-the-badge&labelColor=1a1200&color=fbbf24)](#21--algorand-x402-micropayments--pay-to-unlock)
+
+<br/>
+
+<img src="pay-with-algo.png" width="420" alt="Pay With Algo — x402 unlock modal"/>
+
+<sub>⬡ Tap **Pay With Algo** anywhere in FOODGUARD X to settle an x402 micropayment on Algorand and instantly unlock the feature — see <a href="#21--algorand-x402-micropayments--pay-to-unlock">§21</a> for the full flow.</sub>
+
+<img width="100%" src="https://img.shields.io/badge/-%20-1e3a8a?style=flat-square" height="4"/>
+
+</div>
+
+<br/>
+
 ## 01 — The Problem
 
 <table>
