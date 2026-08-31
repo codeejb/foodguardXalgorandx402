@@ -1,0 +1,6 @@
+{
+  "name": "FoodGuard X",
+  "description": "AI-powered digital twin and early-warning food safety intelligence platform for India's food ecosystem with Algorand blockchain passports and x402 pay-per-use intelligence APIs.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
