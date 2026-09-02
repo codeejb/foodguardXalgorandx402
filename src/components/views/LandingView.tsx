@@ -20,6 +20,7 @@ import {
   Radio
 } from 'lucide-react';
 import { INDIA_STATE_RISKS } from '../../data/mockData';
+import { UniversalDataPipeline } from '../UniversalDataPipeline';
 
 interface LandingViewProps {
   onNavigate: (view: string) => void;
@@ -33,7 +34,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
   return (
     <div className="bg-white text-neutral-900">
       {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden pt-12 pb-24 border-b border-neutral-200 bg-linear-to-b from-[#FAF8F2] via-white to-white">
+      <section className="relative overflow-hidden pt-12 pb-20 border-b border-neutral-200 bg-linear-to-b from-[#FAF8F2] via-white to-white">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Copy */}
@@ -161,6 +162,13 @@ export const LandingView: React.FC<LandingViewProps> = ({
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* 2. UNIVERSAL DATA INGESTION & PIPELINE SECTION (OVERVIEW INTEGRATION) */}
+      <section className="py-16 bg-[#FAF8F2] border-b border-amber-200/80">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8">
+          <UniversalDataPipeline onNavigate={onNavigate} />
         </div>
       </section>
 

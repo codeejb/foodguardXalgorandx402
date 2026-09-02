@@ -30,7 +30,23 @@ import { UserRole, UserProfile, AlgoTransactionRecord } from './types';
 
 export const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<string>('landing');
-  const [selectedRole, setSelectedRole] = useState<UserRole>('FOOD_SAFETY_AUTHORITY');
+  
+  // Operating Role persistence (remains fixed across sessions)
+  const [selectedRole, setSelectedRole] = useState<UserRole>(() => {
+    try {
+      const savedRole = localStorage.getItem('foodguard_operating_role');
+      return (savedRole as UserRole) || 'FOOD_SAFETY_AUTHORITY';
+    } catch {
+      return 'FOOD_SAFETY_AUTHORITY';
+    }
+  });
+
+  const handleRoleChange = (role: UserRole) => {
+    setSelectedRole(role);
+    try {
+      localStorage.setItem('foodguard_operating_role', role);
+    } catch {}
+  };
   const [simRunning, setSimRunning] = useState<boolean>(true);
   const [canonicalModalOpen, setCanonicalModalOpen] = useState<boolean>(false);
   const [copilotModalOpen, setCopilotModalOpen] = useState<boolean>(false);
@@ -121,7 +137,7 @@ export const App: React.FC = () => {
 
   const handleLoginSuccess = (loggedInUser: UserProfile) => {
     setUser(loggedInUser);
-    setSelectedRole(loggedInUser.role);
+    handleRoleChange(loggedInUser.role);
     setNotifications((prev) => [
       {
         id: `notif-login-${Date.now()}`,
@@ -177,7 +193,7 @@ export const App: React.FC = () => {
         currentView={currentView}
         onNavigate={handleNavigate}
         selectedRole={selectedRole}
-        onRoleChange={setSelectedRole}
+        onRoleChange={handleRoleChange}
         simRunning={simRunning}
         onToggleSim={() => setSimRunning(!simRunning)}
         onResetSim={() => setSimRunning(true)}

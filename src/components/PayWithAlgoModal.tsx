@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { AlgoTransactionRecord } from '../types';
+import { ApiClient } from '../services/apiClient';
 
 interface PayWithAlgoModalProps {
   isOpen: boolean;
@@ -81,25 +82,32 @@ export const PayWithAlgoModal: React.FC<PayWithAlgoModalProps> = ({
     ? parseFloat(customAmount) || 0
     : selectedAmount;
 
-  const handlePayNow = () => {
+  const handlePayNow = async () => {
     if (currentPaymentAmount <= 0) return;
     setLoading(true);
 
-    setTimeout(() => {
-      const generatedTxId = `TX-${Math.random().toString(36).substring(2, 10).toUpperCase()}-${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
-      const round = 42918894 + Math.floor(Math.random() * 500);
-
-      const record: AlgoTransactionRecord = {
-        txId: generatedTxId,
-        round,
-        from: senderAddress,
-        to: receiverContract,
+    try {
+      const response = await ApiClient.payWithAlgo({
+        senderAddress,
+        receiverAddress: receiverContract,
         amountAlgo: currentPaymentAmount,
-        amountUsdc: currentPaymentAmount * 0.1,
         purpose,
+        batchId: contextBatchId,
+        walletType
+      });
+
+      const receipt = response.receipt;
+      const record: AlgoTransactionRecord = {
+        txId: receipt.txId,
+        round: receipt.round,
+        from: receipt.from || senderAddress,
+        to: receipt.to || receiverContract,
+        amountAlgo: receipt.amountAlgo,
+        amountUsdc: receipt.amountUsdc || currentPaymentAmount * 0.1,
+        purpose: receipt.purpose || purpose,
         timestamp: new Date().toLocaleTimeString(),
         status: 'CONFIRMED',
-        note: `FOODGUARD_X::BATCH_${contextBatchId}::x402_SETTLEMENT`
+        note: receipt.note || `FOODGUARD_X::BATCH_${contextBatchId}::x402_SETTLEMENT`
       };
 
       setTxReceipt(record);
@@ -114,10 +122,12 @@ export const PayWithAlgoModal: React.FC<PayWithAlgoModalProps> = ({
           particleCount: 75,
           spread: 70,
           origin: { y: 0.6 },
-          colors: ['#F59E0B', '#10B981', '#000000']
+          colors: ['#F59E0B', '#10B981', '#854D0E']
         });
       } catch {}
-    }, 1200);
+    } catch (err) {
+      setLoading(false);
+    }
   };
 
   const handleCopyTx = () => {
