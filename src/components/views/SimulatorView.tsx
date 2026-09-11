@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Zap,
   RotateCcw,
@@ -11,10 +11,17 @@ import {
   Building2,
   Lock,
   Activity,
-  Layers
+  Layers,
+  Sliders,
+  Thermometer,
+  Clock,
+  Box
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { ApiClient } from '../../services/apiClient';
+import { useDataset } from '../../context/DatasetContext';
+import { runWhatIfSimulation, runXGBoostInference } from '../../services/xgboostEngine';
+import { INITIAL_BATCHES } from '../../data/mockData';
 
 interface SimulatorViewProps {
   onNavigate: (view: string, param?: string) => void;
@@ -25,6 +32,9 @@ export const SimulatorView: React.FC<SimulatorViewProps> = ({
   onNavigate,
   onOpenCanonicalModal
 }) => {
+  const { foodBatches } = useDataset();
+  const activeBatches = foodBatches.length > 0 ? foodBatches : INITIAL_BATCHES;
+
   const [selectedIntervention, setSelectedIntervention] = useState<string>('CLOSE_WAREHOUSE');
   const [isSimulating, setIsSimulating] = useState<boolean>(false);
   const [simResult, setSimResult] = useState<{
@@ -50,6 +60,42 @@ export const SimulatorView: React.FC<SimulatorViewProps> = ({
   });
 
   const [executed, setExecuted] = useState<boolean>(true);
+
+  // --- Interactive XGBoost Counterfactual State ---
+  const [sandboxBatchId, setSandboxBatchId] = useState<string>(activeBatches[0]?.id || 'M492');
+  const targetBatch = activeBatches.find(b => b.id === sandboxBatchId) || activeBatches[0];
+
+  const [simTemp, setSimTemp] = useState<number>(3.5);
+  const [simHours, setSimHours] = useState<number>(6);
+  const [simStorage, setSimStorage] = useState<string>('Chilled Reefer (2-4°C)');
+
+  // Baseline XGBoost prediction
+  const baselinePrediction = useMemo(() => {
+    return runXGBoostInference({
+      Batch_ID: targetBatch?.id || 'M492',
+      Product_Name: targetBatch?.productName || 'Pasteurized Toned Milk',
+      Temperature_C: targetBatch?.temperatureMax ?? 8.4,
+      Transport_Hours: 14,
+      Lab_Status: targetBatch?.status === 'SAFE' ? 'Pass' : 'Borderline',
+      Complaint_Count: 12,
+      Storage_Condition: 'Refrigerated Cold Room'
+    });
+  }, [targetBatch]);
+
+  // Counterfactual XGBoost prediction
+  const counterfactualPrediction = useMemo(() => {
+    return runXGBoostInference({
+      Batch_ID: targetBatch?.id || 'M492',
+      Product_Name: targetBatch?.productName || 'Pasteurized Toned Milk',
+      Temperature_C: simTemp,
+      Transport_Hours: simHours,
+      Lab_Status: baselinePrediction.evidence.labStatus,
+      Complaint_Count: Math.max(0, Math.floor(baselinePrediction.evidence.complaintCount * (simTemp <= 4 ? 0.2 : 0.8))),
+      Storage_Condition: simStorage
+    });
+  }, [targetBatch, simTemp, simHours, simStorage, baselinePrediction]);
+
+  const riskDelta = baselinePrediction.predictedRiskScore - counterfactualPrediction.predictedRiskScore;
 
   const handleRunIntervention = async (type: string) => {
     setIsSimulating(true);
@@ -91,7 +137,7 @@ export const SimulatorView: React.FC<SimulatorViewProps> = ({
           <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-white border border-[#EBEBE6] text-xs font-mono font-medium text-[#8F6B00] mb-2">
             <span>DIGITAL TWIN SIMULATION ENGINE: /simulator</span>
             <span>•</span>
-            <span className="text-[#1A1A18]">WHAT-IF INTERVENTIONS</span>
+            <span className="text-[#1A1A18]">XGBOOST WHAT-IF COUNTERFACTUALS</span>
           </div>
           <h1 className="font-serif text-3xl font-bold tracking-tight text-[#1A1A18]">
             Contamination Spread & Intervention Simulator
@@ -286,6 +332,180 @@ export const SimulatorView: React.FC<SimulatorViewProps> = ({
               >
                 Sign on Algorand →
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* INTERACTIVE XGBOOST WHAT-IF COUNTERFACTUAL ENGINE */}
+      <div className="bg-white border-2 border-amber-300 rounded-2xl p-7 shadow-sm space-y-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-neutral-200">
+          <div>
+            <div className="inline-flex items-center gap-2 px-2.5 py-0.5 bg-[#FEF3C7] border border-[#FDE68A] text-[10px] font-mono font-bold uppercase tracking-wider text-[#78350F] rounded">
+              <span>XGBOOST ML COUNTERFACTUAL ENGINE</span>
+            </div>
+            <h2 className="font-display font-black text-2xl text-neutral-900 uppercase tracking-tight mt-1">
+              Dynamic Parameter Counterfactual Simulator
+            </h2>
+            <p className="text-xs font-mono text-neutral-600 mt-1">
+              Adjust cold-chain handling variables in real time to calculate live XGBoost risk reduction curves.
+            </p>
+          </div>
+
+          {/* Batch Selector */}
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-mono text-neutral-500 font-bold uppercase">Target Batch:</span>
+            <select
+              value={sandboxBatchId}
+              onChange={(e) => setSandboxBatchId(e.target.value)}
+              className="bg-[#FAF8F2] border border-amber-200 rounded-lg px-3 py-1.5 text-xs font-mono font-bold text-neutral-900 focus:outline-hidden"
+            >
+              {activeBatches.map(b => (
+                <option key={b.id} value={b.id}>
+                  #{b.id} — {b.productName}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Controls */}
+          <div className="lg:col-span-6 space-y-5 bg-[#FAF8F2] p-5 rounded-xl border border-amber-200/80">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-neutral-900">
+              <Sliders className="w-4 h-4 text-[#854D0E]" />
+              <span>Counterfactual Control Sliders</span>
+            </div>
+
+            {/* Slider 1: Temperature */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-xs font-mono">
+                <span className="font-bold text-neutral-700 flex items-center gap-1">
+                  <Thermometer className="w-3.5 h-3.5 text-[#854D0E]" />
+                  <span>Target Ambient Temperature (°C)</span>
+                </span>
+                <span className={`font-black text-sm px-2 py-0.5 rounded ${simTemp <= 4 ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`}>
+                  {simTemp.toFixed(1)}°C
+                </span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="25"
+                step="0.5"
+                value={simTemp}
+                onChange={(e) => setSimTemp(parseFloat(e.target.value))}
+                className="w-full accent-[#854D0E] cursor-pointer"
+              />
+              <div className="flex justify-between text-[10px] font-mono text-neutral-400">
+                <span>0°C (Ice Point)</span>
+                <span>4°C (Safe Threshold)</span>
+                <span>25°C (Room Temp)</span>
+              </div>
+            </div>
+
+            {/* Slider 2: Transit Hours */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-xs font-mono">
+                <span className="font-bold text-neutral-700 flex items-center gap-1">
+                  <Clock className="w-3.5 h-3.5 text-[#854D0E]" />
+                  <span>Transport Transit Duration (Hours)</span>
+                </span>
+                <span className="font-black text-sm px-2 py-0.5 rounded bg-neutral-200 text-neutral-900">
+                  {simHours} Hours
+                </span>
+              </div>
+              <input
+                type="range"
+                min="1"
+                max="48"
+                step="1"
+                value={simHours}
+                onChange={(e) => setSimHours(parseInt(e.target.value))}
+                className="w-full accent-[#854D0E] cursor-pointer"
+              />
+              <div className="flex justify-between text-[10px] font-mono text-neutral-400">
+                <span>1 Hour (Express)</span>
+                <span>12 Hours</span>
+                <span>48 Hours (Extended)</span>
+              </div>
+            </div>
+
+            {/* Select 3: Storage Condition */}
+            <div className="space-y-2">
+              <label className="text-xs font-mono font-bold text-neutral-700 flex items-center gap-1">
+                <Box className="w-3.5 h-3.5 text-[#854D0E]" />
+                <span>Cold-Room Storage Protocol</span>
+              </label>
+              <select
+                value={simStorage}
+                onChange={(e) => setSimStorage(e.target.value)}
+                className="w-full bg-white border border-neutral-300 rounded-lg p-2.5 text-xs font-mono font-bold text-neutral-900 focus:outline-hidden"
+              >
+                <option value="Chilled Reefer (2-4°C)">Chilled Reefer Chamber (2-4°C)</option>
+                <option value="Refrigerated Cold Room">Refrigerated Cold Room (4-6°C)</option>
+                <option value="Ambient Depot Storage">Ambient Depot Storage (18-24°C)</option>
+                <option value="Frozen Quarantine (-18°C)">Deep Freeze Quarantine (-18°C)</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Real-Time Outcome Comparison */}
+          <div className="lg:col-span-6 flex flex-col justify-between space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              {/* Actual / Baseline */}
+              <div className="p-4 rounded-xl border border-neutral-200 bg-neutral-50 space-y-2 text-center font-mono">
+                <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-wider block">
+                  BASELINE ESTIMATE
+                </span>
+                <div className="text-4xl font-black text-neutral-900">
+                  {baselinePrediction.predictedRiskScore}
+                </div>
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded border uppercase inline-block ${
+                  baselinePrediction.riskLevel === 'Critical' ? 'bg-red-100 text-red-800 border-red-200' : 'bg-amber-100 text-[#78350F] border-amber-200'
+                }`}>
+                  {baselinePrediction.riskLevel}
+                </span>
+                <p className="text-[10px] text-neutral-500 pt-1">
+                  Recorded telemetry & lab status
+                </p>
+              </div>
+
+              {/* Counterfactual Outcome */}
+              <div className="p-4 rounded-xl border-2 border-amber-300 bg-white space-y-2 text-center font-mono shadow-xs">
+                <span className="text-[10px] font-bold text-[#854D0E] uppercase tracking-wider block">
+                  SIMULATED OUTCOME
+                </span>
+                <div className="text-4xl font-black text-[#854D0E]">
+                  {counterfactualPrediction.predictedRiskScore}
+                </div>
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded border uppercase inline-block ${
+                  counterfactualPrediction.riskLevel === 'Safe' ? 'bg-emerald-100 text-emerald-800 border-emerald-200' : 'bg-amber-100 text-[#78350F] border-amber-200'
+                }`}>
+                  {counterfactualPrediction.riskLevel}
+                </span>
+                <p className="text-[10px] text-neutral-500 pt-1">
+                  {riskDelta >= 0 ? `-${riskDelta.toFixed(0)} risk points reduction` : `+${Math.abs(riskDelta).toFixed(0)} risk points increase`}
+                </p>
+              </div>
+            </div>
+
+            {/* SHAP impact change */}
+            <div className="bg-[#FAF8F2] border border-amber-200 rounded-xl p-4 space-y-2 text-xs font-mono">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-600 block">
+                PRIMARY COUNTERFACTUAL DRIVER:
+              </span>
+              <p className="text-neutral-800 leading-relaxed">
+                {simTemp <= 4
+                  ? `Maintaining cold-chain at ${simTemp.toFixed(1)}°C suppresses microbial kinetic escalation, avoiding an estimated ${Math.max(0, Math.floor(riskDelta * 0.8))} risk points.`
+                  : `Elevated ambient temp of ${simTemp.toFixed(1)}°C accelerates bacterial doubling rate by ${((simTemp - 4) * 18).toFixed(0)}%.`}
+              </p>
+            </div>
+
+            {/* Safety disclaimer */}
+            <div className="text-[10px] font-mono text-neutral-500 pt-1 flex items-center gap-2">
+              <CheckCircle2 className="w-3.5 h-3.5 text-[#854D0E] shrink-0" />
+              <span>AI PREDICTS. EVIDENCE EXPLAINS. LAB VERIFIES. HUMAN DECIDES.</span>
             </div>
           </div>
         </div>

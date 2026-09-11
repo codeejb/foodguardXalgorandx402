@@ -17,7 +17,14 @@ import {
   ArrowUpRight,
   BarChart3,
   Radio,
-  FileCheck
+  FileCheck,
+  UploadCloud,
+  Database,
+  Download,
+  FileText,
+  Sliders,
+  Thermometer,
+  ShieldCheck
 } from 'lucide-react';
 import {
   NATIONAL_STATS,
@@ -32,6 +39,7 @@ import {
 } from '../../data/mockData';
 import { StateRiskData, FoodBatch } from '../../types';
 import { InteractiveIndiaMap } from '../InteractiveIndiaMap';
+import { useDataset } from '../../context/DatasetContext';
 
 interface CommandCenterViewProps {
   onNavigate: (view: string, param?: string) => void;
@@ -42,6 +50,35 @@ export const CommandCenterView: React.FC<CommandCenterViewProps> = ({
   onNavigate,
   onOpenCanonicalModal
 }) => {
+  const {
+    dataset,
+    hasDataset,
+    summaryStats,
+    foodBatches,
+    predictions,
+    selectedBatch,
+    setSelectedBatch,
+    setUploadModalOpen,
+    setReportModalOpen,
+    setFeedbackModalOpen,
+    loadDemoData,
+    downloadSampleTemplate,
+    mode
+  } = useDataset();
+
+  const stats = summaryStats || dataset?.summaryStats || {
+    totalBatches: predictions?.length || 28,
+    highRiskBatches: predictions?.filter((p) => p.predictedRiskScore >= 61 && p.predictedRiskScore < 81).length || 3,
+    criticalBatches: predictions?.filter((p) => p.predictedRiskScore >= 81).length || 2,
+    activeAnomalies: 5,
+    complaintSignals: 34,
+    labWarnings: 4,
+    storageWarnings: 3,
+    highestRiskProduct: 'Mother Dairy Buffalo Milk (84/100)',
+    emergingThreats: 5,
+    averageRiskScore: 42
+  };
+
   const [selectedState, setSelectedState] = useState<StateRiskData | null>(INDIA_STATE_RISKS[0]);
   const [riskFilter, setRiskFilter] = useState<'ALL' | 'CRITICAL' | 'HIGH' | 'WATCH' | 'LOW'>('ALL');
 
@@ -99,6 +136,104 @@ export const CommandCenterView: React.FC<CommandCenterViewProps> = ({
             </span>
             <span className="text-[8px] font-mono text-red-800 font-bold uppercase mt-0.5">/ 100</span>
           </div>
+        </div>
+      </div>
+
+      {/* Quick Actions & Dataset Ingestion Controls */}
+      <div className="bg-white border border-neutral-300 rounded-xl p-4 shadow-xs flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            onClick={() => setUploadModalOpen(true)}
+            className="bg-[#854D0E] hover:bg-[#A16207] text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all cursor-pointer shadow-xs"
+          >
+            <UploadCloud className="w-4 h-4" />
+            <span>Upload Excel / CSV</span>
+          </button>
+
+          <button
+            onClick={loadDemoData}
+            className="bg-amber-50 hover:bg-amber-100 text-[#78350F] border border-amber-300 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all cursor-pointer"
+          >
+            <Database className="w-4 h-4 text-[#854D0E]" />
+            <span>Use Demo Dataset</span>
+          </button>
+
+          <button
+            onClick={downloadSampleTemplate}
+            className="bg-white hover:bg-neutral-50 text-neutral-700 border border-neutral-300 px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+          >
+            <Download className="w-3.5 h-3.5 text-neutral-500" />
+            <span>Sample Template (.xlsx)</span>
+          </button>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            onClick={() => setReportModalOpen(true)}
+            className="bg-white hover:bg-neutral-50 text-neutral-800 border border-neutral-300 px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+          >
+            <FileText className="w-3.5 h-3.5 text-[#854D0E]" />
+            <span>Investigation Report</span>
+          </button>
+
+          <button
+            onClick={() => setFeedbackModalOpen(true)}
+            className="bg-white hover:bg-neutral-50 text-neutral-800 border border-neutral-300 px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+          >
+            <Sliders className="w-3.5 h-3.5 text-blue-600" />
+            <span>Calibrate AI Model</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Dataset Summary Statistics Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+        <div className="bg-white border border-neutral-200 rounded-xl p-3 shadow-2xs">
+          <span className="text-[10px] font-mono text-neutral-500 uppercase font-bold block">Total Batches</span>
+          <span className="font-mono text-2xl font-black text-neutral-900">{stats.totalBatches}</span>
+          <span className="text-[10px] text-neutral-400 block font-mono">In active memory</span>
+        </div>
+
+        <div className="bg-white border border-red-200 rounded-xl p-3 shadow-2xs">
+          <span className="text-[10px] font-mono text-red-600 uppercase font-bold block">High-Risk</span>
+          <span className="font-mono text-2xl font-black text-red-600">{stats.highRiskBatches}</span>
+          <span className="text-[10px] text-red-500 block font-mono">Score &gt; 65</span>
+        </div>
+
+        <div className="bg-white border border-red-300 rounded-xl p-3 shadow-2xs bg-red-50/40">
+          <span className="text-[10px] font-mono text-red-700 uppercase font-bold block">Critical</span>
+          <span className="font-mono text-2xl font-black text-red-700">{stats.criticalBatches}</span>
+          <span className="text-[10px] text-red-600 block font-mono">Quarantine needed</span>
+        </div>
+
+        <div className="bg-white border border-amber-200 rounded-xl p-3 shadow-2xs">
+          <span className="text-[10px] font-mono text-[#78350F] uppercase font-bold block">Anomalies</span>
+          <span className="font-mono text-2xl font-black text-[#854D0E]">{stats.activeAnomalies}</span>
+          <span className="text-[10px] text-neutral-400 block font-mono">Pattern flags</span>
+        </div>
+
+        <div className="bg-white border border-neutral-200 rounded-xl p-3 shadow-2xs">
+          <span className="text-[10px] font-mono text-neutral-500 uppercase font-bold block">Citizen Complaints</span>
+          <span className="font-mono text-2xl font-black text-neutral-900">{stats.complaintSignals}</span>
+          <span className="text-[10px] text-neutral-400 block font-mono">Geocoded</span>
+        </div>
+
+        <div className="bg-white border border-neutral-200 rounded-xl p-3 shadow-2xs">
+          <span className="text-[10px] font-mono text-neutral-500 uppercase font-bold block">Lab Warnings</span>
+          <span className="font-mono text-2xl font-black text-neutral-900">{stats.labWarnings}</span>
+          <span className="text-[10px] text-neutral-400 block font-mono">Borderline / Failed</span>
+        </div>
+
+        <div className="bg-white border border-neutral-200 rounded-xl p-3 shadow-2xs">
+          <span className="text-[10px] font-mono text-neutral-500 uppercase font-bold block">Storage Alert</span>
+          <span className="font-mono text-2xl font-black text-neutral-900">{stats.storageWarnings}</span>
+          <span className="text-[10px] text-neutral-400 block font-mono">Non-compliant</span>
+        </div>
+
+        <div className="bg-white border border-amber-300 rounded-xl p-3 shadow-2xs bg-amber-50/40">
+          <span className="text-[10px] font-mono text-[#78350F] uppercase font-bold block">Avg Risk Score</span>
+          <span className="font-mono text-2xl font-black text-[#854D0E]">{stats.averageRiskScore}/100</span>
+          <span className="text-[10px] text-neutral-500 block font-mono">Model estimate</span>
         </div>
       </div>
 
@@ -213,6 +348,203 @@ export const CommandCenterView: React.FC<CommandCenterViewProps> = ({
             </div>
           )}
         </div>
+      </div>
+
+      {/* ACTIVE BATCHES & PREDICTION MATRIX */}
+      <div className="bg-white border border-neutral-300 rounded-xl p-6 shadow-sm space-y-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-neutral-200 pb-4">
+          <div>
+            <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-amber-100 border border-amber-300 text-[10px] font-mono font-bold text-[#78350F] uppercase tracking-wider mb-1">
+              <span>ACTIVE DATASET</span>
+              <span>•</span>
+              <span>{mode === 'DEMO' ? 'SYNTHETIC REFERENCE BENCHMARK' : 'USER-UPLOADED DATASET'}</span>
+            </div>
+            <h2 className="font-display font-black text-2xl uppercase tracking-tight text-neutral-900 flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-[#854D0E]" />
+              <span>Monitored Batches & AI Risk Classification</span>
+            </h2>
+            <p className="text-xs text-neutral-500 font-mono">
+              AI evaluates cold-chain temperature logs, transit duration, lab microbiology, and consumer complaints.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setUploadModalOpen(true)}
+              className="text-xs font-bold text-[#854D0E] hover:text-[#A16207] bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-lg flex items-center gap-1.5 cursor-pointer"
+            >
+              <UploadCloud className="w-3.5 h-3.5" />
+              <span>Upload New Data</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Batches Table */}
+        {predictions && predictions.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr className="border-b border-neutral-200 bg-[#FAF8F2] text-[10px] font-mono uppercase tracking-wider text-neutral-600">
+                  <th className="py-3 px-3">Batch ID</th>
+                  <th className="py-3 px-3">Product</th>
+                  <th className="py-3 px-3">Temp (°C)</th>
+                  <th className="py-3 px-3">Transit</th>
+                  <th className="py-3 px-3">Lab Status</th>
+                  <th className="py-3 px-3">Complaints</th>
+                  <th className="py-3 px-3">Storage</th>
+                  <th className="py-3 px-3">Predicted Risk</th>
+                  <th className="py-3 px-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-neutral-100">
+                {predictions.map((p) => {
+                  const isHigh = p.predictedRiskScore >= 65;
+                  const isCrit = p.riskLevel === 'CRITICAL';
+                  return (
+                    <tr
+                      key={p.batchId}
+                      className={`hover:bg-amber-50/50 transition-colors ${
+                        selectedBatch?.id === p.batchId ? 'bg-amber-100/40' : ''
+                      }`}
+                    >
+                      <td className="py-3 px-3 font-mono font-bold text-neutral-900">
+                        #{p.batchId}
+                      </td>
+                      <td className="py-3 px-3 font-medium text-neutral-800">
+                        {p.productName}
+                      </td>
+                      <td className="py-3 px-3 font-mono">
+                        <span
+                          className={`px-2 py-0.5 rounded text-[11px] font-bold ${
+                            p.temperatureC > 10
+                              ? 'bg-red-100 text-red-700'
+                              : p.temperatureC > 5
+                              ? 'bg-amber-100 text-amber-800'
+                              : 'bg-emerald-100 text-emerald-800'
+                          }`}
+                        >
+                          {p.temperatureC}°C
+                        </span>
+                      </td>
+                      <td className="py-3 px-3 font-mono text-neutral-600">
+                        {p.transportHours} hrs
+                      </td>
+                      <td className="py-3 px-3">
+                        <span
+                          className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase ${
+                            p.labStatus === 'FAILED'
+                              ? 'bg-red-100 text-red-700'
+                              : p.labStatus === 'BORDERLINE'
+                              ? 'bg-amber-100 text-[#78350F]'
+                              : 'bg-emerald-100 text-emerald-800'
+                          }`}
+                        >
+                          {p.labStatus}
+                        </span>
+                      </td>
+                      <td className="py-3 px-3 font-mono">
+                        <span
+                          className={`font-bold ${
+                            p.complaintCount > 10
+                              ? 'text-red-600'
+                              : p.complaintCount > 0
+                              ? 'text-amber-700'
+                              : 'text-neutral-500'
+                          }`}
+                        >
+                          {p.complaintCount} reports
+                        </span>
+                      </td>
+                      <td className="py-3 px-3">
+                        <span
+                          className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded ${
+                            p.storageCondition === 'NON_COMPLIANT'
+                              ? 'bg-red-50 text-red-700 border border-red-200'
+                              : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                          }`}
+                        >
+                          {p.storageCondition}
+                        </span>
+                      </td>
+                      <td className="py-3 px-3">
+                        <div className="flex items-center gap-2">
+                          <span
+                            className={`px-2 py-0.5 rounded text-[10px] font-mono font-black ${
+                              isCrit
+                                ? 'bg-red-600 text-white'
+                                : isHigh
+                                ? 'bg-red-100 text-red-800'
+                                : p.riskLevel === 'WATCH'
+                                ? 'bg-amber-100 text-[#78350F]'
+                                : 'bg-emerald-100 text-emerald-800'
+                            }`}
+                          >
+                            {p.riskLevel} ({p.predictedRiskScore})
+                          </span>
+                        </div>
+                      </td>
+                      <td className="py-3 px-3 text-right">
+                        <div className="flex items-center justify-end gap-1.5">
+                          <button
+                            onClick={() => {
+                              const found = foodBatches.find((b) => b.id === p.batchId);
+                              if (found) setSelectedBatch(found);
+                              onNavigate('food-dna');
+                            }}
+                            className="text-[10px] font-bold text-[#854D0E] hover:text-white hover:bg-[#854D0E] border border-amber-300 px-2.5 py-1 rounded transition-colors cursor-pointer"
+                          >
+                            Inspect DNA
+                          </button>
+                          <button
+                            onClick={() => {
+                              const found = foodBatches.find((b) => b.id === p.batchId);
+                              if (found) setSelectedBatch(found);
+                              onNavigate('simulator');
+                            }}
+                            className="text-[10px] font-bold text-neutral-700 hover:text-neutral-900 bg-neutral-100 hover:bg-neutral-200 px-2.5 py-1 rounded transition-colors cursor-pointer"
+                          >
+                            Simulate
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          /* No Dataset Loaded State */
+          <div className="text-center py-12 px-4 space-y-4 border-2 border-dashed border-amber-300 rounded-xl bg-[#FFFDF5]">
+            <div className="w-12 h-12 rounded-full bg-amber-100 text-[#854D0E] flex items-center justify-center mx-auto">
+              <Database className="w-6 h-6" />
+            </div>
+            <div>
+              <h3 className="font-display font-bold text-lg text-neutral-900">
+                No Food Safety Dataset Ingested
+              </h3>
+              <p className="text-xs text-neutral-600 max-w-md mx-auto mt-1 font-mono">
+                Upload your Excel (.xlsx) or CSV file with the 7 required columns, or load the pre-calculated synthetic demo dataset to inspect live intelligence.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+              <button
+                onClick={() => setUploadModalOpen(true)}
+                className="bg-[#854D0E] hover:bg-[#A16207] text-white px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer shadow-sm"
+              >
+                <UploadCloud className="w-4 h-4" />
+                <span>Upload Excel / CSV</span>
+              </button>
+              <button
+                onClick={loadDemoData}
+                className="bg-white hover:bg-neutral-50 text-neutral-800 border border-neutral-300 px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer"
+              >
+                <Database className="w-4 h-4 text-[#854D0E]" />
+                <span>Load Synthetic Demo Data</span>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* COMMAND CENTER 8-PANEL TELEMETRY GRID */}

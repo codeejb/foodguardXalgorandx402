@@ -1,26 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
+  UploadCloud,
+  QrCode,
+  Download,
   ArrowRight,
-  Shield,
-  Activity,
+  ShieldCheck,
   Cpu,
-  Clock,
-  Network,
-  Eye,
-  FileCheck,
-  Users,
-  Lock,
-  Coins,
-  Sparkles,
-  AlertTriangle,
+  Activity,
   CheckCircle2,
-  TrendingUp,
-  MapPin,
-  Flame,
-  Radio
+  FileSpreadsheet,
+  Zap,
+  Sparkles,
+  Search,
+  ChevronRight,
+  Database
 } from 'lucide-react';
-import { INDIA_STATE_RISKS } from '../../data/mockData';
-import { UniversalDataPipeline } from '../UniversalDataPipeline';
+import { useDataset } from '../../context/DatasetContext';
+import { QrScanModal } from '../QrScanModal';
 
 interface LandingViewProps {
   onNavigate: (view: string) => void;
@@ -31,227 +27,277 @@ export const LandingView: React.FC<LandingViewProps> = ({
   onNavigate,
   onOpenCanonicalModal
 }) => {
+  const { setUploadModalOpen, downloadSampleTemplate, dataset, hasDataset, loadDemoData } = useDataset();
+  const [qrModalOpen, setQrModalOpen] = useState<boolean>(false);
+
+  // The strictly enforced 7-column schema
+  const requiredColumns = [
+    'Batch_ID',
+    'Product_Name',
+    'Temperature_C',
+    'Transport_Hours',
+    'Lab_Status',
+    'Complaint_Count',
+    'Storage_Condition'
+  ];
+
   return (
-    <div className="bg-white text-neutral-900">
-      {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden pt-12 pb-20 border-b border-neutral-200 bg-linear-to-b from-[#FAF8F2] via-white to-white">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left Copy */}
-            <div className="lg:col-span-7 space-y-7">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#FEF3C7] border border-[#FDE68A] text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-[#78350F] rounded">
-                <span className="w-2 h-2 rounded-full bg-[#854D0E] animate-ping" />
-                <span>NATIONAL FOOD SAFETY INTELLIGENCE TWIN</span>
-              </div>
+    <div className="bg-[#FAF8F2] text-neutral-900 min-h-screen">
+      {/* QR Scanner Modal */}
+      <QrScanModal
+        isOpen={qrModalOpen}
+        onClose={() => setQrModalOpen(false)}
+        onNavigate={onNavigate}
+      />
 
-              <h1 className="font-display font-black text-5xl sm:text-7xl lg:text-8xl tracking-tight text-neutral-900 uppercase leading-[0.88]">
-                FOOD SAFETY <br />
-                <span className="text-[#854D0E]">BEFORE</span> THE CRISIS.
-              </h1>
-
-              <p className="text-base sm:text-lg text-neutral-600 leading-relaxed max-w-2xl font-normal">
-                An autonomous digital twin of India's food supply network. Predict bacterial degradation, pinpoint cold-chain excursions across highways, and trigger surgical quarantines before contamination reaches consumers.
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-wrap items-center gap-4 pt-2">
-                <button
-                  onClick={() => onNavigate('dashboard')}
-                  className="bg-[#854D0E] hover:bg-[#A16207] text-white px-7 py-3.5 rounded font-black text-xs uppercase tracking-[0.18em] flex items-center gap-2.5 transition-all cursor-pointer shadow-md hover:shadow-lg"
-                >
-                  <span>ENTER COMMAND CENTER</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-
-                <button
-                  onClick={onOpenCanonicalModal}
-                  className="bg-white hover:bg-neutral-50 text-neutral-900 border-2 border-neutral-300 hover:border-[#854D0E] px-6 py-3.5 rounded font-bold text-xs uppercase tracking-[0.15em] flex items-center gap-2 transition-colors cursor-pointer shadow-2xs"
-                >
-                  <Sparkles className="w-4 h-4 text-[#854D0E]" />
-                  <span>RUN CANONICAL DEMO (M492)</span>
-                </button>
-              </div>
-
-              {/* Trust Indicators */}
-              <div className="pt-6 grid grid-cols-3 gap-6 border-t border-neutral-200 text-xs">
-                <div>
-                  <div className="font-mono text-3xl font-black text-[#854D0E]">500+</div>
-                  <div className="text-[10px] uppercase font-mono tracking-widest text-neutral-500 mt-1 font-bold">Batches Monitored</div>
-                </div>
-                <div>
-                  <div className="font-mono text-3xl font-black text-red-600">95.6%</div>
-                  <div className="text-[10px] uppercase font-mono tracking-widest text-neutral-500 mt-1 font-bold">Exposure Reduction</div>
-                </div>
-                <div>
-                  <div className="font-mono text-3xl font-black text-emerald-600">100%</div>
-                  <div className="text-[10px] uppercase font-mono tracking-widest text-neutral-500 mt-1 font-bold">Algorand Verified</div>
-                </div>
-              </div>
+      {/* 1. COMMAND ENTRY HERO SECTION */}
+      <section className="relative overflow-hidden pt-12 pb-16 border-b border-amber-200/80 bg-linear-to-b from-[#FAF8F2] via-white to-[#FAF8F2]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Header Title Block */}
+          <div className="text-center max-w-3xl mx-auto space-y-3 mb-10">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#FEF3C7] border border-[#FDE68A] text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-[#78350F] rounded-full shadow-2xs">
+              <span className="w-2 h-2 rounded-full bg-[#854D0E] animate-ping" />
+              <span>COMMAND ENTRY PORTAL // 7-COLUMN CANONICAL LEDGER</span>
             </div>
 
-            {/* Right Hero Visual: India Map & Live Intelligence Twin */}
-            <div className="lg:col-span-5">
-              <div className="bg-white border-2 border-amber-200/80 rounded-xl p-5 shadow-xl relative overflow-hidden">
-                <div className="flex items-center justify-between border-b border-neutral-200 pb-3 mb-4">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse" />
-                    <span className="font-mono text-xs font-black uppercase tracking-wider text-neutral-900">
-                      LIVE INDIA RISK MAP
-                    </span>
+            <h1 className="font-display font-black text-5xl sm:text-6xl lg:text-7xl tracking-tight text-neutral-900 uppercase leading-[0.92]">
+              FOODGUARD <span className="text-[#854D0E]">X</span>
+            </h1>
+
+            <p className="font-mono text-xs sm:text-sm font-bold uppercase tracking-[0.22em] text-neutral-600">
+              AI FOOD SAFETY INTELLIGENCE
+            </p>
+
+            <div className="flex items-center justify-center gap-3 pt-2">
+              <span className="h-px w-12 bg-amber-300" />
+              <span className="font-mono text-[11px] font-black uppercase tracking-[0.3em] text-[#854D0E] bg-white px-3 py-1 rounded border border-amber-200 shadow-2xs">
+                INPUT
+              </span>
+              <span className="h-px w-12 bg-amber-300" />
+            </div>
+          </div>
+
+          {/* TWO PRIMARY ENTRY CARDS */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
+            
+            {/* OPTION 1: UPLOAD EXCEL */}
+            <div className="bg-white border-2 border-amber-300/90 rounded-2xl p-7 sm:p-8 flex flex-col justify-between shadow-lg hover:shadow-xl transition-all relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-amber-100/40 rounded-full blur-2xl pointer-events-none" />
+              
+              <div className="space-y-5 relative z-10">
+                <div className="flex items-center justify-between">
+                  <div className="w-12 h-12 rounded-xl bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center text-[#854D0E] shadow-2xs">
+                    <FileSpreadsheet className="w-6 h-6" />
                   </div>
-                  <span className="font-mono text-[10px] font-bold text-[#78350F] bg-[#FEF3C7] px-2 py-0.5 border border-[#FDE68A] uppercase tracking-widest rounded">
-                    10 NODES ACTIVE
+                  <span className="font-mono text-[10px] font-bold text-[#78350F] bg-[#FEF3C7] px-2.5 py-1 rounded border border-[#FDE68A] uppercase tracking-wider">
+                    PRIMARY INGEST
                   </span>
                 </div>
 
-                {/* Interactive SVG India Grid Preview */}
-                <div className="relative h-68 bg-[#FAF8F2] rounded-lg border border-neutral-200 p-4 flex flex-col justify-between overflow-hidden">
-                  {/* Subtle Grid Lines */}
-                  <div className="absolute inset-0 bg-[linear-gradient(to_right,#EAE7DC_1px,transparent_1px),linear-gradient(to_bottom,#EAE7DC_1px,transparent_1px)] bg-[size:24px_24px] opacity-70" />
+                <div>
+                  <h2 className="font-display font-black text-2xl sm:text-3xl text-neutral-900 uppercase tracking-tight">
+                    Upload Excel Dataset
+                  </h2>
+                  <p className="font-mono text-xs text-neutral-600 mt-1.5 leading-relaxed">
+                    National food batch ledger ingest. Autonomous validation, 15-feature extraction, and XGBoost cold-chain predictive modeling.
+                  </p>
+                </div>
 
-                  {/* Nodes on India canvas */}
-                  <div className="relative z-10 grid grid-cols-2 gap-3 text-xs">
-                    <div className="bg-white/95 backdrop-blur-xs p-3 rounded-lg border border-red-200 shadow-2xs">
-                      <div className="flex items-center justify-between">
-                        <span className="font-bold text-red-700 uppercase text-[11px] flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-red-600" /> Delhi NCR
-                        </span>
-                        <span className="font-mono text-[9px] font-black text-red-700 bg-red-100 px-1.5 py-0.5 rounded border border-red-200">
-                          RISK 86
-                        </span>
-                      </div>
-                      <p className="text-[10px] text-neutral-600 mt-1 font-mono">
-                        Batch M492 excursion (+10.8°C).
-                      </p>
-                    </div>
-
-                    <div className="bg-white/95 backdrop-blur-xs p-3 rounded-lg border border-amber-200 shadow-2xs">
-                      <div className="flex items-center justify-between">
-                        <span className="font-bold text-[#854D0E] uppercase text-[11px] flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-[#854D0E]" /> Bengaluru
-                        </span>
-                        <span className="font-mono text-[9px] font-black text-[#78350F] bg-[#FEF3C7] px-1.5 py-0.5 rounded border border-[#FDE68A]">
-                          RISK 78
-                        </span>
-                      </div>
-                      <p className="text-[10px] text-neutral-600 mt-1 font-mono">
-                        Batch C104 transit stoppage at Hosur.
-                      </p>
-                    </div>
+                {/* Formats pill */}
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-mono text-neutral-500 uppercase font-bold">Supported:</span>
+                  <div className="flex items-center gap-1.5 font-mono text-[11px] font-bold text-neutral-800">
+                    <span className="px-2 py-0.5 bg-neutral-100 border border-neutral-200 rounded">.xlsx</span>
+                    <span className="px-2 py-0.5 bg-neutral-100 border border-neutral-200 rounded">.xls</span>
+                    <span className="px-2 py-0.5 bg-neutral-100 border border-neutral-200 rounded">.csv</span>
                   </div>
+                </div>
 
-                  {/* Center Pulse graphic */}
-                  <div className="relative z-10 text-center py-2">
-                    <div className="inline-flex items-center gap-2 bg-white border border-[#FDE68A] text-[#78350F] px-3.5 py-1.5 rounded-full text-[10px] font-mono uppercase tracking-wider font-bold shadow-xs">
-                      <Radio className="w-3 h-3 text-[#854D0E] animate-pulse" />
-                      <span>AUTONOMOUS MULTI-AGENT SWARM ACTIVE</span>
-                    </div>
-                  </div>
-
-                  {/* Bottom Strip */}
-                  <div className="relative z-10 flex items-center justify-between text-[10px] font-mono bg-white/90 backdrop-blur-xs p-2.5 rounded-lg border border-neutral-200">
-                    <span className="text-neutral-600">Algorand Round: #42918402</span>
+                {/* 7 Required Columns Schema Pills */}
+                <div className="space-y-2 pt-1 border-t border-neutral-100">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-500">
+                      STRICT 7-COLUMN SCHEMA:
+                    </span>
                     <button
-                      onClick={() => onNavigate('dashboard')}
-                      className="text-[#854D0E] font-bold hover:underline flex items-center gap-1 uppercase tracking-wider cursor-pointer"
+                      onClick={downloadSampleTemplate}
+                      className="text-[10px] font-mono text-[#854D0E] hover:text-[#A16207] underline font-bold flex items-center gap-1 cursor-pointer"
                     >
-                      Open Full Map →
+                      <Download className="w-3 h-3" />
+                      <span>Template</span>
                     </button>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5">
+                    {requiredColumns.map((col) => (
+                      <span
+                        key={col}
+                        className="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-[#FAF8F2] border border-amber-200 text-neutral-800"
+                      >
+                        {col}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* 2. UNIVERSAL DATA INGESTION & PIPELINE SECTION (OVERVIEW INTEGRATION) */}
-      <section className="py-16 bg-[#FAF8F2] border-b border-amber-200/80">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8">
-          <UniversalDataPipeline onNavigate={onNavigate} />
-        </div>
-      </section>
+              {/* Action Button */}
+              <div className="pt-6 relative z-10 space-y-2.5">
+                <button
+                  onClick={() => setUploadModalOpen(true)}
+                  className="w-full bg-[#854D0E] hover:bg-[#A16207] text-white p-4 rounded-xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all cursor-pointer group-hover:scale-[1.01]"
+                >
+                  <UploadCloud className="w-5 h-5" />
+                  <span>UPLOAD EXCEL</span>
+                </button>
 
-      {/* 2. THE PARADIGM SHIFT: REACTIVE TO PREDICTIVE */}
-      <section className="py-24 bg-[#FAFAF8] border-b border-neutral-200">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <span className="text-[10px] font-mono text-[#854D0E] tracking-[0.3em] uppercase font-bold">
-              THE STRUCTURAL TRANSFORMATION
-            </span>
-            <h2 className="font-display font-black text-3xl sm:text-5xl uppercase tracking-tight text-neutral-900">
-              From Reactive Crisis Management to Autonomous Early Warning.
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* The Old Way */}
-            <div className="bg-white border border-neutral-200 rounded-xl p-8 space-y-5 shadow-xs">
-              <div className="inline-block font-mono text-[10px] font-bold text-red-800 bg-red-100 px-2.5 py-1 rounded border border-red-200 uppercase tracking-widest">
-                TRADITIONAL FOOD SAFETY (REACTIVE)
+                <div className="flex items-center justify-between text-[11px] font-mono text-neutral-500 pt-1">
+                  <span>No manual entry required</span>
+                  <button
+                    onClick={downloadSampleTemplate}
+                    className="text-[#854D0E] hover:underline font-bold"
+                  >
+                    Download Sample Dataset (.xlsx)
+                  </button>
+                </div>
               </div>
-              <h3 className="font-display font-bold text-2xl uppercase tracking-tight text-neutral-900">
-                Action Happens After People Fall Sick
-              </h3>
-              <ul className="space-y-3.5 text-xs text-neutral-600 leading-relaxed font-mono">
-                <li className="flex items-start gap-2.5">
-                  <span className="text-red-600 font-bold">✕</span>
-                  <span>Paper logbooks and localized temperature checks hidden in isolated silos.</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-red-600 font-bold">✕</span>
-                  <span>Contamination discovered only after hospitals report poisoning outbreaks.</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-red-600 font-bold">✕</span>
-                  <span>Tracing takes 14 to 30 days via manual supplier invoice audits.</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-red-600 font-bold">✕</span>
-                  <span>Uncoordinated bulk recalls that cause massive food waste and panic.</span>
-                </li>
-              </ul>
             </div>
 
-            {/* The FoodGuard X Way */}
-            <div className="bg-white border-2 border-amber-300 rounded-xl p-8 space-y-5 shadow-md">
-              <div className="inline-block font-mono text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded border border-emerald-200 uppercase tracking-widest">
-                FOODGUARD X (PREDICTIVE TWIN)
+            {/* OPTION 2: SCAN QR */}
+            <div className="bg-white border-2 border-amber-300/90 rounded-2xl p-7 sm:p-8 flex flex-col justify-between shadow-lg hover:shadow-xl transition-all relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-amber-100/40 rounded-full blur-2xl pointer-events-none" />
+
+              <div className="space-y-5 relative z-10">
+                <div className="flex items-center justify-between">
+                  <div className="w-12 h-12 rounded-xl bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center text-[#854D0E] shadow-2xs">
+                    <QrCode className="w-6 h-6" />
+                  </div>
+                  <span className="font-mono text-[10px] font-bold text-[#78350F] bg-[#FEF3C7] px-2.5 py-1 rounded border border-[#FDE68A] uppercase tracking-wider">
+                    INSTANT PASSPORT
+                  </span>
+                </div>
+
+                <div>
+                  <h2 className="font-display font-black text-2xl sm:text-3xl text-neutral-900 uppercase tracking-tight">
+                    Scan Food QR
+                  </h2>
+                  <p className="font-mono text-xs text-neutral-600 mt-1.5 leading-relaxed">
+                    Identify food batch container in seconds. Unpack cryptographic provenance, real-time XGBoost risk predictions, and TreeSHAP explainability.
+                  </p>
+                </div>
+
+                {/* QR Visual Flow Pipeline */}
+                <div className="bg-[#FAF8F2] border border-amber-200/80 rounded-xl p-3.5 space-y-2">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-500 block">
+                    AUTOMATED QR INTELLIGENCE FLOW:
+                  </span>
+                  
+                  <div className="grid grid-cols-5 gap-1 text-center font-mono text-[9px] font-bold text-neutral-700">
+                    <div className="bg-white p-1.5 rounded border border-neutral-200">
+                      Scan QR
+                    </div>
+                    <div className="flex items-center justify-center text-neutral-400">→</div>
+                    <div className="bg-white p-1.5 rounded border border-neutral-200">
+                      Batch_ID
+                    </div>
+                    <div className="flex items-center justify-center text-neutral-400">→</div>
+                    <div className="bg-[#FEF3C7] p-1.5 rounded border border-[#FDE68A] text-[#78350F]">
+                      XGBoost
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-5 gap-1 text-center font-mono text-[9px] font-bold text-neutral-700 pt-0.5">
+                    <div className="bg-[#FEF3C7] p-1.5 rounded border border-[#FDE68A] text-[#78350F]">
+                      TreeSHAP
+                    </div>
+                    <div className="flex items-center justify-center text-neutral-400">→</div>
+                    <div className="bg-white p-1.5 rounded border border-neutral-200">
+                      Food DNA
+                    </div>
+                    <div className="flex items-center justify-center text-neutral-400">→</div>
+                    <div className="bg-emerald-100 text-emerald-900 p-1.5 rounded border border-emerald-200">
+                      Intelligence
+                    </div>
+                  </div>
+                </div>
+
+                <div className="text-[11px] font-mono text-neutral-600 flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>Supports retail packages, reefer cartons & distributor barcodes.</span>
+                </div>
               </div>
-              <h3 className="font-display font-bold text-2xl uppercase tracking-tight text-neutral-900">
-                Action Happens Before Spoilage Propagates
-              </h3>
-              <ul className="space-y-3.5 text-xs text-neutral-700 leading-relaxed font-mono">
-                <li className="flex items-start gap-2.5">
-                  <span className="text-emerald-600 font-bold">✓</span>
-                  <span>Real-time IoT cold-chain telemetry with continuous bacterial kinetic modeling.</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-emerald-600 font-bold">✓</span>
-                  <span>Autonomous Multi-Agent AI correlates citizen reports with highway transit delays in seconds.</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-emerald-600 font-bold">✓</span>
-                  <span>Sub-second supply graph traversal pinpoints exact warehouse chambers.</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-emerald-600 font-bold">✓</span>
-                  <span>Surgical digital quarantines reduce consumer exposure by up to 95.6%.</span>
-                </li>
-              </ul>
+
+              {/* Action Button */}
+              <div className="pt-6 relative z-10 space-y-2.5">
+                <button
+                  onClick={() => setQrModalOpen(true)}
+                  className="w-full bg-neutral-900 hover:bg-neutral-800 text-white p-4 rounded-xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all cursor-pointer group-hover:scale-[1.01]"
+                >
+                  <QrCode className="w-5 h-5 text-amber-300" />
+                  <span>SCAN QR</span>
+                </button>
+
+                <div className="flex items-center justify-between text-[11px] font-mono text-neutral-500 pt-1">
+                  <span>Fast Optical Decoder</span>
+                  <button
+                    onClick={() => setQrModalOpen(true)}
+                    className="text-[#854D0E] hover:underline font-bold"
+                  >
+                    Select Test QR Batch
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* ACTIVE STATUS & CORE PHILOSOPHY STRIP */}
+          <div className="mt-12 max-w-5xl mx-auto">
+            <div className="bg-white border border-amber-200 rounded-xl p-5 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="space-y-1 text-center sm:text-left">
+                <div className="font-mono text-xs font-black uppercase tracking-[0.2em] text-[#854D0E] flex items-center justify-center sm:justify-start gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+                  <span>AI PREDICTS • EVIDENCE EXPLAINS • LAB VERIFIES • HUMAN DECIDES</span>
+                </div>
+                <p className="font-mono text-[11px] text-neutral-500">
+                  Engine: <strong className="text-neutral-800 font-bold">FOODGUARD-XGBoost-Risk (v1.0-demo)</strong> • 15 Engineered Features • TreeSHAP Attribution
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3">
+                {hasDataset && (
+                  <button
+                    onClick={() => onNavigate('dashboard')}
+                    className="bg-[#FEF3C7] hover:bg-[#FDE68A] text-[#78350F] border border-[#FDE68A] px-5 py-2.5 rounded-lg font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer transition-colors"
+                  >
+                    <span>Open Dashboard ({dataset?.summaryStats?.totalBatches || 28} Batches)</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                )}
+
+                <button
+                  onClick={onOpenCanonicalModal}
+                  className="bg-white hover:bg-neutral-50 text-neutral-800 border border-neutral-300 px-4 py-2.5 rounded-lg font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer transition-colors"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-[#854D0E]" />
+                  <span>Canonical M492</span>
+                </button>
+              </div>
             </div>
           </div>
+
         </div>
       </section>
 
-      {/* 3. CORE ARCHITECTURE PILLARS */}
-      <section className="py-24 bg-white border-b border-neutral-200">
+      {/* 2. FIVE INTERLOCKED ENGINES (PREDICT → PREVENT → TRACE → SIMULATE → ACT) */}
+      <section className="py-20 bg-white border-b border-neutral-200">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16 space-y-2">
+          <div className="text-center max-w-2xl mx-auto mb-14 space-y-2">
             <span className="text-[10px] font-mono text-[#854D0E] tracking-[0.3em] uppercase font-bold">
-              FIVE INTERLOCKED ENGINES
+              AUTONOMOUS INTELLIGENCE STACK
             </span>
-            <h2 className="font-display font-black text-3xl sm:text-5xl uppercase tracking-tight text-neutral-900">
+            <h2 className="font-display font-black text-3xl sm:text-4xl uppercase tracking-tight text-neutral-900">
               Predict → Prevent → Trace → Simulate → Act
             </h2>
           </div>
@@ -261,38 +307,38 @@ export const LandingView: React.FC<LandingViewProps> = ({
               {
                 step: '01',
                 title: 'PREDICT',
-                desc: 'Continuous microbial degradation forecast 72 hours ahead of spoilage.',
+                desc: 'XGBoost gradient boosted trees calculate 72h microbial kinetic deterioration curves.',
                 view: 'forecast'
               },
               {
                 step: '02',
                 title: 'PREVENT',
-                desc: 'Autonomous anomaly detection flags synchronized supplier & thermal drifts.',
+                desc: 'Unsupervised anomaly detection flags thermal excursions and silent laboratory drift.',
                 view: 'anomalies'
               },
               {
                 step: '03',
                 title: 'TRACE',
-                desc: 'Algorand-anchored Digital Food DNA tracks every batch from cow to carton.',
+                desc: 'Algorand-anchored Digital Food DNA tracks provenance from processing to consumer.',
                 view: 'food-dna'
               },
               {
                 step: '04',
                 title: 'SIMULATE',
-                desc: 'Contamination Spread Engine tests what-if intervention policies in real time.',
+                desc: 'Dynamic counterfactual What-If engine tests cold-room, recall, and quarantine policies.',
                 view: 'simulator'
               },
               {
                 step: '05',
                 title: 'ACT',
-                desc: 'AI Inspector Copilot dispatches tailored checklists to field officers.',
+                desc: 'AI Inspector Copilot generates statutory inspection dossiers and Form VA warrants.',
                 view: 'inspections'
               }
             ].map((p, idx) => (
               <div
                 key={idx}
                 onClick={() => onNavigate(p.view)}
-                className="bg-[#FAFAF8] border border-neutral-200 rounded-xl p-6 space-y-3 hover:border-[#854D0E] hover:bg-[#FEF3C7]/30 transition-all cursor-pointer group shadow-2xs"
+                className="bg-[#FAF8F2] border border-neutral-200 rounded-xl p-5 space-y-3 hover:border-[#854D0E] hover:bg-[#FEF3C7]/40 transition-all cursor-pointer group shadow-2xs"
               >
                 <div className="font-mono text-xs text-[#854D0E] font-black tracking-widest">
                   //{p.step}
@@ -304,8 +350,8 @@ export const LandingView: React.FC<LandingViewProps> = ({
                   {p.desc}
                 </p>
                 <div className="text-[10px] font-bold uppercase tracking-widest text-[#854D0E] pt-2 flex items-center gap-1">
-                  <span>Explore Module</span>
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                  <span>Launch Engine</span>
+                  <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
             ))}
@@ -313,108 +359,83 @@ export const LandingView: React.FC<LandingViewProps> = ({
         </div>
       </section>
 
-      {/* 4. FEATURE SHOWCASES GRID */}
-      <section className="py-24 bg-[#FAFAF8]">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16 space-y-2">
-            <span className="text-[10px] font-mono text-[#854D0E] tracking-[0.3em] uppercase font-bold">
-              COMPLETE PLATFORM CAPABILITIES
-            </span>
-            <h2 className="font-display font-black text-3xl sm:text-5xl uppercase tracking-tight text-neutral-900">
-              A Digital Brain for India's Food Safety
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Card 1: Food DNA */}
-            <div
-              onClick={() => onNavigate('food-dna')}
-              className="bg-white border border-neutral-200 rounded-xl p-6 hover:border-[#854D0E] transition-all cursor-pointer space-y-3 group shadow-xs hover:shadow-md"
-            >
-              <div className="w-10 h-10 rounded-lg bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center text-[#854D0E]">
-                <Activity className="w-5 h-5" />
+      {/* 3. PARADIGM COMPARISON */}
+      <section className="py-20 bg-[#FAF8F2] border-b border-neutral-200">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Reactive */}
+            <div className="bg-white border border-neutral-200 rounded-xl p-7 space-y-4 shadow-xs">
+              <div className="inline-block font-mono text-[10px] font-bold text-red-800 bg-red-100 px-2.5 py-1 rounded border border-red-200 uppercase tracking-widest">
+                TRADITIONAL FOOD SAFETY (REACTIVE)
               </div>
-              <h3 className="font-display font-bold text-xl uppercase tracking-tight text-neutral-900 group-hover:text-[#854D0E] transition-colors">
-                Digital Food DNA
+              <h3 className="font-display font-bold text-xl uppercase tracking-tight text-neutral-900">
+                Action Taken After Contamination Spreads
               </h3>
-              <p className="text-xs text-neutral-600 leading-relaxed font-mono">
-                Every major food batch receives a unique cryptographic passport combining telemetry, NABL testing, cold-storage duration, and historical complaints.
-              </p>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#854D0E] inline-flex items-center gap-1 pt-1 group-hover:underline">
-                View Batch M492 Passport →
-              </span>
+              <ul className="space-y-3 text-xs text-neutral-600 font-mono">
+                <li className="flex items-start gap-2">
+                  <span className="text-red-600 font-bold">✕</span>
+                  <span>Paper-based logs and isolated offline spreadsheets.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-600 font-bold">✕</span>
+                  <span>Outbreak discovered only when hospital poisoning clusters surge.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-600 font-bold">✕</span>
+                  <span>Manual invoice tracing takes 14 to 30 days.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-600 font-bold">✕</span>
+                  <span>Indiscriminate bulk recalls destroy safe inventory.</span>
+                </li>
+              </ul>
             </div>
 
-            {/* Card 2: AI Crime Scene Investigator */}
-            <div
-              onClick={() => onNavigate('investigations')}
-              className="bg-white border border-neutral-200 rounded-xl p-6 hover:border-[#854D0E] transition-all cursor-pointer space-y-3 group shadow-xs hover:shadow-md"
-            >
-              <div className="w-10 h-10 rounded-lg bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center text-[#854D0E]">
-                <Cpu className="w-5 h-5" />
+            {/* Predictive */}
+            <div className="bg-white border-2 border-amber-300 rounded-xl p-7 space-y-4 shadow-md">
+              <div className="inline-block font-mono text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded border border-emerald-200 uppercase tracking-widest">
+                FOODGUARD X (PREDICTIVE TWIN)
               </div>
-              <h3 className="font-display font-bold text-xl uppercase tracking-tight text-neutral-900 group-hover:text-[#854D0E] transition-colors">
-                AI Crime-Scene Investigator
+              <h3 className="font-display font-bold text-xl uppercase tracking-tight text-neutral-900">
+                Action Taken Before Retail Spoilage Propagates
               </h3>
-              <p className="text-xs text-neutral-600 leading-relaxed font-mono">
-                Connects 23 citizen complaints to the same distributor, same reefer truck, and isolated compressor malfunction at Warehouse #17 with 94% confidence.
-              </p>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#854D0E] inline-flex items-center gap-1 pt-1 group-hover:underline">
-                Open Investigation Dossier →
-              </span>
-            </div>
-
-            {/* Card 3: x402 Intelligence Economy */}
-            <div
-              onClick={() => onNavigate('x402')}
-              className="bg-white border border-neutral-200 rounded-xl p-6 hover:border-[#854D0E] transition-all cursor-pointer space-y-3 group shadow-xs hover:shadow-md"
-            >
-              <div className="w-10 h-10 rounded-lg bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center text-[#854D0E]">
-                <Coins className="w-5 h-5" />
-              </div>
-              <h3 className="font-display font-bold text-xl uppercase tracking-tight text-neutral-900 group-hover:text-[#854D0E] transition-colors">
-                x402 M2M Economy
-              </h3>
-              <p className="text-xs text-neutral-600 leading-relaxed font-mono">
-                Autonomous AI agents (Insurance, Logistics, Fleet Management) pay micro-fractions of USDC on Algorand to unlock real-time food risk APIs.
-              </p>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#854D0E] inline-flex items-center gap-1 pt-1 group-hover:underline">
-                Explore M2M Marketplace →
-              </span>
+              <ul className="space-y-3 text-xs text-neutral-700 font-mono">
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-600 font-bold">✓</span>
+                  <span>Live XGBoost thermal stress and transit degradation modeling.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-600 font-bold">✓</span>
+                  <span>TreeSHAP explainability isolates exact root causes (+10.8°C excursion).</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-600 font-bold">✓</span>
+                  <span>Sub-second graph traversal identifies compromised depot in 40ms.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-600 font-bold">✓</span>
+                  <span>Surgical quarantines reduce public exposure by up to 95.6%.</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 5. FINAL CALL TO ACTION */}
-      <section className="py-24 bg-white border-t border-neutral-200 text-center">
-        <div className="max-w-4xl mx-auto px-4 space-y-6">
-          <span className="text-[10px] font-mono text-[#854D0E] tracking-[0.3em] uppercase font-bold">
-            NATIONAL SCALE DEPLOYMENT
-          </span>
-          <h2 className="font-display font-black text-4xl sm:text-6xl tracking-tight text-neutral-900 uppercase">
-            Protecting Every Meal Across India.
-          </h2>
-          <p className="text-sm text-neutral-600 max-w-xl mx-auto font-mono">
-            Experience the working national intelligence platform. Test live simulations, investigate real-time anomalies, and verify immutable blockchain passports.
+      {/* 4. FOOTER */}
+      <footer className="py-12 bg-white text-center text-xs font-mono text-neutral-500 border-t border-neutral-200">
+        <div className="max-w-5xl mx-auto px-4 space-y-2">
+          <p className="font-bold text-neutral-800">
+            FOODGUARD X — NATIONAL FOOD SAFETY INTELLIGENCE PLATFORM
           </p>
-          <div className="pt-4 flex flex-wrap justify-center gap-4">
-            <button
-              onClick={() => onNavigate('dashboard')}
-              className="bg-[#854D0E] hover:bg-[#A16207] text-white px-8 py-4 rounded font-black text-xs uppercase tracking-[0.2em] flex items-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer"
-            >
-              <span>ENTER COMMAND CENTER</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-            <button
-              onClick={onOpenCanonicalModal}
-              className="bg-white hover:bg-neutral-50 text-neutral-900 border-2 border-neutral-300 hover:border-[#854D0E] px-6 py-4 rounded font-bold text-xs uppercase tracking-[0.15em] transition-colors cursor-pointer shadow-2xs"
-            >
-              RUN CANONICAL DEMO (BATCH M492)
-            </button>
-          </div>
+          <p>
+            AI PREDICTS. EVIDENCE EXPLAINS. LAB VERIFIES. HUMAN DECIDES.
+          </p>
+          <p className="text-[10px] text-neutral-400">
+            All predictions generated using FOODGUARD-XGBoost-Risk (v1.0-demo) GBDT Ensemble with TreeSHAP local attribution.
+          </p>
         </div>
-      </section>
+      </footer>
     </div>
   );
 };

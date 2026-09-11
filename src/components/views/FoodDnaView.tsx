@@ -25,6 +25,8 @@ import {
 } from 'recharts';
 import { INITIAL_BATCHES } from '../../data/mockData';
 import { FoodBatch } from '../../types';
+import { useDataset } from '../../context/DatasetContext';
+import { AITrustPanel } from '../AITrustPanel';
 
 interface FoodDnaViewProps {
   onNavigate: (view: string, param?: string) => void;
@@ -35,8 +37,14 @@ export const FoodDnaView: React.FC<FoodDnaViewProps> = ({
   onNavigate,
   onOpenCanonicalModal
 }) => {
-  const [selectedBatchId, setSelectedBatchId] = useState<string>('M492');
-  const batch = INITIAL_BATCHES.find((b) => b.id === selectedBatchId) || INITIAL_BATCHES[0];
+  const { foodBatches, predictions, selectedBatch, setSelectedBatch } = useDataset();
+  const activeBatches = foodBatches.length > 0 ? foodBatches : INITIAL_BATCHES;
+  const [selectedBatchId, setSelectedBatchId] = useState<string>(
+    selectedBatch?.id || activeBatches[0]?.id || 'M492'
+  );
+
+  const batch = activeBatches.find((b) => b.id === selectedBatchId) || activeBatches[0];
+  const currentPrediction = predictions.find((p) => p.batchId === batch.id);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -72,12 +80,15 @@ export const FoodDnaView: React.FC<FoodDnaViewProps> = ({
         </div>
 
         {/* Batch Selector */}
-        <div className="flex items-center gap-2">
-          {INITIAL_BATCHES.map((b) => (
+        <div className="flex items-center gap-2 overflow-x-auto max-w-full pb-1">
+          {activeBatches.map((b) => (
             <button
               key={b.id}
-              onClick={() => setSelectedBatchId(b.id)}
-              className={`px-3 py-2 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer ${
+              onClick={() => {
+                setSelectedBatchId(b.id);
+                setSelectedBatch(b);
+              }}
+              className={`px-3 py-2 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer shrink-0 ${
                 selectedBatchId === b.id
                   ? 'bg-[#1A1A18] text-white shadow-xs'
                   : 'bg-white hover:bg-[#F0F0EB] text-[#444] border border-[#DDDCD6]'
@@ -171,10 +182,62 @@ export const FoodDnaView: React.FC<FoodDnaViewProps> = ({
               {batch.blockchainTx}
             </p>
           </div>
+
+          {/* AI Trust Panel: Explains AI Predictions, Evidence, and Safe Guardrails */}
+          {currentPrediction && (
+            <AITrustPanel prediction={currentPrediction} batch={batch} />
+          )}
         </div>
 
         {/* Right Col: Provenance Timeline & Temperature Journey */}
         <div className="lg:col-span-8 space-y-6">
+          {/* Time Machine Degradation Trajectory Box */}
+          {currentPrediction?.timeMachine && (
+            <div className="bg-white border border-neutral-300 rounded-xl p-5 shadow-xs space-y-3">
+              <div className="flex items-center justify-between border-b border-neutral-200 pb-2">
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-[#854D0E]" />
+                  <span className="text-xs font-mono font-bold uppercase text-neutral-900">
+                    72-Hour Degradation Time-Machine Projection
+                  </span>
+                </div>
+                <span className="text-[10px] font-mono font-bold text-[#78350F] bg-amber-100 px-2 py-0.5 rounded border border-amber-200">
+                  Model Estimate — Not a Guaranteed Outcome
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 pt-1">
+                {[
+                  { label: 'Now', val: currentPrediction.timeMachine.now, isNow: true },
+                  { label: '+6 Hours', val: currentPrediction.timeMachine.plus6h },
+                  { label: '+12 Hours', val: currentPrediction.timeMachine.plus12h },
+                  { label: '+24 Hours', val: currentPrediction.timeMachine.plus24h },
+                  { label: '+48 Hours', val: currentPrediction.timeMachine.plus48h },
+                  { label: '+72 Hours', val: currentPrediction.timeMachine.plus72h }
+                ].map((step, sIdx) => {
+                  const score = step.val;
+                  const isHigh = score >= 65;
+                  return (
+                    <div
+                      key={sIdx}
+                      className={`p-2.5 rounded-lg border text-center font-mono ${
+                        step.isNow
+                          ? 'border-neutral-900 bg-neutral-900 text-white'
+                          : isHigh
+                          ? 'border-red-300 bg-red-50 text-red-800'
+                          : 'border-neutral-200 bg-[#FAF8F2] text-neutral-800'
+                      }`}
+                    >
+                      <div className="text-[10px] font-bold">{step.label}</div>
+                      <div className="text-lg font-black mt-0.5">{score}</div>
+                      <div className="text-[9px] opacity-75">Risk / 100</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           {/* Temperature & Humidity Telemetry */}
           <div className="bg-white border border-[#EBEBE6] rounded-xl p-6 shadow-xs space-y-4">
             <div className="flex items-center justify-between">

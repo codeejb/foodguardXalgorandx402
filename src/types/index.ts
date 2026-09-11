@@ -101,14 +101,19 @@ export interface AnomalyRecord {
   description: string;
   severity: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
   confidence: number;
-  detectedAt: string;
+  detectedAt?: string;
+  discoveredAt?: string;
   category: 'TEMPERATURE' | 'COMPLAINT_CLUSTER' | 'SUPPLIER_SWITCH' | 'LAB_DRIFT' | 'TRANSPORT_DELAY' | string;
   relatedBatchId?: string;
+  relatedBatches?: string[];
   batchId?: string;
-  relatedEntity: string;
-  status: 'NEW' | 'INVESTIGATING' | 'DISMISSED' | 'RESOLVED';
-  suggestedAction: string;
+  relatedEntity?: string;
+  sourceEntity?: string;
+  status?: 'NEW' | 'INVESTIGATING' | 'DISMISSED' | 'RESOLVED' | 'ACTIVE' | 'UNDER_REVIEW' | 'OPEN';
+  suggestedAction?: string;
+  actionTaken?: boolean;
   aiExplanation?: string;
+  hypothesis?: string;
   rootCause?: string;
 }
 
@@ -117,18 +122,24 @@ export type Anomaly = AnomalyRecord;
 export interface InvestigationLead {
   id: string;
   title: string;
-  targetProduct: string;
-  potentialSource: string;
-  confidence: number;
+  targetProduct?: string;
+  potentialSource?: string;
+  confidence?: number;
   confidenceScore?: number;
-  status: 'ACTIVE' | 'RESOLVED' | 'UNDER_REVIEW';
-  complaintCount: number;
-  temperatureDeviation: string;
-  evidencePoints: string[];
+  status: 'ACTIVE' | 'RESOLVED' | 'UNDER_REVIEW' | 'INVESTIGATING' | 'OPEN' | string;
+  leadType?: string;
+  sourceEntity?: string;
+  relatedBatches?: string[];
+  evidenceCorrelations?: string[];
+  aiNarrative?: string;
+  estimatedExposure?: number;
+  complaintCount?: number;
+  temperatureDeviation?: string;
+  evidencePoints?: string[];
   evidenceItems?: { id: string; type: string; title: string; timestamp: string; description: string; metricValue: string }[];
-  connectedBatches: string[];
-  connectedLocations: string[];
-  recommendedAction: string;
+  connectedBatches?: string[];
+  connectedLocations?: string[];
+  recommendedAction?: string;
   recommendedActions?: string[];
   rootCauseHypothesis?: string;
   suspectBatchId?: string;
@@ -138,23 +149,30 @@ export interface InvestigationLead {
 export type Investigation = InvestigationLead;
 
 export interface InspectionPriority {
-  rank: number;
+  rank?: number;
   priorityRank?: number;
   id: string;
-  targetName: string;
+  targetName?: string;
+  entityName?: string;
   facilityName?: string;
   facilityLocation?: string;
   targetBatchId?: string;
-  targetType: 'WAREHOUSE' | 'RESTAURANT' | 'FACTORY' | 'BATCH' | 'DISTRIBUTOR' | string;
+  targetType?: 'WAREHOUSE' | 'RESTAURANT' | 'FACTORY' | 'BATCH' | 'DISTRIBUTOR' | string;
+  entityType?: string;
   location: string;
   riskScore: number;
-  riskLevel: RiskLevel;
-  reason: string;
-  checklist: string[];
-  equipmentNeeded: string[];
-  sampleProtocols: string[];
-  estimatedDuration: string;
-  urgency: 'IMMEDIATE' | 'HIGH' | 'ROUTINE';
+  riskLevel?: RiskLevel;
+  reason?: string;
+  reasons?: string[];
+  checklist?: string[];
+  equipmentNeeded?: string[];
+  sampleProtocols?: string[];
+  suggestedOfficerActions?: string[];
+  estimatedDuration?: string;
+  recommendedDate?: string;
+  digitalPassportId?: string;
+  complianceScore?: number;
+  urgency: 'IMMEDIATE' | 'HIGH' | 'ROUTINE' | 'SCHEDULED';
 }
 
 export type InspectionPlan = InspectionPriority;
@@ -297,5 +315,166 @@ export interface AlgoTransactionRecord {
   timestamp: string;
   status: 'CONFIRMED' | 'PENDING' | 'FAILED';
   note?: string;
+}
+
+// 7 Required Upload Columns
+export interface RawBatchInput {
+  Batch_ID: string;
+  Product_Name: string;
+  Temperature_C: number | string;
+  Transport_Hours: number | string;
+  Lab_Status: string;
+  Complaint_Count: number | string;
+  Storage_Condition: string;
+  [key: string]: any;
+}
+
+export interface DataQualityReport {
+  totalRecords: number;
+  validRecords: number;
+  warningsCount: number;
+  errorsCount: number;
+  warnings: string[];
+  errors: string[];
+  missingColumns: string[];
+  duplicates: string[];
+  confidenceModifier: number; // 0.6 - 1.0 based on completeness
+}
+
+export type RiskGrade = 'Low' | 'Watch' | 'Moderate' | 'High' | 'Critical';
+
+export interface BatchPrediction {
+  batchId: string;
+  productName: string;
+  predictedRiskScore: number; // 0 - 100
+  riskLevel: RiskGrade;
+  confidence: number; // e.g. 84%
+  whyFlagged: string[];
+  evidence: {
+    temperatureC: number;
+    transportHours: number;
+    labStatus: string;
+    complaintCount: number;
+    storageCondition: string;
+  };
+  recommendedAction: string;
+  verificationRequired: string;
+  aiLimitation: string;
+  timeMachine: {
+    now: number;
+    h6: number;
+    h12: number;
+    h24: number;
+    h48: number;
+    h72: number;
+  };
+  anomalyFlag?: string;
+  shapExplanations?: ShapFeatureExplanation[];
+  engineeredFeatures?: Record<string, number>;
+  modelVersion?: string;
+  featureVersion?: string;
+  riskProbability?: number;
+  escalationProbability?: number;
+  complaintSpikeProbability?: number;
+  verificationPriority?: string;
+}
+
+export interface ShapFeatureExplanation {
+  feature: string;
+  displayName: string;
+  shapValue: number;
+  percentageContribution: number;
+  impactLevel: 'HIGH IMPACT' | 'MEDIUM IMPACT' | 'LOW IMPACT';
+  direction: 'INCREASED RISK' | 'REDUCED RISK';
+  observedValue: number;
+}
+
+export interface WhatIfSimulationResult {
+  scenario: string;
+  batchId: string;
+  baselineRisk: number;
+  scenarioRisk: number;
+  estimatedChangePoints: number;
+  percentageReduction: number;
+  baselineLevel: string;
+  scenarioLevel: string;
+  disclaimer: string;
+}
+
+export interface ModelEvaluationMetrics {
+  modelName: string;
+  modelVersion: string;
+  datasetLabel: string;
+  trainingRecordsCount: number;
+  testRecordsCount: number;
+  classificationMetrics: {
+    precision: number;
+    recall: number;
+    f1Score: number;
+    rocAuc: number;
+    prAuc: number;
+    confusionMatrix: {
+      truePositive: number;
+      falsePositive: number;
+      trueNegative: number;
+      falseNegative: number;
+    };
+    calibrationBrierScore: number;
+  };
+  regressionMetrics: {
+    mae: number;
+    rmse: number;
+    r2Score: number;
+  };
+  topShapFeatures: {
+    feature: string;
+    meanAbsShap: number;
+  }[];
+}
+
+export type DatasetMode = 'USER_UPLOAD' | 'DEMO';
+
+export type DatasetSummaryStats = {
+  totalBatches: number;
+  highRiskBatches: number;
+  criticalBatches: number;
+  activeAnomalies: number;
+  complaintSignals: number;
+  labWarnings: number;
+  storageWarnings: number;
+  highestRiskProduct: string;
+  emergingThreats: number;
+  averageRiskScore: number;
+};
+
+export interface DatasetMetadata {
+  datasetId: string;
+  uploadTime: string;
+  dataSource: string;
+  mode: DatasetMode;
+  fileName?: string;
+  summaryStats: DatasetSummaryStats;
+}
+
+export interface CentralAlert {
+  id: string;
+  type: 'High-Risk Batch' | 'Temperature Anomaly' | 'Complaint Cluster' | 'Lab Warning' | 'Storage Warning' | 'Supply-Chain Anomaly' | 'Data Mismatch' | 'Emerging Risk';
+  severity: 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW';
+  title: string;
+  description: string;
+  batchId?: string;
+  timestamp: string;
+  actionRequired: string;
+}
+
+export interface ModelFeedback {
+  id: string;
+  batchId: string;
+  predictedRisk: number;
+  actualResult: string;
+  predictionCorrect: boolean;
+  labResult: string;
+  actionTaken: string;
+  timestamp: string;
 }
 

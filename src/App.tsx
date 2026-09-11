@@ -27,9 +27,22 @@ import { AnalyticsView } from './components/views/AnalyticsView';
 import { ApiDocsView } from './components/views/ApiDocsView';
 
 import { UserRole, UserProfile, AlgoTransactionRecord } from './types';
+import { DatasetProvider, useDataset } from './context/DatasetContext';
+import { DatasetBanner } from './components/DatasetBanner';
+import { UploadModal } from './components/UploadModal';
+import { InvestigationReportModal } from './components/InvestigationReportModal';
+import { FeedbackModal } from './components/FeedbackModal';
 
-export const App: React.FC = () => {
+const MainAppContent: React.FC = () => {
   const [currentView, setCurrentView] = useState<string>('landing');
+  const {
+    uploadModalOpen,
+    setUploadModalOpen,
+    reportModalOpen,
+    setReportModalOpen,
+    feedbackModalOpen,
+    setFeedbackModalOpen
+  } = useDataset();
   
   // Operating Role persistence (remains fixed across sessions)
   const [selectedRole, setSelectedRole] = useState<UserRole>(() => {
@@ -207,6 +220,9 @@ export const App: React.FC = () => {
         onOpenPayWithAlgo={() => setPayAlgoModalOpen(true)}
       />
 
+      {/* Persistent Dataset Status & Controls Banner */}
+      <DatasetBanner />
+
       {/* Main Dynamic View Content */}
       <main className="flex-1">
         {currentView === 'landing' && (
@@ -346,6 +362,25 @@ export const App: React.FC = () => {
         onClose={() => setCopilotModalOpen(false)}
       />
 
+      {/* Data Ingestion Modal (Upload Excel/CSV & Quality Check) */}
+      <UploadModal
+        isOpen={uploadModalOpen}
+        onClose={() => setUploadModalOpen(false)}
+        onSuccess={() => handleNavigate('dashboard')}
+      />
+
+      {/* Investigation Formal Report Modal */}
+      <InvestigationReportModal
+        isOpen={reportModalOpen}
+        onClose={() => setReportModalOpen(false)}
+      />
+
+      {/* AI Model Feedback & Calibration Modal */}
+      <FeedbackModal
+        isOpen={feedbackModalOpen}
+        onClose={() => setFeedbackModalOpen(false)}
+      />
+
       {/* Notification Center Drawer */}
       <NotificationCenter
         isOpen={notificationsOpen}
@@ -355,6 +390,14 @@ export const App: React.FC = () => {
         onSelectNotification={handleSelectNotification}
       />
     </div>
+  );
+};
+
+export const App: React.FC = () => {
+  return (
+    <DatasetProvider>
+      <MainAppContent />
+    </DatasetProvider>
   );
 };
 
