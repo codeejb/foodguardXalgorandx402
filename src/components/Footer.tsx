@@ -13,12 +13,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           {/* Col 1: Brand & Tagline */}
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded bg-[#854D0E] text-white flex items-center justify-center font-black text-base shadow-xs">
-                X
-              </div>
-              <span className="font-black text-xl tracking-tight text-neutral-900 uppercase font-display">
-                FOODGUARD <span className="text-[#854D0E]">X</span>
-              </span>
+              <img src="/foodguardx-logo.png" alt="FoodGuardX" className="h-10 w-auto" />
             </div>
             <p className="text-[10px] font-mono text-[#854D0E] tracking-[0.2em] uppercase font-bold">
               PREDICT • PREVENT • TRACE • SIMULATE • ACT

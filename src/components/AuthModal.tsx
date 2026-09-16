@@ -170,9 +170,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         {/* Header with Dark Yellow Brand Bar */}
         <div className="px-6 py-4 bg-[#FBF8EF] border-b border-amber-200/80 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded bg-[#854D0E] text-white flex items-center justify-center font-black text-sm shadow-xs">
-              X
-            </div>
+            <img src="/foodguardx-logo.png" alt="FoodGuardX" className="h-10 w-auto" />
             <div>
               <h3 className="font-display font-black text-base uppercase tracking-tight text-neutral-900">
                 Sign In to FoodGuard <span className="text-[#854D0E]">X</span>

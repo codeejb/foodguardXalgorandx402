@@ -94,9 +94,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center gap-4 flex-wrap">
           <div className="flex items-center gap-2 font-medium">
             <div className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse"></div>
-            <span className="text-neutral-900 text-xs font-black tracking-[0.2em] uppercase font-display">
-              FOODGUARD <span className="text-[#854D0E]">X</span>
-            </span>
+            <img src="/foodguardx-logo.png" alt="FoodGuardX" className="h-4 w-auto" />
             <span className="text-neutral-300">//</span>
             <span className="font-mono text-[10px] text-[#78350F] bg-[#FEF3C7] px-2 py-0.5 border border-[#FDE68A] tracking-wider uppercase font-bold rounded">
               PREDICT • PREVENT • TRACE • SIMULATE • ACT
@@ -163,17 +161,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           onClick={() => onNavigate('landing')}
           className="flex items-center gap-3 cursor-pointer group shrink-0"
         >
-          <div className="w-8 h-8 rounded bg-[#854D0E] text-white flex items-center justify-center font-black text-base shadow-xs group-hover:bg-[#A16207] transition-colors">
-            X
-          </div>
-          <div>
-            <div className="font-black text-base tracking-tight text-neutral-900 leading-none flex items-center gap-1.5 uppercase font-display">
-              FOODGUARD <span className="text-[#854D0E]">X</span>
-            </div>
-            <div className="text-[9px] tracking-[0.25em] text-[#854D0E] uppercase font-mono font-bold mt-0.5">
-              NATIONAL INTELLIGENCE TWIN
-            </div>
-          </div>
+          <img src="/foodguardx-logo.png" alt="FoodGuardX" className="h-10 w-auto" />
         </div>
 
         {/* Scrollable Nav Items */}

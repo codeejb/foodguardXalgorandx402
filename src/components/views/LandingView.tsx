@@ -61,6 +61,9 @@ export const LandingView: React.FC<LandingViewProps> = ({
               <span>COMMAND ENTRY PORTAL // 7-COLUMN CANONICAL LEDGER</span>
             </div>
 
+            <div className="flex justify-center mb-6">
+              <img src="/foodguardx-logo.png" alt="FoodGuardX" className="h-32 w-auto" />
+            </div>
             <h1 className="font-display font-black text-5xl sm:text-6xl lg:text-7xl tracking-tight text-neutral-900 uppercase leading-[0.92]">
               FOODGUARD <span className="text-[#854D0E]">X</span>
             </h1>
