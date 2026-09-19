@@ -45,14 +45,14 @@ export const InvestigationsView: React.FC<InvestigationsViewProps> = ({
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 space-y-8">
       {/* Header */}
-      <div className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-xl p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-white border border-[#EBEBE6] text-xs font-mono font-medium text-[#8F6B00] mb-2">
+          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-[#18181C] border border-[#2A2A30] text-xs font-mono font-medium text-[#8F6B00] mb-2">
             <span>FORENSIC INVESTIGATIONS: /investigations</span>
             <span>•</span>
-            <span className="text-[#1A1A18]">EPIDEMIOLOGICAL ROOT-CAUSE</span>
+            <span className="text-gray-100">EPIDEMIOLOGICAL ROOT-CAUSE</span>
           </div>
-          <h1 className="font-serif text-3xl font-bold tracking-tight text-[#1A1A18]">
+          <h1 className="font-serif text-3xl font-bold tracking-tight text-gray-100">
             Food Safety Incident Investigations
           </h1>
           <p className="text-xs sm:text-sm text-[#666660] font-sans mt-1">
@@ -62,7 +62,7 @@ export const InvestigationsView: React.FC<InvestigationsViewProps> = ({
 
         <button
           onClick={onOpenCanonicalModal}
-          className="bg-[#1A1A18] hover:bg-[#8F6B00] text-white px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-colors cursor-pointer shadow-2xs"
+          className="bg-[#18181C] hover:bg-amber-600 text-white px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-colors cursor-pointer shadow-lg shadow-black/30"
         >
           <Sparkles className="w-4 h-4 text-[#C49200]" />
           <span>Walkthrough INV-2026-089</span>
@@ -73,7 +73,7 @@ export const InvestigationsView: React.FC<InvestigationsViewProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Col: Lead List */}
         <div className="lg:col-span-5 space-y-3">
-          <h3 className="font-serif text-base font-bold text-[#1A1A18] mb-2">
+          <h3 className="font-serif text-base font-bold text-gray-100 mb-2">
             Active Forensic Leads ({INITIAL_INVESTIGATIONS.length})
           </h3>
 
@@ -88,25 +88,25 @@ export const InvestigationsView: React.FC<InvestigationsViewProps> = ({
                 }}
                 className={`p-4 rounded-xl border transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-white border-[#8F6B00] shadow-md ring-2 ring-[#8F6B00]/10'
-                    : 'bg-[#FAFAF7] hover:bg-white border-[#EBEBE6]'
+                    ? 'bg-[#18181C] border-[#8F6B00] shadow-md ring-2 ring-[#8F6B00]/10'
+                    : 'bg-[#18181C] hover:bg-[#18181C] border-[#2A2A30]'
                 }`}
               >
                 <div className="flex items-center justify-between gap-2 mb-1.5">
                   <span className="font-mono text-xs font-bold text-[#8F6B00]">
                     #{inv.id}
                   </span>
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-50 text-amber-800 border border-amber-200">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-900/20 text-amber-400 border border-amber-800/40">
                     CONFIDENCE {inv.confidence}%
                   </span>
                 </div>
-                <h4 className="font-serif text-sm font-bold text-[#1A1A18]">
+                <h4 className="font-serif text-sm font-bold text-gray-100">
                   {inv.title}
                 </h4>
-                <p className="text-xs text-[#666] line-clamp-2 mt-1 leading-relaxed">
+                <p className="text-xs text-gray-400 line-clamp-2 mt-1 leading-relaxed">
                   Target: {inv.targetProduct}
                 </p>
-                <div className="flex items-center justify-between text-[11px] text-[#777] pt-2 mt-2 border-t border-[#F0F0EB]">
+                <div className="flex items-center justify-between text-[11px] text-gray-500 pt-2 mt-2 border-t border-[#F0F0EB]">
                   <span>{inv.complaintCount} Complaints Linked</span>
                   <span className="text-[#8F6B00] font-semibold">Open Dossier →</span>
                 </div>
@@ -116,53 +116,53 @@ export const InvestigationsView: React.FC<InvestigationsViewProps> = ({
         </div>
 
         {/* Right Col: Full Case Dossier */}
-        <div className="lg:col-span-7 bg-white border border-[#EBEBE6] rounded-xl p-6 shadow-xs space-y-6">
+        <div className="lg:col-span-7 bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 space-y-6">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#F0F0EB] pb-4">
             <div>
               <span className="font-mono text-xs font-bold text-[#8F6B00]">
                 CASE FILE #{selectedLead.id}
               </span>
-              <h2 className="font-serif text-2xl font-bold text-[#1A1A18]">
+              <h2 className="font-serif text-2xl font-bold text-gray-100">
                 {selectedLead.title}
               </h2>
-              <p className="text-xs text-[#777] font-sans">
+              <p className="text-xs text-gray-500 font-sans">
                 Suspect Source: {selectedLead.potentialSource}
               </p>
             </div>
-            <span className="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-red-50 text-red-700 border border-red-200">
+            <span className="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-red-900/20 text-red-400 border border-red-800/40">
               {selectedLead.status}
             </span>
           </div>
 
           {/* Root Cause Hypothesis Box */}
-          <div className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-xl p-4 space-y-1.5">
-            <span className="text-[10px] font-mono text-[#1A1A18] uppercase font-semibold flex items-center gap-1.5">
+          <div className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-4 space-y-1.5">
+            <span className="text-[10px] font-mono text-gray-100 uppercase font-semibold flex items-center gap-1.5">
               <Cpu className="w-3.5 h-3.5 text-[#8F6B00]" />
               <span>SYNTHESIZED EPIDEMIOLOGICAL ROOT CAUSE</span>
             </span>
-            <p className="text-xs text-[#333] leading-relaxed">
+            <p className="text-xs text-gray-300 leading-relaxed">
               {selectedLead.temperatureDeviation}
             </p>
           </div>
 
           {/* Evidence Chain */}
           <div className="space-y-3">
-            <h4 className="font-serif text-base font-bold text-[#1A1A18]">
+            <h4 className="font-serif text-base font-bold text-gray-100">
               Corroborating Evidence Points ({selectedLead.evidencePoints.length})
             </h4>
 
             <div className="space-y-2">
               {selectedLead.evidencePoints.map((pt, idx) => (
-                <div key={idx} className="p-3 bg-[#FAFAF7] border border-[#EBEBE6] rounded-lg text-xs flex items-start gap-2.5">
+                <div key={idx} className="p-3 bg-[#18181C] border border-[#2A2A30] rounded-lg text-xs flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-[#8F6B00] shrink-0 mt-0.5" />
-                  <span className="text-[#444] leading-relaxed">{pt}</span>
+                  <span className="text-gray-400 leading-relaxed">{pt}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Action Directives */}
-          <div className="bg-[#FDF9EE] border border-[#EEDBB3] rounded-xl p-4 space-y-2">
+          <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 space-y-2">
             <span className="text-[10px] font-mono text-[#8F6B00] uppercase font-bold block">
               REGULATORY ACTION DIRECTIVE
             </span>
@@ -180,7 +180,7 @@ export const InvestigationsView: React.FC<InvestigationsViewProps> = ({
                 className={`px-4 py-2 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
                   issuedRecall
                     ? 'bg-emerald-600 text-white'
-                    : 'bg-[#1A1A18] hover:bg-[#8F6B00] text-white shadow-xs'
+                    : 'bg-[#18181C] hover:bg-amber-600 text-white shadow-md shadow-black/20'
                 }`}
               >
                 {issuedRecall ? 'Recall Broadcast Sealed' : 'Issue Statutory Recall Notice'}

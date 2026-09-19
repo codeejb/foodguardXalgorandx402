@@ -104,7 +104,30 @@ export const ApiClient = {
       return { success: true, totalTransactions: 0, settlements: [] };
     }
   },
+  // Vakh FoodGuard Batch Lookup
+  async getVakhBatch(batchId: string) {
+    try {
+      const res = await fetch(
+        `/api/vakh/batch/${encodeURIComponent(batchId)}`
+      );
 
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data?.error || 'Vakh batch lookup failed');
+      }
+
+      return data;
+    } catch (error: any) {
+      console.error('Vakh batch lookup failed:', error);
+
+      return {
+        source: 'vakh',
+        batch: null,
+        error: error?.message || 'Unable to retrieve batch from Vakh'
+      };
+    }
+  },
   // Universal Data Processing Pipeline (File -> AI Algo -> Algorand Anchor -> Task Complete)
   async processDataPipeline(data: {
     fileName: string;

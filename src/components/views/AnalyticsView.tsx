@@ -50,14 +50,14 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 space-y-8">
       {/* Header */}
-      <div className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-xl p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-white border border-[#EBEBE6] text-xs font-mono font-medium text-[#8F6B00] mb-2">
+          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-[#18181C] border border-[#2A2A30] text-xs font-mono font-medium text-[#8F6B00] mb-2">
             <span>NATIONAL INTELLIGENCE METRICS: /analytics</span>
             <span>•</span>
-            <span className="text-[#1A1A18]">EPIDEMIOLOGICAL MONITORING</span>
+            <span className="text-gray-100">EPIDEMIOLOGICAL MONITORING</span>
           </div>
-          <h1 className="font-serif text-3xl font-bold tracking-tight text-[#1A1A18]">
+          <h1 className="font-serif text-3xl font-bold tracking-tight text-gray-100">
             National Food Safety Analytics
           </h1>
           <p className="text-xs sm:text-sm text-[#666660] font-sans mt-1">
@@ -65,35 +65,35 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
           </p>
         </div>
 
-        <div className="flex items-center gap-4 bg-white border border-[#DDDCD6] rounded-xl p-3 shadow-xs">
+        <div className="flex items-center gap-4 bg-[#18181C] border border-[#2A2A30] rounded-xl p-3 shadow-md shadow-black/20">
           <div className="text-right">
             <span className="text-[10px] font-mono text-[#888] uppercase block">Protected Population</span>
-            <span className="font-serif text-xl font-bold text-emerald-700">1.42M Citizens</span>
+            <span className="font-serif text-xl font-bold text-emerald-400">1.42M Citizens</span>
           </div>
         </div>
       </div>
 
       {/* 4 Summary Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white border border-[#EBEBE6] rounded-xl p-5 shadow-xs space-y-1">
+        <div className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-5 shadow-md shadow-black/20 space-y-1">
           <span className="text-[10px] font-mono text-[#888] uppercase block">Monitored Supply Nodes</span>
-          <div className="font-serif text-3xl font-bold text-[#1A1A18]">{NATIONAL_STATS.monitoredNodes.toLocaleString()}</div>
+          <div className="font-serif text-3xl font-bold text-gray-100">{NATIONAL_STATS.monitoredNodes.toLocaleString()}</div>
           <span className="text-[11px] text-emerald-600 font-mono font-medium">+18.4% this quarter</span>
         </div>
 
-        <div className="bg-white border border-[#EBEBE6] rounded-xl p-5 shadow-xs space-y-1">
+        <div className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-5 shadow-md shadow-black/20 space-y-1">
           <span className="text-[10px] font-mono text-[#888] uppercase block">Active Incidents</span>
           <div className="font-serif text-3xl font-bold text-red-600">{NATIONAL_STATS.activeIncidents}</div>
           <span className="text-[11px] text-red-600 font-mono font-medium">{NATIONAL_STATS.quarantinedBatches} Batches Quarantined</span>
         </div>
 
-        <div className="bg-white border border-[#EBEBE6] rounded-xl p-5 shadow-xs space-y-1">
+        <div className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-5 shadow-md shadow-black/20 space-y-1">
           <span className="text-[10px] font-mono text-[#888] uppercase block">Estimated Prevented Exposure</span>
           <div className="font-serif text-3xl font-bold text-[#8F6B00]">{NATIONAL_STATS.preventedExposureEstimated.toLocaleString()}</div>
-          <span className="text-[11px] text-[#777] font-mono">Via sub-hour early alerts</span>
+          <span className="text-[11px] text-gray-500 font-mono">Via sub-hour early alerts</span>
         </div>
 
-        <div className="bg-white border border-[#EBEBE6] rounded-xl p-5 shadow-xs space-y-1">
+        <div className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-5 shadow-md shadow-black/20 space-y-1">
           <span className="text-[10px] font-mono text-[#888] uppercase block">Algorand Passports Sealed</span>
           <div className="font-serif text-3xl font-bold text-purple-700">{NATIONAL_STATS.blockchainVerifiedBatches.toLocaleString()}</div>
           <span className="text-[11px] text-purple-700 font-mono font-medium">100% On-Chain Verifiable</span>
@@ -103,13 +103,13 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
       {/* Main Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Monthly Incident Prevention Trend */}
-        <div className="lg:col-span-8 bg-white border border-[#EBEBE6] rounded-xl p-6 shadow-xs space-y-4">
+        <div className="lg:col-span-8 bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-serif text-lg font-bold text-[#1A1A18]">
+              <h3 className="font-serif text-lg font-bold text-gray-100">
                 Monthly Contamination Incidents vs Pre-Emptive Preventions
               </h3>
-              <p className="text-xs text-[#777]">
+              <p className="text-xs text-gray-500">
                 Tracking early-warning interventions across major Indian logistics corridors.
               </p>
             </div>
@@ -137,12 +137,12 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
         </div>
 
         {/* Food Category Vulnerability Breakdown */}
-        <div className="lg:col-span-4 bg-white border border-[#EBEBE6] rounded-xl p-6 shadow-xs space-y-4">
+        <div className="lg:col-span-4 bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 space-y-4">
           <div>
-            <h3 className="font-serif text-lg font-bold text-[#1A1A18]">
+            <h3 className="font-serif text-lg font-bold text-gray-100">
               Risk by Food Category
             </h3>
-            <p className="text-xs text-[#777]">
+            <p className="text-xs text-gray-500">
               Thermal sensitivity distribution.
             </p>
           </div>
@@ -151,8 +151,8 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
             {CATEGORY_DATA.map((cat, idx) => (
               <div key={idx} className="space-y-1">
                 <div className="flex justify-between text-xs">
-                  <span className="font-medium text-[#1A1A18]">{cat.name}</span>
-                  <span className="font-mono text-[#666]">{cat.value}%</span>
+                  <span className="font-medium text-gray-100">{cat.name}</span>
+                  <span className="font-mono text-gray-400">{cat.value}%</span>
                 </div>
                 <div className="w-full h-2 bg-[#F0F0EB] rounded-full overflow-hidden">
                   <div

@@ -50,28 +50,28 @@ export const FoodDnaView: React.FC<FoodDnaViewProps> = ({
     switch (status) {
       case 'SAFE':
       case 'DELIVERED':
-        return 'text-emerald-700 bg-emerald-50 border-emerald-200';
+        return 'text-emerald-400 bg-emerald-900/20 border-emerald-800/40';
       case 'WATCH':
-        return 'text-amber-800 bg-amber-50 border-amber-200';
+        return 'text-amber-400 bg-amber-900/20 border-amber-800/40';
       case 'QUARANTINED':
       case 'RECALLED':
-        return 'text-red-700 bg-red-50 border-red-200';
+        return 'text-red-400 bg-red-900/20 border-red-800/40';
       default:
-        return 'text-gray-700 bg-gray-50 border-gray-200';
+        return 'text-gray-300 bg-[#1F1F24] border-[#2A2A30]';
     }
   };
 
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 space-y-8">
       {/* Header */}
-      <div className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-xl p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="will-animate animate-slide-up bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-white border border-[#EBEBE6] text-xs font-mono font-medium text-[#8F6B00] mb-2">
+          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-[#18181C] border border-[#2A2A30] text-xs font-mono font-medium text-[#8F6B00] mb-2">
             <span>DIGITAL PASSPORT: /food-dna</span>
             <span>•</span>
-            <span className="text-[#1A1A18]">CRYPTOGRAPHIC SUPPLY LOG</span>
+            <span className="text-gray-100">CRYPTOGRAPHIC SUPPLY LOG</span>
           </div>
-          <h1 className="font-serif text-3xl font-bold tracking-tight text-[#1A1A18]">
+          <h1 className="font-serif text-3xl font-bold tracking-tight text-gray-100">
             Food DNA Digital Passport
           </h1>
           <p className="text-xs sm:text-sm text-[#666660] font-sans mt-1">
@@ -88,10 +88,10 @@ export const FoodDnaView: React.FC<FoodDnaViewProps> = ({
                 setSelectedBatchId(b.id);
                 setSelectedBatch(b);
               }}
-              className={`px-3 py-2 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer shrink-0 ${
+               className={`px-3 py-2 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer shrink-0 hover:scale-105 ${
                 selectedBatchId === b.id
-                  ? 'bg-[#1A1A18] text-white shadow-xs'
-                  : 'bg-white hover:bg-[#F0F0EB] text-[#444] border border-[#DDDCD6]'
+                  ? 'bg-[#18181C] text-white shadow-md shadow-black/20'
+                  : 'bg-[#18181C] hover:bg-[#F0F0EB] text-gray-400 border border-[#2A2A30]'
               }`}
             >
               #{b.id} ({b.category})
@@ -103,16 +103,16 @@ export const FoodDnaView: React.FC<FoodDnaViewProps> = ({
       {/* Main Passport Card */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Col: Passport Summary */}
-        <div className="lg:col-span-4 bg-white border border-[#EBEBE6] rounded-xl p-6 shadow-xs space-y-6">
+        <div className="lg:col-span-4 will-animate animate-slide-left delay-200 bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 hover:shadow-2xl transition-all duration-500 space-y-6">
           <div className="flex items-start justify-between">
             <div>
               <span className="text-[10px] font-mono text-[#8F6B00] uppercase font-bold block">
                 ALGORAND PASSPORT #ALGO-DNA-{batch.id}
               </span>
-              <h2 className="font-serif text-2xl font-bold text-[#1A1A18]">
+              <h2 className="font-serif text-2xl font-bold text-gray-100">
                 {batch.productName}
               </h2>
-              <span className="text-xs text-[#777] font-mono">
+              <span className="text-xs text-gray-500 font-mono">
                 Batch ID: #{batch.id} • Vol: {batch.batchVolume}
               </span>
             </div>
@@ -124,28 +124,28 @@ export const FoodDnaView: React.FC<FoodDnaViewProps> = ({
           {/* Core Properties */}
           <div className="space-y-3 text-xs border-t border-b border-[#F0F0EB] py-4">
             <div className="flex justify-between">
-              <span className="text-[#777]">Manufacturer:</span>
-              <span className="font-semibold text-[#1A1A18]">{batch.factoryName}</span>
+              <span className="text-gray-500">Manufacturer:</span>
+              <span className="font-semibold text-gray-100">{batch.factoryName}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-[#777]">Source Origin:</span>
-              <span className="font-semibold text-[#1A1A18]">{batch.sourceOrigin}</span>
+              <span className="text-gray-500">Source Origin:</span>
+              <span className="font-semibold text-gray-100">{batch.sourceOrigin}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-[#777]">Current Location:</span>
-              <span className="font-semibold text-[#1A1A18]">{batch.warehouseLocation}</span>
+              <span className="text-gray-500">Current Location:</span>
+              <span className="font-semibold text-gray-100">{batch.warehouseLocation}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-[#777]">NABL Lab Assay:</span>
-              <span className="font-mono text-emerald-700 font-semibold">{batch.labReportId || 'Verified'}</span>
+              <span className="text-gray-500">NABL Lab Assay:</span>
+              <span className="font-mono text-emerald-400 font-semibold">{batch.labReportId || 'Verified'}</span>
             </div>
           </div>
 
           {/* Risk & Safety Scores */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-[#555]">Real-time Safety Index</span>
-              <span className="text-xs font-mono font-bold text-[#1A1A18]">{batch.safetyScore} / 100</span>
+              <span className="text-xs font-semibold text-gray-400">Real-time Safety Index</span>
+              <span className="text-xs font-mono font-bold text-gray-100">{batch.safetyScore} / 100</span>
             </div>
             <div className="w-full h-2 bg-[#F0F0EB] rounded-full overflow-hidden">
               <div
@@ -158,14 +158,14 @@ export const FoodDnaView: React.FC<FoodDnaViewProps> = ({
           </div>
 
           {/* Quick Simulation CTA */}
-          <div className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-lg p-4 space-y-2">
+          <div className="bg-[#18181C] border border-[#2A2A30] rounded-lg p-4 space-y-2">
             <span className="text-[10px] font-mono text-[#888] uppercase block">PREDICTIVE ACTION</span>
-            <p className="text-xs text-[#555] leading-relaxed">
+            <p className="text-xs text-gray-400 leading-relaxed">
               Explore 72-hour bacterial degradation trajectory for Batch #{batch.id}.
             </p>
             <button
               onClick={() => onNavigate('forecast')}
-              className="text-xs font-semibold text-[#8F6B00] hover:text-[#725500] flex items-center gap-1 cursor-pointer"
+              className="text-xs font-semibold text-[#8F6B00] hover:text-[#725500] hover:translate-x-1 transition-all duration-300 flex items-center gap-1 cursor-pointer"
             >
               <span>Launch 72h Degradation Forecast</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -173,7 +173,7 @@ export const FoodDnaView: React.FC<FoodDnaViewProps> = ({
           </div>
 
           {/* Blockchain Seal */}
-          <div className="p-3.5 rounded-lg bg-[#FDF9EE] border border-[#EEDBB3] space-y-1.5">
+          <div className="will-animate animate-fade-in delay-300 p-3.5 rounded-lg bg-amber-500/10 border border-amber-500/30 space-y-1.5">
             <div className="flex items-center gap-2">
               <Lock className="w-4 h-4 text-[#8F6B00]" />
               <span className="text-xs font-mono font-bold text-[#8F6B00]">ALGORAND SMART CONTRACT</span>
@@ -185,23 +185,25 @@ export const FoodDnaView: React.FC<FoodDnaViewProps> = ({
 
           {/* AI Trust Panel: Explains AI Predictions, Evidence, and Safe Guardrails */}
           {currentPrediction && (
-            <AITrustPanel prediction={currentPrediction} batch={batch} />
+            <div className="will-animate animate-fade-in delay-300">
+              <AITrustPanel prediction={currentPrediction} batch={batch} />
+            </div>
           )}
         </div>
 
         {/* Right Col: Provenance Timeline & Temperature Journey */}
-        <div className="lg:col-span-8 space-y-6">
+        <div className="lg:col-span-8 will-animate animate-slide-right delay-200 space-y-6">
           {/* Time Machine Degradation Trajectory Box */}
           {currentPrediction?.timeMachine && (
-            <div className="bg-white border border-neutral-300 rounded-xl p-5 shadow-xs space-y-3">
-              <div className="flex items-center justify-between border-b border-neutral-200 pb-2">
+            <div className="bg-[#18181C] border border-[#3A3A42] rounded-xl p-5 shadow-md shadow-black/20 space-y-3">
+              <div className="flex items-center justify-between border-b border-[#2A2A30] pb-2">
                 <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-[#854D0E]" />
-                  <span className="text-xs font-mono font-bold uppercase text-neutral-900">
+                  <Clock className="w-4 h-4 text-amber-400" />
+                  <span className="text-xs font-mono font-bold uppercase text-gray-100">
                     72-Hour Degradation Time-Machine Projection
                   </span>
                 </div>
-                <span className="text-[10px] font-mono font-bold text-[#78350F] bg-amber-100 px-2 py-0.5 rounded border border-amber-200">
+                <span className="text-[10px] font-mono font-bold text-amber-400 bg-amber-900/30 px-2 py-0.5 rounded border border-amber-800/40">
                   Model Estimate — Not a Guaranteed Outcome
                 </span>
               </div>
@@ -220,13 +222,14 @@ export const FoodDnaView: React.FC<FoodDnaViewProps> = ({
                   return (
                     <div
                       key={sIdx}
-                      className={`p-2.5 rounded-lg border text-center font-mono ${
+                      className={`will-animate animate-pop p-2.5 rounded-lg border text-center font-mono ${
                         step.isNow
-                          ? 'border-neutral-900 bg-neutral-900 text-white'
+                          ? 'border-neutral-900 bg-[#0F0F12] text-white'
                           : isHigh
-                          ? 'border-red-300 bg-red-50 text-red-800'
-                          : 'border-neutral-200 bg-[#FAF8F2] text-neutral-800'
+                          ? 'border-red-300 bg-red-900/20 text-red-400'
+                          : 'border-[#2A2A30] bg-[#18181C] text-gray-200'
                       }`}
+                      style={{ animationDelay: `${sIdx * 80}ms` }}
                     >
                       <div className="text-[10px] font-bold">{step.label}</div>
                       <div className="text-lg font-black mt-0.5">{score}</div>
@@ -239,17 +242,17 @@ export const FoodDnaView: React.FC<FoodDnaViewProps> = ({
           )}
 
           {/* Temperature & Humidity Telemetry */}
-          <div className="bg-white border border-[#EBEBE6] rounded-xl p-6 shadow-xs space-y-4">
+          <div className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-serif text-lg font-bold text-[#1A1A18]">
+                <h3 className="font-serif text-lg font-bold text-gray-100">
                   Continuous Cold-Chain Telemetry
                 </h3>
-                <p className="text-xs text-[#777]">
+                <p className="text-xs text-gray-500">
                   Ambient temperature recorded at 15-minute intervals across all custody transfers.
                 </p>
               </div>
-              <span className="text-xs font-mono px-2 py-1 bg-red-50 text-red-700 rounded border border-red-200">
+              <span className="text-xs font-mono px-2 py-1 bg-red-900/20 text-red-400 rounded border border-red-800/40">
                 Peak: {batch.temperatureMax}°C (Limit: 4.0°C)
               </span>
             </div>
@@ -259,19 +262,20 @@ export const FoodDnaView: React.FC<FoodDnaViewProps> = ({
               {batch.journey.map((step, idx) => (
                 <div
                   key={idx}
-                  className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-lg p-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs"
+                  className="will-animate animate-slide-up bg-[#18181C] border border-[#2A2A30] rounded-lg p-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs hover:scale-[1.01] hover:shadow-md transition-all duration-300"
+                  style={{ animationDelay: `${idx * 100 + 300}ms` }}
                 >
                   <div className="space-y-0.5">
                     <div className="flex items-center gap-2">
                       <span className="font-mono font-bold text-[#8F6B00]">{step.stage}</span>
-                      <span className="text-[#777]">•</span>
-                      <span className="font-semibold text-[#1A1A18]">{step.actor}</span>
+                      <span className="text-gray-500">•</span>
+                      <span className="font-semibold text-gray-100">{step.actor}</span>
                     </div>
-                    <p className="text-[#666]">{step.location} • {step.notes}</p>
+                    <p className="text-gray-400">{step.location} • {step.notes}</p>
                   </div>
 
                   <div className="flex items-center gap-3 font-mono shrink-0">
-                    <span className={step.temperature > 6 ? 'text-red-600 font-bold' : 'text-emerald-700 font-bold'}>
+                    <span className={step.temperature > 6 ? 'text-red-600 font-bold' : 'text-emerald-400 font-bold'}>
                       {step.temperature}°C
                     </span>
                     <span className="text-[#888]">{step.timestamp}</span>

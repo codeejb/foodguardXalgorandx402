@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  ShieldAlert,
   Activity,
   Cpu,
   Coins,
@@ -11,10 +10,10 @@ import {
   Bell,
   Layers,
   ChevronDown,
-  User,
   LogOut,
-  Zap,
-  LogIn
+  LogIn,
+  Menu,
+  X
 } from 'lucide-react';
 import { UserRole, UserProfile } from '../types';
 
@@ -66,277 +65,285 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const [roleMenuOpen, setRoleMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
     { id: 'landing', label: 'Overview' },
     { id: 'dashboard', label: 'Command Center' },
     { id: 'food-dna', label: 'Food DNA' },
-    { id: 'forecast', label: 'Time Machine' },
-    { id: 'simulator', label: 'Simulator' },
-    { id: 'investigations', label: 'Investigations' },
-    { id: 'supply-chain', label: 'Supply Graph' },
+    { id: 'forecast', label: 'Forecast' },
     { id: 'anomalies', label: 'Anomalies' },
-    { id: 'inspections', label: 'Inspector AI' },
-    { id: 'vision', label: 'Vision AI' },
+    { id: 'simulator', label: 'Simulator' },
+    { id: 'inspections', label: 'Inspections' },
+    { id: 'investigations', label: 'Investigations' },
     { id: 'labs', label: 'Lab Reports' },
-    { id: 'citizen', label: 'Citizen Network' },
-    { id: 'consumer', label: 'Consumer Scan' },
-    { id: 'blockchain', label: 'Blockchain' },
-    { id: 'x402', label: 'x402 Economy' },
     { id: 'analytics', label: 'Analytics' },
-    { id: 'api-docs', label: 'API Docs' }
+    { id: 'supply-chain', label: 'Supply Chain' },
+    { id: 'blockchain', label: 'Blockchain' },
+    { id: 'citizen', label: 'Citizen' },
+    { id: 'consumer', label: 'Consumer' },
+    { id: 'x402', label: 'x402' }
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-200 shadow-sm">
-      {/* Top Intelligence & Blockchain Ticker Bar with Dark Yellow Accents */}
-      <div className="bg-[#FBF8EF] border-b border-amber-200/70 px-4 lg:px-8 py-1.5 text-xs text-neutral-600 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-4 flex-wrap">
-          <div className="flex items-center gap-2 font-medium">
-            <div className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse"></div>
-            <img src="/foodguardx-logo.png" alt="FoodGuardX" className="h-4 w-auto" />
-            <span className="text-neutral-300">//</span>
-            <span className="font-mono text-[10px] text-[#78350F] bg-[#FEF3C7] px-2 py-0.5 border border-[#FDE68A] tracking-wider uppercase font-bold rounded">
-              PREDICT • PREVENT • TRACE • SIMULATE • ACT
-            </span>
+    <header className="sticky top-0 z-50 animate-slide-down">
+      {/* Status Bar */}
+      <div className="bg-[#0A0A0F]/80 backdrop-blur-xl border-b border-[#1A1A24]">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-2 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 text-xs text-gray-500">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>System Live</span>
+            </div>
+            <div className="hidden md:flex items-center gap-3 text-[10px] font-mono text-gray-500">
+              <span className="flex items-center gap-1">
+                <Cpu className="w-3 h-3 text-amber-400" />
+                Gemini 3.7 Flash
+              </span>
+              <span className="text-gray-700">|</span>
+              <span className="flex items-center gap-1">
+                <Activity className="w-3 h-3 text-emerald-500" />
+                Algorand Testnet
+              </span>
+              <span className="text-gray-700">|</span>
+              <span className="flex items-center gap-1">
+                <Coins className="w-3 h-3 text-amber-400" />
+                x402 Protocol
+              </span>
+            </div>
           </div>
 
-          <div className="hidden md:flex items-center gap-3 text-[10px] font-mono tracking-wider uppercase text-neutral-600">
-            <span className="flex items-center gap-1.5">
-              <Cpu className="w-3 h-3 text-[#A16207]" />
-              AI: <strong className="text-neutral-900">GEMINI 3.7 FLASH</strong>
-            </span>
-            <span className="text-neutral-300">/</span>
-            <span className="flex items-center gap-1.5">
-              <Activity className="w-3 h-3 text-emerald-600" />
-              LEDGER: <strong className="text-neutral-900">ALGORAND TESTNET</strong>
-            </span>
-            <span className="text-neutral-300">/</span>
-            <span className="flex items-center gap-1.5">
-              <Coins className="w-3 h-3 text-[#854D0E]" />
-              PROTOCOL: <strong className="text-neutral-900">x402 M2M USDC</strong>
-            </span>
-          </div>
-        </div>
+          <div className="flex items-center gap-3">
+            {/* IoT Sim Toggle */}
+            <div className="flex items-center gap-2 bg-[#12121A] border border-[#1A1A24] rounded-lg px-3 py-1.5">
+              <span className="text-[10px] font-mono text-gray-500">IoT Sim</span>
+              <button
+                onClick={onToggleSim}
+                className={`px-2 py-0.5 text-[10px] font-bold uppercase rounded flex items-center gap-1 transition-all cursor-pointer ${
+                  simRunning ? 'bg-emerald-500/20 text-emerald-400' : 'bg-[#1A1A24] text-gray-500'
+                }`}
+              >
+                {simRunning ? <Pause className="w-2.5 h-2.5" /> : <Play className="w-2.5 h-2.5" />}
+                {simRunning ? 'Live' : 'Paused'}
+              </button>
+              <button
+                onClick={onResetSim}
+                className="p-1 text-gray-600 hover:text-gray-300 transition-colors cursor-pointer"
+              >
+                <RotateCcw className="w-2.5 h-2.5" />
+              </button>
+            </div>
 
-        {/* Live Simulation Controls & Canonical Walkthrough */}
-        <div className="flex items-center gap-2">
-          {/* Live Simulator Ticker Button */}
-          <div className="flex items-center bg-white border border-neutral-300 rounded px-2 py-0.5 shadow-2xs">
-            <span className="text-[10px] font-mono text-neutral-500 mr-2 tracking-wider font-semibold">IoT SIM:</span>
+            {/* Canonical Demo */}
             <button
-              onClick={onToggleSim}
-              className={`px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase rounded flex items-center gap-1 transition-colors cursor-pointer ${
-                simRunning ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-neutral-100 text-neutral-600'
-              }`}
-              title="Toggle Live IoT Simulation Engine"
+              onClick={onOpenCanonicalModal}
+              className="hidden sm:flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-[#0A0A0F] px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer hover:shadow-lg hover:shadow-amber-500/20"
             >
-              {simRunning ? <Pause className="w-2.5 h-2.5" /> : <Play className="w-2.5 h-2.5" />}
-              {simRunning ? 'STREAMING' : 'PAUSED'}
-            </button>
-            <button
-              onClick={onResetSim}
-              className="p-1 text-neutral-400 hover:text-neutral-800 ml-1 cursor-pointer transition-colors"
-              title="Reset Simulation State"
-            >
-              <RotateCcw className="w-2.5 h-2.5" />
+              <Sparkles className="w-3 h-3" />
+              <span>Demo</span>
             </button>
           </div>
-
-          {/* Canonical Story Modal Trigger */}
-          <button
-            onClick={onOpenCanonicalModal}
-            className="bg-[#854D0E] hover:bg-[#A16207] text-white px-3 py-1 rounded text-[10px] font-black tracking-widest uppercase flex items-center gap-1.5 transition-all cursor-pointer shadow-xs"
-          >
-            <Sparkles className="w-3 h-3 text-yellow-300" />
-            <span>CANONICAL DEMO (BATCH M492)</span>
-          </button>
         </div>
       </div>
 
-      {/* Main Navbar */}
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 py-3 flex items-center justify-between gap-4">
-        {/* Brand */}
-        <div
-          onClick={() => onNavigate('landing')}
-          className="flex items-center gap-3 cursor-pointer group shrink-0"
-        >
-          <img src="/foodguardx-logo.png" alt="FoodGuardX" className="h-10 w-auto" />
-        </div>
-
-        {/* Scrollable Nav Items */}
-        <nav className="hidden lg:flex items-center gap-1 overflow-x-auto py-1 max-w-[48vw]">
-          {navItems.map((item) => {
-            const isActive = currentView === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => onNavigate(item.id)}
-                className={`px-2.5 py-1.5 rounded text-[11px] font-bold uppercase tracking-wider whitespace-nowrap transition-all cursor-pointer ${
-                  isActive
-                    ? 'bg-[#FEF3C7] text-[#78350F] border border-[#FDE68A] shadow-2xs font-extrabold'
-                    : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'
-                }`}
-              >
-                {item.label}
-              </button>
-            );
-          })}
-        </nav>
-
-        {/* Right Controls */}
-        <div className="flex items-center gap-2 shrink-0">
-          {/* PAY WITH ALGO BUTTON */}
-          <button
-            onClick={onOpenPayWithAlgo}
-            className="flex items-center gap-1.5 bg-[#854D0E] hover:bg-[#A16207] text-white border border-[#78350F] px-3 py-1.5 rounded text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer shadow-xs hover:shadow"
-            title="Settle x402 Micropayments with Algorand"
+      {/* Main Nav */}
+      <div className="bg-[#0A0A0F]/90 backdrop-blur-xl border-b border-[#1A1A24]">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-3 flex items-center justify-between gap-6">
+          {/* Brand */}
+          <div
+            onClick={() => onNavigate('landing')}
+            className="flex items-center gap-3 cursor-pointer shrink-0 group"
           >
-            <Coins className="w-3.5 h-3.5 text-yellow-300" />
-            <span className="font-mono">Pay with ALGO</span>
-          </button>
-
-          {/* Ask AI Copilot Button */}
-          <button
-            onClick={onOpenCopilot}
-            className="hidden sm:flex items-center gap-1.5 bg-neutral-100 hover:bg-neutral-200 text-neutral-800 border border-neutral-300 px-3 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider transition-colors cursor-pointer"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-[#854D0E]" />
-            <span>AI Copilot</span>
-          </button>
-
-          {/* Role Switcher */}
-          <div className="relative">
-            <button
-              onClick={() => setRoleMenuOpen(!roleMenuOpen)}
-              className="flex items-center gap-1.5 bg-neutral-50 hover:bg-neutral-100 text-neutral-800 border border-neutral-300 px-2.5 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider transition-colors cursor-pointer"
-            >
-              <Layers className="w-3.5 h-3.5 text-[#854D0E]" />
-              <span className="hidden md:inline max-w-[110px] truncate">
-                {ROLES.find((r) => r.id === selectedRole)?.label}
+            <div className="relative">
+              <img src="/foodguardx-logo.png" alt="FoodGuardX" className="h-9 w-auto transition-transform duration-300 group-hover:scale-105" />
+              <div className="absolute inset-0 bg-amber-500/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            </div>
+            <div className="hidden sm:block">
+              <span className="font-display font-bold text-base text-gray-100 tracking-tight">
+                FoodGuard<span className="text-amber-400">X</span>
               </span>
-              <ChevronDown className="w-3 h-3 text-neutral-500" />
-            </button>
-
-            {roleMenuOpen && (
-              <div className="absolute right-0 mt-1.5 w-60 bg-white border border-neutral-300 rounded-lg shadow-xl py-1 z-50 text-xs animate-in fade-in slide-in-from-top-2 duration-150">
-                <div className="px-3 py-1.5 font-bold text-[9px] text-neutral-500 uppercase tracking-[0.2em] border-b border-neutral-200 bg-neutral-50">
-                  Select Operating Role
-                </div>
-                {ROLES.map((r) => (
-                  <button
-                    key={r.id}
-                    onClick={() => {
-                      onRoleChange(r.id);
-                      setRoleMenuOpen(false);
-                    }}
-                    className={`w-full text-left px-3 py-2 flex items-center justify-between hover:bg-neutral-100 transition-colors uppercase text-[11px] font-semibold tracking-wider ${
-                      selectedRole === r.id ? 'font-bold text-[#854D0E] bg-[#FEF3C7] border-l-3 border-[#854D0E]' : 'text-neutral-700'
-                    }`}
-                  >
-                    <span>{r.label}</span>
-                    {selectedRole === r.id && <span className="w-1.5 h-1.5 rounded-full bg-[#854D0E]" />}
-                  </button>
-                ))}
-              </div>
-            )}
+              <span className="block text-[9px] text-gray-500 font-mono tracking-wider uppercase">
+                AI Safety Intelligence
+              </span>
+            </div>
           </div>
 
-          {/* SIGN IN / USER PROFILE BUTTON */}
-          {user ? (
+          {/* Nav Items */}
+          <nav className="hidden lg:flex items-center gap-1 overflow-x-auto scrollbar-hide flex-1 min-w-0">
+            {navItems.map((item, idx) => {
+              const isActive = currentView === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => onNavigate(item.id)}
+                  className={`px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer will-animate animate-fade-in ${
+                    isActive
+                      ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
+                      : 'text-gray-400 hover:text-gray-200 hover:bg-[#1A1A24]'
+                  }`}
+                  style={{ animationDelay: `${idx * 50}ms` }}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
+          </nav>
+
+          {/* Right Controls */}
+          <div className="flex items-center gap-2 shrink-0">
+            {/* Pay with ALGO */}
+            <button
+              onClick={onOpenPayWithAlgo}
+              className="hidden md:flex items-center gap-1.5 bg-[#12121A] hover:bg-[#1A1A24] text-amber-400 border border-[#2A2A35] hover:border-amber-500/40 px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer"
+            >
+              <Coins className="w-3.5 h-3.5" />
+              <span className="font-mono">ALGO</span>
+            </button>
+
+            {/* AI Copilot */}
+            <button
+              onClick={onOpenCopilot}
+              className="hidden md:flex items-center gap-1.5 bg-[#12121A] hover:bg-[#1A1A24] text-gray-300 border border-[#1A1A24] hover:border-[#2A2A35] px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span>AI Copilot</span>
+            </button>
+
+            {/* Role Switcher */}
             <div className="relative">
               <button
-                onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="flex items-center gap-1.5 bg-[#FEF3C7] border border-[#FDE68A] hover:bg-[#FDE68A] text-[#78350F] px-2.5 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                onClick={() => setRoleMenuOpen(!roleMenuOpen)}
+                className="flex items-center gap-1.5 bg-[#12121A] hover:bg-[#1A1A24] text-gray-300 border border-[#1A1A24] hover:border-[#2A2A35] px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer"
               >
-                <div className="w-4 h-4 rounded-full bg-[#854D0E] text-white flex items-center justify-center text-[9px] font-bold">
-                  {user.name.charAt(0)}
-                </div>
-                <span className="max-w-[85px] truncate font-mono">{user.name.split(' ')[0]}</span>
-                <ChevronDown className="w-3 h-3 text-[#854D0E]" />
+                <Layers className="w-3.5 h-3.5 text-amber-400" />
+                <span className="hidden md:inline max-w-[100px] truncate">
+                  {ROLES.find((r) => r.id === selectedRole)?.label}
+                </span>
+                <ChevronDown className="w-3 h-3 text-gray-500" />
               </button>
 
-              {userMenuOpen && (
-                <div className="absolute right-0 mt-1.5 w-64 bg-white border border-neutral-300 rounded-lg shadow-xl py-2 z-50 text-xs animate-in fade-in slide-in-from-top-2 duration-150">
-                  <div className="px-3 py-2 border-b border-neutral-200 bg-[#FBF8EF]">
-                    <div className="font-bold text-neutral-900 truncate">{user.name}</div>
-                    <div className="text-[10px] font-mono text-neutral-500 truncate">
-                      {user.email || user.phoneNumber}
-                    </div>
-                    <div className="flex items-center justify-between text-[9px] font-mono mt-1 text-[#854D0E] font-bold">
-                      <span>WALLET: {user.algoWalletAddress?.slice(0, 6)}...</span>
-                      <span>{user.algoBalance?.toFixed(2)} ALGO</span>
-                    </div>
+              {roleMenuOpen && (
+                <div className="absolute right-0 mt-2 w-56 bg-[#12121A] border border-[#2A2A35] rounded-xl shadow-2xl shadow-black/50 py-1.5 z-50 animate-pop">
+                  <div className="px-3 py-2 text-[10px] font-semibold text-gray-500 uppercase tracking-wider border-b border-[#1A1A24]">
+                    Select Role
                   </div>
-
-                  <div className="py-1">
+                  {ROLES.map((r) => (
                     <button
+                      key={r.id}
                       onClick={() => {
-                        onOpenPayWithAlgo();
-                        setUserMenuOpen(false);
+                        onRoleChange(r.id);
+                        setRoleMenuOpen(false);
                       }}
-                      className="w-full text-left px-3 py-1.5 hover:bg-neutral-100 flex items-center gap-2 text-neutral-700 text-[11px] font-mono cursor-pointer"
+                      className={`w-full text-left px-3 py-2.5 flex items-center justify-between hover:bg-[#1A1A24] transition-colors text-xs font-medium ${
+                        selectedRole === r.id ? 'text-amber-400 bg-amber-500/10' : 'text-gray-300'
+                      }`}
                     >
-                      <Coins className="w-3.5 h-3.5 text-[#854D0E]" />
-                      <span>Manage Algorand Wallet</span>
+                      <span>{r.label}</span>
+                      {selectedRole === r.id && <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>}
                     </button>
-                    <button
-                      onClick={() => {
-                        onSignOut();
-                        setUserMenuOpen(false);
-                      }}
-                      className="w-full text-left px-3 py-1.5 hover:bg-red-50 text-red-700 flex items-center gap-2 text-[11px] font-mono cursor-pointer"
-                    >
-                      <LogOut className="w-3.5 h-3.5" />
-                      <span>Sign Out</span>
-                    </button>
-                  </div>
+                  ))}
                 </div>
               )}
             </div>
-          ) : (
-            <button
-              onClick={onOpenAuthModal}
-              className="flex items-center gap-1.5 bg-white hover:bg-neutral-50 text-neutral-900 border-2 border-neutral-300 hover:border-[#854D0E] px-3 py-1.5 rounded text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer shadow-2xs"
-            >
-              <LogIn className="w-3.5 h-3.5 text-[#854D0E]" />
-              <span>Sign In</span>
-            </button>
-          )}
 
-          {/* Notifications Trigger */}
-          <button
-            onClick={onOpenNotifications}
-            className="relative p-2 rounded hover:bg-neutral-100 text-neutral-600 hover:text-neutral-900 border border-neutral-300 transition-colors cursor-pointer"
-            title="Notification Center"
-          >
-            <Bell className="w-4 h-4" />
-            {unreadCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-red-600 text-white font-mono text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
-                {unreadCount}
-              </span>
+            {/* User / Sign In */}
+            {user ? (
+              <div className="relative">
+                <button
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}
+                  className="flex items-center gap-2 bg-[#12121A] border border-[#1A1A24] hover:border-amber-500/40 px-3 py-2 rounded-lg text-xs font-medium text-gray-300 transition-all cursor-pointer"
+                >
+                  <div className="w-6 h-6 rounded-full bg-amber-500 text-[#0A0A0F] flex items-center justify-center text-[10px] font-bold">
+                    {user.name.charAt(0)}
+                  </div>
+                  <span className="hidden md:inline max-w-[80px] truncate">{user.name.split(' ')[0]}</span>
+                  <ChevronDown className="w-3 h-3 text-gray-500" />
+                </button>
+
+                {userMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-[#12121A] border border-[#2A2A35] rounded-xl shadow-2xl shadow-black/50 py-2 z-50 animate-pop">
+                    <div className="px-3 py-2 border-b border-[#1A1A24]">
+                      <div className="font-semibold text-gray-100 text-sm">{user.name}</div>
+                      <div className="text-[11px] text-gray-500 font-mono">{user.email || user.phoneNumber}</div>
+                      <div className="flex items-center justify-between text-[10px] font-mono mt-2 text-amber-400">
+                        <span>{user.algoWalletAddress?.slice(0, 6)}...</span>
+                        <span>{user.algoBalance?.toFixed(2)} ALGO</span>
+                      </div>
+                    </div>
+                    <div className="py-1">
+                      <button
+                        onClick={() => { onOpenPayWithAlgo(); setUserMenuOpen(false); }}
+                        className="w-full text-left px-3 py-2 hover:bg-[#1A1A24] flex items-center gap-2 text-gray-300 text-xs cursor-pointer"
+                      >
+                        <Coins className="w-3.5 h-3.5 text-amber-400" />
+                        <span>Manage Wallet</span>
+                      </button>
+                      <button
+                        onClick={() => { onSignOut(); setUserMenuOpen(false); }}
+                        className="w-full text-left px-3 py-2 hover:bg-red-500/10 flex items-center gap-2 text-red-400 text-xs cursor-pointer"
+                      >
+                        <LogOut className="w-3.5 h-3.5" />
+                        <span>Sign Out</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button
+                onClick={onOpenAuthModal}
+                className="flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-[#0A0A0F] px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer hover:shadow-lg hover:shadow-amber-500/20"
+              >
+                <LogIn className="w-3.5 h-3.5" />
+                <span>Sign In</span>
+              </button>
             )}
-          </button>
+
+            {/* Notifications */}
+            <button
+              onClick={onOpenNotifications}
+              className="relative p-2 rounded-lg hover:bg-[#1A1A24] text-gray-400 hover:text-gray-200 transition-all cursor-pointer"
+            >
+              <Bell className="w-5 h-5" />
+              {unreadCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 bg-amber-500 text-[#0A0A0F] text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center animate-pop">
+                  {unreadCount}
+                </span>
+              )}
+            </button>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden p-2 rounded-lg hover:bg-[#1A1A24] text-gray-400 transition-colors cursor-pointer"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Nav Bar */}
-      <div className="lg:hidden flex items-center gap-1 overflow-x-auto px-4 py-2 border-t border-neutral-200 bg-[#FAFAF8] scrollbar-none">
-        {navItems.map((item) => {
-          const isActive = currentView === item.id;
-          return (
-            <button
-              key={item.id}
-              onClick={() => onNavigate(item.id)}
-              className={`px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider whitespace-nowrap ${
-                isActive ? 'bg-[#854D0E] text-white' : 'text-neutral-600 hover:bg-neutral-200'
-              }`}
-            >
-              {item.label}
-            </button>
-          );
-        })}
-      </div>
+      {/* Mobile Nav */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden bg-[#0A0A0F] border-b border-[#1A1A24] animate-slide-down">
+          <div className="px-4 py-3 flex flex-wrap gap-2">
+            {navItems.map((item) => {
+              const isActive = currentView === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => { onNavigate(item.id); setMobileMenuOpen(false); }}
+                  className={`px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                    isActive ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30' : 'text-gray-400 hover:bg-[#1A1A24]'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </header>
   );
 };

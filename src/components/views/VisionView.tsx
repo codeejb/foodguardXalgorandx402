@@ -80,28 +80,28 @@ export const VisionView: React.FC<VisionViewProps> = ({
   const getVerdictBadge = (verdict: string) => {
     switch (verdict) {
       case 'SAFE':
-        return 'bg-emerald-50 text-emerald-800 border-emerald-200';
+        return 'bg-emerald-900/20 text-emerald-400 border-emerald-800/40';
       case 'SUSPICIOUS':
-        return 'bg-amber-50 text-amber-800 border-amber-200';
+        return 'bg-amber-900/20 text-amber-400 border-amber-800/40';
       case 'CRITICAL_DEFECT':
       case 'TAMPERED':
-        return 'bg-red-50 text-red-700 border-red-200';
+        return 'bg-red-900/20 text-red-400 border-red-800/40';
       default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
+        return 'bg-[#252529] text-gray-200 border-[#2A2A30]';
     }
   };
 
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 space-y-8">
       {/* Header */}
-      <div className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-xl p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-white border border-[#EBEBE6] text-xs font-mono font-medium text-[#8F6B00] mb-2">
+          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-[#18181C] border border-[#2A2A30] text-xs font-mono font-medium text-[#8F6B00] mb-2">
             <span>MULTIMODAL AI VISION: /vision</span>
             <span>•</span>
-            <span className="text-[#1A1A18]">GEMINI 3.7 FLASH OPTICAL INSPECTOR</span>
+            <span className="text-gray-100">GEMINI 3.7 FLASH OPTICAL INSPECTOR</span>
           </div>
-          <h1 className="font-serif text-3xl font-bold tracking-tight text-[#1A1A18]">
+          <h1 className="font-serif text-3xl font-bold tracking-tight text-gray-100">
             AI Vision Quality Inspector
           </h1>
           <p className="text-xs sm:text-sm text-[#666660] font-sans mt-1">
@@ -111,7 +111,7 @@ export const VisionView: React.FC<VisionViewProps> = ({
 
         <button
           onClick={onOpenCanonicalModal}
-          className="bg-[#1A1A18] hover:bg-[#8F6B00] text-white px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-colors cursor-pointer shadow-2xs"
+          className="bg-[#18181C] hover:bg-amber-600 text-white px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-colors cursor-pointer shadow-lg shadow-black/30"
         >
           <Sparkles className="w-4 h-4 text-[#C49200]" />
           <span>Walkthrough M492 Vision Anomaly</span>
@@ -122,7 +122,7 @@ export const VisionView: React.FC<VisionViewProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Col: Sample Library */}
         <div className="lg:col-span-5 space-y-4">
-          <h3 className="font-serif text-base font-bold text-[#1A1A18]">
+          <h3 className="font-serif text-base font-bold text-gray-100">
             Select Inspection Sample
           </h3>
 
@@ -135,8 +135,8 @@ export const VisionView: React.FC<VisionViewProps> = ({
                   onClick={() => handleRunInspection(sample)}
                   className={`p-4 rounded-xl border transition-all cursor-pointer flex gap-3 ${
                     isSelected
-                      ? 'bg-white border-[#8F6B00] shadow-md ring-2 ring-[#8F6B00]/10'
-                      : 'bg-[#FAFAF7] hover:bg-white border-[#EBEBE6]'
+                      ? 'bg-[#18181C] border-[#8F6B00] shadow-md ring-2 ring-[#8F6B00]/10'
+                      : 'bg-[#18181C] hover:bg-[#18181C] border-[#2A2A30]'
                   }`}
                 >
                   <img
@@ -149,10 +149,10 @@ export const VisionView: React.FC<VisionViewProps> = ({
                     <span className="font-mono text-[10px] text-[#8F6B00] uppercase font-bold block">
                       {sample.category}
                     </span>
-                    <h4 className="font-serif text-xs font-bold text-[#1A1A18] truncate">
+                    <h4 className="font-serif text-xs font-bold text-gray-100 truncate">
                       {sample.title}
                     </h4>
-                    <p className="text-[11px] text-[#666] line-clamp-2 mt-0.5 leading-relaxed">
+                    <p className="text-[11px] text-gray-400 line-clamp-2 mt-0.5 leading-relaxed">
                       {sample.description}
                     </p>
                   </div>
@@ -163,13 +163,13 @@ export const VisionView: React.FC<VisionViewProps> = ({
         </div>
 
         {/* Right Col: Optical Forensic Report */}
-        <div className="lg:col-span-7 bg-white border border-[#EBEBE6] rounded-xl p-6 shadow-xs space-y-6">
+        <div className="lg:col-span-7 bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 space-y-6">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#F0F0EB] pb-4">
             <div>
               <span className="font-mono text-xs font-bold text-[#8F6B00]">
                 OPTICAL ANALYSIS DOSSIER
               </span>
-              <h2 className="font-serif text-2xl font-bold text-[#1A1A18]">
+              <h2 className="font-serif text-2xl font-bold text-gray-100">
                 {selectedSample.title}
               </h2>
             </div>
@@ -179,7 +179,7 @@ export const VisionView: React.FC<VisionViewProps> = ({
           </div>
 
           {/* Image Canvas Preview with Bounding Box Overlay */}
-          <div className="relative rounded-xl overflow-hidden border border-[#EBEBE6] bg-[#FAFAF7] h-56 flex items-center justify-center">
+          <div className="relative rounded-xl overflow-hidden border border-[#2A2A30] bg-[#18181C] h-56 flex items-center justify-center">
             <img
               src={selectedSample.imageUrl}
               alt="Optical inspection target"
@@ -187,7 +187,7 @@ export const VisionView: React.FC<VisionViewProps> = ({
               className="w-full h-full object-cover"
             />
             {/* Visual Bounding Box Overlay */}
-            <div className="absolute inset-8 border-2 border-red-500 rounded bg-red-500/10 pointer-events-none flex items-start justify-between p-2">
+            <div className="absolute inset-8 border-2 border-red-500 rounded bg-red-900/200/10 pointer-events-none flex items-start justify-between p-2">
               <span className="bg-red-600 text-white font-mono text-[10px] font-bold px-1.5 py-0.5 rounded">
                 ANOMALY DETECTED: {result.verdict}
               </span>
@@ -198,8 +198,8 @@ export const VisionView: React.FC<VisionViewProps> = ({
           </div>
 
           {/* Primary Optical Finding */}
-          <div className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-xl p-4 space-y-1.5">
-            <span className="text-[10px] font-mono text-[#1A1A18] uppercase font-semibold flex items-center gap-1.5">
+          <div className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-4 space-y-1.5">
+            <span className="text-[10px] font-mono text-gray-100 uppercase font-semibold flex items-center gap-1.5">
               <Cpu className="w-3.5 h-3.5 text-[#8F6B00]" />
               <span>PRIMARY OPTICAL FINDING</span>
             </span>
@@ -210,12 +210,12 @@ export const VisionView: React.FC<VisionViewProps> = ({
 
           {/* Evidence Breakdown */}
           <div className="space-y-2">
-            <h4 className="font-serif text-sm font-bold text-[#1A1A18]">
+            <h4 className="font-serif text-sm font-bold text-gray-100">
               Corroborating Optical Evidence
             </h4>
-            <ul className="space-y-1.5 text-xs text-[#555]">
+            <ul className="space-y-1.5 text-xs text-gray-400">
               {result.evidence.map((ev, idx) => (
-                <li key={idx} className="flex items-start gap-2 bg-[#FAFAF7] p-2.5 rounded border border-[#EBEBE6]">
+                <li key={idx} className="flex items-start gap-2 bg-[#18181C] p-2.5 rounded border border-[#2A2A30]">
                   <CheckCircle2 className="w-4 h-4 text-[#8F6B00] shrink-0 mt-0.5" />
                   <span className="leading-relaxed">{ev}</span>
                 </li>
@@ -224,7 +224,7 @@ export const VisionView: React.FC<VisionViewProps> = ({
           </div>
 
           {/* Statutory Recommendation */}
-          <div className="bg-[#FDF9EE] border border-[#EEDBB3] rounded-xl p-4 space-y-1">
+          <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 space-y-1">
             <span className="text-[10px] font-mono text-[#8F6B00] uppercase font-bold block">
               FSSAI COMPLIANCE DIRECTIVE: {result.fssaiCompliance}
             </span>

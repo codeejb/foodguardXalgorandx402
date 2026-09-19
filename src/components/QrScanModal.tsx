@@ -109,27 +109,27 @@ export const QrScanModal: React.FC<QrScanModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
       <div
-        className="bg-white border-2 border-amber-300 rounded-2xl w-full max-w-xl overflow-hidden shadow-2xl transition-all"
+        className="bg-[#18181C] border-2 border-amber-600/50 rounded-2xl w-full max-w-xl overflow-hidden shadow-2xl transition-all"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-[#FAF8F2] border-b border-amber-200 px-6 py-4 flex items-center justify-between">
+        <div className="bg-[#18181C] border-b border-amber-800/40 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center text-[#854D0E]">
+            <div className="w-8 h-8 rounded-lg bg-amber-900/20 border border-amber-500/30 flex items-center justify-center text-amber-400">
               <QrCode className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="font-display font-black text-base text-neutral-900 uppercase tracking-tight">
+              <h2 className="font-display font-black text-base text-gray-100 uppercase tracking-tight">
                 SCAN FOOD QR PASSPORT
               </h2>
-              <p className="font-mono text-[10px] text-neutral-500 uppercase tracking-wider">
+              <p className="font-mono text-[10px] text-gray-500 uppercase tracking-wider">
                 Direct Pipeline: QR → Batch_ID → XGBoost → SHAP → Food DNA
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="text-neutral-400 hover:text-neutral-700 p-1.5 rounded-lg hover:bg-neutral-100 transition-colors cursor-pointer"
+            className="text-gray-500 hover:text-gray-300 p-1.5 rounded-lg hover:bg-[#252529] transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -151,7 +151,7 @@ export const QrScanModal: React.FC<QrScanModalProps> = ({
                   <div className="font-mono text-xs font-bold text-amber-200 uppercase tracking-wider">
                     OPTICAL QR SCANNER ACTIVE
                   </div>
-                  <p className="font-mono text-[11px] text-neutral-400 max-w-xs">
+                  <p className="font-mono text-[11px] text-gray-500 max-w-xs">
                     Align container QR code or select a verified batch passport below to trigger instant XGBoost inference.
                   </p>
                 </div>
@@ -165,9 +165,9 @@ export const QrScanModal: React.FC<QrScanModalProps> = ({
 
               {/* Verified Batch QR Presets */}
               <div className="space-y-2.5">
-                <div className="flex items-center justify-between text-xs font-mono text-neutral-500 uppercase tracking-wider font-semibold">
+                <div className="flex items-center justify-between text-xs font-mono text-gray-500 uppercase tracking-wider font-semibold">
                   <span>SELECT TEST FOOD BATCH QR:</span>
-                  <span className="text-[#854D0E] font-bold">5 PASSPORTS READY</span>
+                  <span className="text-amber-400 font-bold">5 PASSPORTS READY</span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -175,28 +175,28 @@ export const QrScanModal: React.FC<QrScanModalProps> = ({
                     <button
                       key={p.id}
                       onClick={() => handleStartScan(p.id)}
-                      className="text-left p-3 rounded-xl border border-neutral-200 hover:border-[#854D0E] hover:bg-[#FEF9C3]/40 bg-[#FAF8F2] transition-all cursor-pointer group shadow-2xs"
+                      className="text-left p-3 rounded-xl border border-[#2A2A30] hover:border-amber-600 hover:bg-[#FEF9C3]/40 bg-[#18181C] transition-all cursor-pointer group shadow-lg shadow-black/30"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="font-mono font-black text-xs text-neutral-900 group-hover:text-[#854D0E]">
+                        <span className="font-mono font-black text-xs text-gray-100 group-hover:text-amber-400">
                           #{p.id}
                         </span>
                         <span
                           className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded uppercase tracking-wider ${
                             p.level === 'CRITICAL'
-                              ? 'bg-red-100 text-red-800 border border-red-200'
+                              ? 'bg-red-100 text-red-400 border border-red-800/40'
                               : p.level === 'HIGH'
-                              ? 'bg-amber-100 text-[#78350F] border border-[#FDE68A]'
-                              : 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                              ? 'bg-amber-900/30 text-amber-400 border border-amber-500/30'
+                              : 'bg-emerald-900/30 text-emerald-400 border border-emerald-800/40'
                           }`}
                         >
                           {p.level} RISK
                         </span>
                       </div>
-                      <div className="text-xs font-bold text-neutral-800 mt-1 truncate">
+                      <div className="text-xs font-bold text-gray-200 mt-1 truncate">
                         {p.name}
                       </div>
-                      <div className="font-mono text-[10px] text-neutral-500 mt-0.5 truncate">
+                      <div className="font-mono text-[10px] text-gray-500 mt-0.5 truncate">
                         {p.note}
                       </div>
                     </button>
@@ -208,24 +208,24 @@ export const QrScanModal: React.FC<QrScanModalProps> = ({
 
           {activeStep === 'processing' && (
             <div className="py-8 px-4 space-y-5 text-center">
-              <div className="w-16 h-16 mx-auto rounded-full bg-[#FEF3C7] border-2 border-[#FDE68A] flex items-center justify-center text-[#854D0E]">
-                <Cpu className="w-8 h-8 animate-spin text-[#854D0E]" />
+              <div className="w-16 h-16 mx-auto rounded-full bg-amber-900/20 border-2 border-amber-500/30 flex items-center justify-center text-amber-400">
+                <Cpu className="w-8 h-8 animate-spin text-amber-400" />
               </div>
 
               <div>
-                <h3 className="font-display font-black text-lg uppercase tracking-tight text-neutral-900">
+                <h3 className="font-display font-black text-lg uppercase tracking-tight text-gray-100">
                   EXECUTING XGBOOST INFERENCE PIPELINE
                 </h3>
-                <p className="font-mono text-xs text-neutral-600 mt-1">
-                  Batch <strong className="text-neutral-900 font-bold">#{selectedId}</strong> • FOODGUARD-XGBoost-Risk Engine
+                <p className="font-mono text-xs text-gray-400 mt-1">
+                  Batch <strong className="text-gray-100 font-bold">#{selectedId}</strong> • FOODGUARD-XGBoost-Risk Engine
                 </p>
               </div>
 
               {/* Real-time telemetry log terminal */}
-              <div className="bg-neutral-950 text-left text-neutral-300 font-mono text-xs p-4 rounded-xl space-y-1.5 border border-neutral-800 shadow-inner min-h-[140px]">
+              <div className="bg-neutral-950 text-left text-gray-600 font-mono text-xs p-4 rounded-xl space-y-1.5 border border-neutral-800 shadow-inner min-h-[140px]">
                 {pipelineLogs.map((log, idx) => (
                   <div key={idx} className="flex items-center gap-2 text-emerald-400">
-                    <span className="text-neutral-600 text-[10px]">➜</span>
+                    <span className="text-gray-400 text-[10px]">➜</span>
                     <span>{log}</span>
                   </div>
                 ))}
@@ -235,40 +235,40 @@ export const QrScanModal: React.FC<QrScanModalProps> = ({
 
           {activeStep === 'ready' && (
             <div className="py-6 px-4 space-y-6 text-center">
-              <div className="w-16 h-16 mx-auto rounded-full bg-emerald-100 border-2 border-emerald-300 flex items-center justify-center text-emerald-700 shadow-xs">
+              <div className="w-16 h-16 mx-auto rounded-full bg-emerald-900/30 border-2 border-emerald-600 flex items-center justify-center text-emerald-400 shadow-md shadow-black/20">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
 
               <div className="space-y-1.5">
-                <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2.5 py-0.5 border border-emerald-200 uppercase font-bold rounded-full">
+                <span className="text-[10px] font-mono text-emerald-400 bg-emerald-900/20 px-2.5 py-0.5 border border-emerald-800/40 uppercase font-bold rounded-full">
                   XGBOOST PREDICTION COMPLETE
                 </span>
-                <h3 className="font-display font-black text-2xl uppercase tracking-tight text-neutral-900">
+                <h3 className="font-display font-black text-2xl uppercase tracking-tight text-gray-100">
                   Batch #{selectedId} Identified
                 </h3>
-                <p className="font-mono text-xs text-neutral-600 max-w-md mx-auto">
+                <p className="font-mono text-xs text-gray-400 max-w-md mx-auto">
                   SHAP feature contributions, bacterial kinetic doubling curves, and complete digital provenance are now loaded into Batch Intelligence.
                 </p>
               </div>
 
-              <div className="bg-[#FAF8F2] border border-amber-200 rounded-xl p-4 text-left font-mono text-xs space-y-2">
-                <div className="flex justify-between border-b border-neutral-200 pb-1.5">
-                  <span className="text-neutral-500">Core Engine:</span>
-                  <strong className="text-neutral-900 font-bold">FOODGUARD-XGBoost-Risk (v1.0-demo)</strong>
+              <div className="bg-[#18181C] border border-amber-800/40 rounded-xl p-4 text-left font-mono text-xs space-y-2">
+                <div className="flex justify-between border-b border-[#2A2A30] pb-1.5">
+                  <span className="text-gray-500">Core Engine:</span>
+                  <strong className="text-gray-100 font-bold">FOODGUARD-XGBoost-Risk (v1.0-demo)</strong>
                 </div>
-                <div className="flex justify-between border-b border-neutral-200 pb-1.5">
-                  <span className="text-neutral-500">Explainability:</span>
-                  <strong className="text-[#854D0E] font-bold">TreeSHAP Local Feature Attribution</strong>
+                <div className="flex justify-between border-b border-[#2A2A30] pb-1.5">
+                  <span className="text-gray-500">Explainability:</span>
+                  <strong className="text-amber-400 font-bold">TreeSHAP Local Feature Attribution</strong>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-neutral-500">Destination:</span>
-                  <strong className="text-neutral-900 font-bold">Batch Intelligence & Digital Food DNA</strong>
+                  <span className="text-gray-500">Destination:</span>
+                  <strong className="text-gray-100 font-bold">Batch Intelligence & Digital Food DNA</strong>
                 </div>
               </div>
 
               <button
                 onClick={handleOpenBatchIntelligence}
-                className="w-full bg-[#854D0E] hover:bg-[#A16207] text-white p-4 rounded-xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer"
+                className="w-full bg-amber-500 hover:bg-amber-400 text-white p-4 rounded-xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer"
               >
                 <span>OPEN BATCH INTELLIGENCE</span>
                 <ArrowRight className="w-4 h-4" />

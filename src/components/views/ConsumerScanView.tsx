@@ -29,14 +29,14 @@ export const ConsumerScanView: React.FC<ConsumerScanViewProps> = ({
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 space-y-8">
       {/* Header */}
-      <div className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-xl p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-white border border-[#EBEBE6] text-xs font-mono font-medium text-[#8F6B00] mb-2">
+          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-[#18181C] border border-[#2A2A30] text-xs font-mono font-medium text-[#8F6B00] mb-2">
             <span>PUBLIC SAFETY PORTAL: /consumer</span>
             <span>•</span>
-            <span className="text-[#1A1A18]">INSTANT CONSUMER VERIFICATION</span>
+            <span className="text-gray-100">INSTANT CONSUMER VERIFICATION</span>
           </div>
-          <h1 className="font-serif text-3xl font-bold tracking-tight text-[#1A1A18]">
+          <h1 className="font-serif text-3xl font-bold tracking-tight text-gray-100">
             Consumer QR Food Safety Scanner
           </h1>
           <p className="text-xs sm:text-sm text-[#666660] font-sans mt-1">
@@ -52,8 +52,8 @@ export const ConsumerScanView: React.FC<ConsumerScanViewProps> = ({
               onClick={() => setScannedBatchId(b.id)}
               className={`px-3 py-2 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer ${
                 scannedBatchId === b.id
-                  ? 'bg-[#1A1A18] text-white shadow-xs'
-                  : 'bg-white hover:bg-[#F0F0EB] text-[#444] border border-[#DDDCD6]'
+                  ? 'bg-[#18181C] text-white shadow-md shadow-black/20'
+                  : 'bg-[#18181C] hover:bg-[#F0F0EB] text-gray-400 border border-[#2A2A30]'
               }`}
             >
               Scan #{b.id}
@@ -63,13 +63,13 @@ export const ConsumerScanView: React.FC<ConsumerScanViewProps> = ({
       </div>
 
       {/* Main Consumer Card: Mobile Phone Viewport Preview */}
-      <div className="max-w-xl mx-auto bg-white border border-[#DDDCD6] rounded-2xl p-6 shadow-xl space-y-6">
+      <div className="max-w-xl mx-auto bg-[#18181C] border border-[#2A2A30] rounded-2xl p-6 shadow-xl space-y-6">
         {/* Safety Header Status */}
         <div
           className={`p-5 rounded-xl border text-center space-y-2 ${
             isSafe
-              ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
-              : 'bg-red-50 border-red-200 text-red-900'
+              ? 'bg-emerald-900/20 border-emerald-800/40 text-emerald-900'
+              : 'bg-red-900/20 border-red-800/40 text-red-900'
           }`}
         >
           <div className="flex justify-center">
@@ -95,22 +95,22 @@ export const ConsumerScanView: React.FC<ConsumerScanViewProps> = ({
         </div>
 
         {/* Product Identity */}
-        <div className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-xl p-4 space-y-3">
+        <div className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-4 space-y-3">
           <div className="flex justify-between items-center text-xs">
             <span className="font-mono text-[#8F6B00] font-bold">PASSPORT #ALGO-DNA-{batch.id}</span>
-            <span className="font-mono text-[#777]">LOT #{batch.id}</span>
+            <span className="font-mono text-gray-500">LOT #{batch.id}</span>
           </div>
           <div>
-            <h3 className="font-serif text-xl font-bold text-[#1A1A18]">{batch.productName}</h3>
-            <p className="text-xs text-[#666]">{batch.supplierName} • {batch.category}</p>
+            <h3 className="font-serif text-xl font-bold text-gray-100">{batch.productName}</h3>
+            <p className="text-xs text-gray-400">{batch.supplierName} • {batch.category}</p>
           </div>
         </div>
 
         {/* Consumer Cold-Chain Score */}
         <div className="space-y-2">
           <div className="flex justify-between text-xs font-semibold">
-            <span className="text-[#555]">Food Safety Score</span>
-            <span className={isSafe ? 'text-emerald-700' : 'text-red-600'}>
+            <span className="text-gray-400">Food Safety Score</span>
+            <span className={isSafe ? 'text-emerald-400' : 'text-red-600'}>
               {batch.safetyScore} / 100
             </span>
           </div>
@@ -123,12 +123,12 @@ export const ConsumerScanView: React.FC<ConsumerScanViewProps> = ({
         </div>
 
         {/* Blockchain Seal for Consumer */}
-        <div className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-xl p-4 flex items-center justify-between text-xs">
+        <div className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-4 flex items-center justify-between text-xs">
           <div className="flex items-center gap-2">
             <Lock className="w-4 h-4 text-purple-700" />
             <div>
-              <span className="font-semibold text-[#1A1A18] block">Algorand TestNet Verified</span>
-              <span className="text-[10px] font-mono text-[#777] truncate max-w-[200px] block">{batch.blockchainTx}</span>
+              <span className="font-semibold text-gray-100 block">Algorand TestNet Verified</span>
+              <span className="text-[10px] font-mono text-gray-500 truncate max-w-[200px] block">{batch.blockchainTx}</span>
             </div>
           </div>
           <button

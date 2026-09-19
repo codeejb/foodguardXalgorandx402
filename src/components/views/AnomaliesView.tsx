@@ -36,25 +36,25 @@ export const AnomaliesView: React.FC<AnomaliesViewProps> = ({
   const getSeverityBadge = (sev: string) => {
     switch (sev) {
       case 'CRITICAL':
-        return 'bg-red-50 text-red-700 border-red-200';
+        return 'bg-red-900/20 text-red-400 border-red-800/40';
       case 'HIGH':
-        return 'bg-amber-50 text-amber-800 border-amber-200';
+        return 'bg-amber-900/20 text-amber-400 border-amber-800/40';
       default:
-        return 'bg-blue-50 text-blue-800 border-blue-200';
+        return 'bg-blue-900/20 text-blue-800 border-blue-800/40';
     }
   };
 
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 space-y-8">
       {/* Header */}
-      <div className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-xl p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="will-animate animate-slide-up bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-white border border-[#EBEBE6] text-xs font-mono font-medium text-[#8F6B00] mb-2">
+          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-[#18181C] border border-[#2A2A30] text-xs font-mono font-medium text-[#8F6B00] mb-2">
             <span>UNSUPERVISED DISCOVERY: /anomalies</span>
             <span>•</span>
-            <span className="text-[#1A1A18]">SYNCHRONIZED DRIFT DETECTOR</span>
+            <span className="text-gray-100">SYNCHRONIZED DRIFT DETECTOR</span>
           </div>
-          <h1 className="font-serif text-3xl font-bold tracking-tight text-[#1A1A18]">
+          <h1 className="font-serif text-3xl font-bold tracking-tight text-gray-100">
             Unknown Risk Detector
           </h1>
           <p className="text-xs sm:text-sm text-[#666660] font-sans mt-1">
@@ -68,10 +68,10 @@ export const AnomaliesView: React.FC<AnomaliesViewProps> = ({
             <button
               key={sev}
               onClick={() => setSeverityFilter(sev)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors cursor-pointer hover:scale-105 transition-all duration-200 ${
                 severityFilter === sev
-                  ? 'bg-[#1A1A18] text-white shadow-2xs'
-                  : 'bg-white hover:bg-[#F0F0EB] text-[#555] border border-[#DDDCD6]'
+                  ? 'bg-[#18181C] text-white shadow-lg shadow-black/30'
+                  : 'bg-[#18181C] hover:bg-[#F0F0EB] text-gray-400 border border-[#2A2A30]'
               }`}
             >
               {sev}
@@ -83,21 +83,22 @@ export const AnomaliesView: React.FC<AnomaliesViewProps> = ({
       {/* Main Grid: Anomaly Stream & Deep Inspector */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Col: Anomaly Stream */}
-        <div className="lg:col-span-5 space-y-3">
-          <h3 className="font-serif text-base font-bold text-[#1A1A18] mb-2">
+        <div className="will-animate animate-slide-left delay-200 lg:col-span-5 space-y-3">
+          <h3 className="font-serif text-base font-bold text-gray-100 mb-2">
             Detected Anomaly Streams ({filteredAnomalies.length})
           </h3>
 
-          {filteredAnomalies.map((anom) => {
+          {filteredAnomalies.map((anom, idx) => {
             const isSelected = anom.id === selectedAnomalyId;
+            const staggerClass = idx === 0 ? '' : idx === 1 ? 'delay-100' : idx === 2 ? 'delay-200' : idx === 3 ? 'delay-300' : 'delay-400';
             return (
               <div
                 key={anom.id}
                 onClick={() => setSelectedAnomalyId(anom.id)}
-                className={`p-4 rounded-xl border transition-all cursor-pointer ${
+                className={`will-animate animate-slide-up ${staggerClass} hover:scale-[1.01] hover:shadow-lg transition-all duration-300 p-4 rounded-xl border cursor-pointer ${
                   isSelected
-                    ? 'bg-white border-[#8F6B00] shadow-md ring-2 ring-[#8F6B00]/10'
-                    : 'bg-[#FAFAF7] hover:bg-white border-[#EBEBE6]'
+                    ? 'bg-[#18181C] border-[#8F6B00] shadow-md ring-2 ring-[#8F6B00]/10'
+                    : 'bg-[#18181C] hover:bg-[#18181C] border-[#2A2A30]'
                 }`}
               >
                 <div className="flex items-center justify-between gap-2 mb-1.5">
@@ -108,13 +109,13 @@ export const AnomaliesView: React.FC<AnomaliesViewProps> = ({
                     {anom.severity} (CONFIDENCE {anom.confidence}%)
                   </span>
                 </div>
-                <h4 className="font-serif text-sm font-bold text-[#1A1A18]">
+                <h4 className="font-serif text-sm font-bold text-gray-100">
                   {anom.title}
                 </h4>
-                <p className="text-xs text-[#666] line-clamp-2 mt-1 leading-relaxed">
+                <p className="text-xs text-gray-400 line-clamp-2 mt-1 leading-relaxed">
                   {anom.description}
                 </p>
-                <div className="flex items-center justify-between text-[11px] text-[#777] pt-2 mt-2 border-t border-[#F0F0EB]">
+                <div className="flex items-center justify-between text-[11px] text-gray-500 pt-2 mt-2 border-t border-[#F0F0EB]">
                   <span>Entity: {anom.relatedEntity}</span>
                   <span className="text-[#8F6B00] font-semibold">Inspect Telemetry →</span>
                 </div>
@@ -124,16 +125,16 @@ export const AnomaliesView: React.FC<AnomaliesViewProps> = ({
         </div>
 
         {/* Right Col: Deep Anomaly Detail */}
-        <div className="lg:col-span-7 bg-white border border-[#EBEBE6] rounded-xl p-6 shadow-xs space-y-6">
+        <div className="will-animate animate-slide-right delay-200 lg:col-span-7 bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 space-y-6">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#F0F0EB] pb-4">
             <div>
               <span className="font-mono text-xs font-bold text-[#8F6B00]">
                 ANOMALY EVENT #{selectedAnomaly.id}
               </span>
-              <h2 className="font-serif text-2xl font-bold text-[#1A1A18]">
+              <h2 className="font-serif text-2xl font-bold text-gray-100">
                 {selectedAnomaly.title}
               </h2>
-              <p className="text-xs text-[#777] font-sans">
+              <p className="text-xs text-gray-500 font-sans">
                 Detected: {selectedAnomaly.detectedAt} • Target Entity: {selectedAnomaly.relatedEntity}
               </p>
             </div>
@@ -143,18 +144,18 @@ export const AnomaliesView: React.FC<AnomaliesViewProps> = ({
           </div>
 
           {/* AI Explanation Box */}
-          <div className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-xl p-4 space-y-1.5">
-            <span className="text-[10px] font-mono text-[#1A1A18] uppercase font-semibold flex items-center gap-1.5">
+          <div className="will-animate animate-pop delay-300 bg-[#18181C] border border-[#2A2A30] rounded-xl p-4 space-y-1.5">
+            <span className="text-[10px] font-mono text-gray-100 uppercase font-semibold flex items-center gap-1.5">
               <Cpu className="w-3.5 h-3.5 text-[#8F6B00]" />
               <span>AI ANOMALY INTERPRETATION</span>
             </span>
-            <p className="text-xs text-[#333] leading-relaxed">
+            <p className="text-xs text-gray-300 leading-relaxed">
               {selectedAnomaly.description}
             </p>
           </div>
 
           {/* Root Cause Hypothesis / Action */}
-          <div className="bg-white p-4 rounded-xl border border-[#EBEBE6] space-y-1.5">
+          <div className="will-animate animate-pop delay-300 bg-[#18181C] p-4 rounded-xl border border-[#2A2A30] space-y-1.5">
             <span className="text-[10px] font-mono text-[#8F6B00] uppercase font-semibold block">
               CORROBORATED SUGGESTED ACTION
             </span>
@@ -164,7 +165,7 @@ export const AnomaliesView: React.FC<AnomaliesViewProps> = ({
           </div>
 
           {/* Action Directive */}
-          <div className="bg-[#FDF9EE] border border-[#EEDBB3] rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div className="will-animate animate-slide-up delay-400 bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div className="space-y-0.5">
               <span className="text-[10px] font-mono text-[#8F6B00] uppercase font-bold block">
                 SUGGESTED REGULATORY ACTION
@@ -175,7 +176,7 @@ export const AnomaliesView: React.FC<AnomaliesViewProps> = ({
             </div>
             <button
               onClick={() => onNavigate('inspections')}
-              className="bg-[#1A1A18] hover:bg-[#8F6B00] text-white px-4 py-2 rounded text-xs font-semibold transition-colors shrink-0 cursor-pointer"
+              className="bg-[#18181C] hover:bg-amber-600 text-white px-4 py-2 rounded text-xs font-semibold transition-colors shrink-0 cursor-pointer hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-300"
             >
               Dispatch Officer →
             </button>

@@ -362,10 +362,10 @@ export const InteractiveIndiaMap: React.FC<InteractiveIndiaMapProps> = ({
 
         const customHtml = `
           <div class="relative cursor-pointer group select-none">
-            ${isCritical ? `<div class="absolute -inset-2.5 rounded-full bg-red-500 opacity-75 animate-ping"></div>` : ''}
-            <div class="relative flex items-center gap-1.5 bg-white border-2 px-2 py-1 rounded-md shadow-md" style="border-color: ${color};">
+            ${isCritical ? `<div class="absolute -inset-2.5 rounded-full bg-red-900/200 opacity-75 animate-ping"></div>` : ''}
+            <div class="relative flex items-center gap-1.5 bg-[#18181C] border-2 px-2 py-1 rounded-md shadow-md" style="border-color: ${color};">
               <span class="w-2.5 h-2.5 rounded-full" style="background-color: ${color};"></span>
-              <div class="font-mono text-[10px] font-black leading-tight text-neutral-900">
+              <div class="font-mono text-[10px] font-black leading-tight text-gray-100">
                 <span>${code}</span>
                 <span style="color: ${color};"> ${riskScore}</span>
               </div>
@@ -398,8 +398,8 @@ export const InteractiveIndiaMap: React.FC<InteractiveIndiaMapProps> = ({
 
         const customHtml = `
           <div class="relative cursor-pointer select-none">
-            ${isExcursion ? `<div class="absolute -inset-2 rounded-full bg-red-500 opacity-60 animate-ping"></div>` : ''}
-            <div class="w-8 h-8 rounded-lg bg-neutral-900 border-2 text-white flex items-center justify-center shadow-lg" style="border-color: ${color};">
+            ${isExcursion ? `<div class="absolute -inset-2 rounded-full bg-red-900/200 opacity-60 animate-ping"></div>` : ''}
+            <div class="w-8 h-8 rounded-lg bg-[#0F0F12] border-2 text-white flex items-center justify-center shadow-lg" style="border-color: ${color};">
               <span class="text-[10px] font-mono font-bold">${fac.temp}°</span>
             </div>
           </div>
@@ -428,10 +428,10 @@ export const InteractiveIndiaMap: React.FC<InteractiveIndiaMapProps> = ({
         const customHtml = `
           <div class="relative cursor-pointer select-none transform transition-transform hover:scale-110">
             ${isCritical ? `<div class="absolute -inset-3 rounded-full bg-red-600 opacity-80 animate-ping"></div>` : ''}
-            <div class="px-2 py-1 bg-neutral-900 border-2 rounded-full text-white flex items-center gap-1.5 shadow-xl font-mono text-[9px] font-bold whitespace-nowrap" style="border-color: ${color};">
-              <span class="w-2 h-2 rounded-full ${isCritical ? 'bg-red-500 animate-pulse' : 'bg-emerald-400'}"></span>
+            <div class="px-2 py-1 bg-[#0F0F12] border-2 rounded-full text-white flex items-center gap-1.5 shadow-xl font-mono text-[9px] font-bold whitespace-nowrap" style="border-color: ${color};">
+              <span class="w-2 h-2 rounded-full ${isCritical ? 'bg-red-900/200 animate-pulse' : 'bg-emerald-400'}"></span>
               <span>🚛 ${tanker.vehicleNo}</span>
-              <span class="px-1 py-0.2 rounded font-black ${isCritical ? 'bg-red-600 text-white' : 'bg-neutral-800 text-neutral-300'}">${tanker.temp}°C</span>
+              <span class="px-1 py-0.2 rounded font-black ${isCritical ? 'bg-red-600 text-white' : 'bg-[#18181C] text-gray-600'}">${tanker.temp}°C</span>
             </div>
           </div>
         `;
@@ -464,25 +464,25 @@ export const InteractiveIndiaMap: React.FC<InteractiveIndiaMapProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-2xl border-2 border-amber-300 shadow-xl overflow-hidden flex flex-col text-neutral-900">
+    <div className="bg-[#18181C] rounded-2xl border-2 border-amber-600/50 shadow-xl overflow-hidden flex flex-col text-gray-100">
       {/* Top Map HUD & Controls Bar with Dark Yellow Accents */}
-      <div className="bg-[#FAF8F2] border-b border-amber-200/90 p-4 flex flex-wrap items-center justify-between gap-3">
+      <div className="bg-[#18181C] border-b border-amber-800/40/90 p-4 flex flex-wrap items-center justify-between gap-3">
         {/* Title & Live Status Indicator */}
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-[#854D0E] text-white flex items-center justify-center font-bold shadow-xs">
+          <div className="w-9 h-9 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold shadow-md shadow-black/20">
             <Radio className="w-5 h-5 animate-pulse" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-display font-black text-sm uppercase tracking-wider text-neutral-900">
+              <span className="font-display font-black text-sm uppercase tracking-wider text-gray-100">
                 Live National GPS Telemetry Map (India)
               </span>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold border border-emerald-300">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-900/30 text-emerald-400 text-[10px] font-mono font-bold border border-emerald-600">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-ping" />
                 LIVE STREAM
               </span>
             </div>
-            <p className="text-[11px] text-neutral-500 font-mono">
+            <p className="text-[11px] text-gray-500 font-mono">
               Real-Time IoT Sensors, Milk Tanker Fleet GPS & Cold-Chain Highways
             </p>
           </div>
@@ -490,7 +490,7 @@ export const InteractiveIndiaMap: React.FC<InteractiveIndiaMapProps> = ({
 
         {/* Quick Regional Hotspots Jump Buttons */}
         <div className="flex items-center gap-1.5 flex-wrap text-xs">
-          <span className="text-[10px] font-mono uppercase text-neutral-500 font-bold mr-1">
+          <span className="text-[10px] font-mono uppercase text-gray-500 font-bold mr-1">
             Focus:
           </span>
           {[
@@ -505,8 +505,8 @@ export const InteractiveIndiaMap: React.FC<InteractiveIndiaMapProps> = ({
               onClick={() => handleQuickZoom(btn.lat, btn.lng, btn.zoom)}
               className={`px-2.5 py-1 rounded text-[10px] font-mono font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 btn.critical
-                  ? 'bg-red-100 hover:bg-red-200 text-red-800 border border-red-300 animate-pulse'
-                  : 'bg-white hover:bg-[#FEF3C7] text-neutral-800 border border-neutral-300'
+                  ? 'bg-red-100 hover:bg-red-200 text-red-400 border border-red-300 animate-pulse'
+                  : 'bg-[#18181C] hover:bg-amber-900/20 text-gray-200 border border-[#3A3A42]'
               }`}
             >
               {btn.label}
@@ -517,7 +517,7 @@ export const InteractiveIndiaMap: React.FC<InteractiveIndiaMapProps> = ({
         {/* Map View Mode & Layers Filter */}
         <div className="flex items-center gap-2">
           {/* Layer Switcher */}
-          <div className="flex items-center bg-white border border-neutral-300 rounded-lg p-0.5 text-xs font-mono">
+          <div className="flex items-center bg-[#18181C] border border-[#3A3A42] rounded-lg p-0.5 text-xs font-mono">
             {[
               { id: 'ALL', label: 'All Feeds' },
               { id: 'FLEET', label: '🚛 Live Fleet' },
@@ -529,8 +529,8 @@ export const InteractiveIndiaMap: React.FC<InteractiveIndiaMapProps> = ({
                 onClick={() => setActiveLayer(layer.id as any)}
                 className={`px-2 py-1 rounded text-[10px] font-bold uppercase transition-colors cursor-pointer ${
                   activeLayer === layer.id
-                    ? 'bg-[#854D0E] text-white shadow-xs'
-                    : 'text-neutral-700 hover:bg-neutral-100'
+                    ? 'bg-amber-500 text-white shadow-md shadow-black/20'
+                    : 'text-gray-300 hover:bg-[#252529]'
                 }`}
               >
                 {layer.label}
@@ -539,11 +539,11 @@ export const InteractiveIndiaMap: React.FC<InteractiveIndiaMapProps> = ({
           </div>
 
           {/* Satellite / Street Style Toggle */}
-          <div className="flex items-center bg-white border border-neutral-300 rounded-lg p-0.5 text-xs font-mono">
+          <div className="flex items-center bg-[#18181C] border border-[#3A3A42] rounded-lg p-0.5 text-xs font-mono">
             <button
               onClick={() => setMapStyle('VOYAGER')}
               className={`px-2 py-1 rounded text-[10px] font-bold uppercase cursor-pointer ${
-                mapStyle === 'VOYAGER' ? 'bg-[#854D0E] text-white' : 'text-neutral-600'
+                mapStyle === 'VOYAGER' ? 'bg-amber-500 text-white' : 'text-gray-400'
               }`}
             >
               Street
@@ -551,7 +551,7 @@ export const InteractiveIndiaMap: React.FC<InteractiveIndiaMapProps> = ({
             <button
               onClick={() => setMapStyle('SATELLITE')}
               className={`px-2 py-1 rounded text-[10px] font-bold uppercase cursor-pointer ${
-                mapStyle === 'SATELLITE' ? 'bg-[#854D0E] text-white' : 'text-neutral-600'
+                mapStyle === 'SATELLITE' ? 'bg-amber-500 text-white' : 'text-gray-400'
               }`}
             >
               Satellite
@@ -561,7 +561,7 @@ export const InteractiveIndiaMap: React.FC<InteractiveIndiaMapProps> = ({
           {/* Reset Zoom */}
           <button
             onClick={handleResetMap}
-            className="p-1.5 bg-white border border-neutral-300 hover:bg-neutral-100 rounded-lg text-neutral-600 cursor-pointer shadow-2xs"
+            className="p-1.5 bg-[#18181C] border border-[#3A3A42] hover:bg-[#252529] rounded-lg text-gray-400 cursor-pointer shadow-lg shadow-black/30"
             title="Reset Map to All India"
           >
             <RotateCcw className="w-4 h-4" />
@@ -575,28 +575,28 @@ export const InteractiveIndiaMap: React.FC<InteractiveIndiaMapProps> = ({
         <div ref={mapContainerRef} className="w-full h-full z-0" />
 
         {/* Top-Right Floating Live Telemetry HUD */}
-        <div className="absolute top-4 right-4 z-10 bg-white/95 backdrop-blur-md p-3.5 rounded-xl border border-amber-300 shadow-lg space-y-2 max-w-xs font-mono text-xs">
-          <div className="flex items-center justify-between border-b border-neutral-200 pb-1.5">
-            <span className="font-bold text-[#854D0E] uppercase text-[10px] flex items-center gap-1.5">
+        <div className="absolute top-4 right-4 z-10 bg-[#0F0F12]/95 backdrop-blur-md p-3.5 rounded-xl border border-amber-600/50 shadow-lg space-y-2 max-w-xs font-mono text-xs">
+          <div className="flex items-center justify-between border-b border-[#2A2A30] pb-1.5">
+            <span className="font-bold text-amber-400 uppercase text-[10px] flex items-center gap-1.5">
               <Wifi className="w-3.5 h-3.5 text-emerald-600" />
               <span>Telemetry Node Feed</span>
             </span>
-            <span className="text-[9px] text-neutral-500 font-bold">Round #{liveRound}</span>
+            <span className="text-[9px] text-gray-500 font-bold">Round #{liveRound}</span>
           </div>
 
           <div className="grid grid-cols-2 gap-2 text-[10px]">
-            <div className="bg-[#FAF8F2] p-1.5 rounded border border-neutral-200">
-              <span className="text-neutral-500 block font-bold">Active GPS Tankers</span>
-              <span className="text-neutral-900 font-black text-xs">84 Vehicles</span>
+            <div className="bg-[#18181C] p-1.5 rounded border border-[#2A2A30]">
+              <span className="text-gray-500 block font-bold">Active GPS Tankers</span>
+              <span className="text-gray-100 font-black text-xs">84 Vehicles</span>
             </div>
-            <div className="bg-[#FAF8F2] p-1.5 rounded border border-neutral-200">
-              <span className="text-neutral-500 block font-bold">Cold Storage IoT</span>
-              <span className="text-neutral-900 font-black text-xs">1,480 Nodes</span>
+            <div className="bg-[#18181C] p-1.5 rounded border border-[#2A2A30]">
+              <span className="text-gray-500 block font-bold">Cold Storage IoT</span>
+              <span className="text-gray-100 font-black text-xs">1,480 Nodes</span>
             </div>
           </div>
 
-          <div className="p-2 rounded bg-red-50 border border-red-200 space-y-0.5">
-            <span className="font-bold text-red-700 text-[10px] flex items-center gap-1">
+          <div className="p-2 rounded bg-red-900/20 border border-red-800/40 space-y-0.5">
+            <span className="font-bold text-red-400 text-[10px] flex items-center gap-1">
               <AlertOctagon className="w-3 h-3 text-red-600" />
               <span>CRITICAL ALERT: TANKER #DL-01-AK-4921</span>
             </span>
@@ -607,36 +607,36 @@ export const InteractiveIndiaMap: React.FC<InteractiveIndiaMapProps> = ({
         </div>
 
         {/* Real Field Inspection Handwritten Stamp (Top Left) */}
-        <div className="absolute top-4 left-4 z-10 bg-[#FEF3C7]/95 backdrop-blur-md border border-[#FDE68A] p-3 rounded-lg max-w-[240px] shadow-md hidden sm:block rotate-[-1deg]">
-          <div className="flex items-center gap-1 text-[10px] font-mono font-bold text-[#78350F] uppercase tracking-wider">
-            <Sparkles className="w-3 h-3 text-[#854D0E]" />
+        <div className="absolute top-4 left-4 z-10 bg-amber-900/20/95 backdrop-blur-md border border-amber-500/30 p-3 rounded-lg max-w-[240px] shadow-md hidden sm:block rotate-[-1deg]">
+          <div className="flex items-center gap-1 text-[10px] font-mono font-bold text-amber-400 uppercase tracking-wider">
+            <Sparkles className="w-3 h-3 text-amber-400" />
             <span>FSSAI LIVE SURVEILLANCE NOTE</span>
           </div>
-          <p className="handwriting-note text-xs mt-1 text-[#854D0E]">
+          <p className="handwriting-note text-xs mt-1 text-amber-400">
             "NH-44 & Delhi Okhla sector 17 under 24x7 satellite and IoT watch. Live sub-second GPS tracking active."
           </p>
         </div>
 
         {/* Selected Entity Popup Drawer (Bottom Left) */}
         {selectedEntity && (
-          <div className="absolute bottom-4 left-4 z-20 bg-white/95 backdrop-blur-md p-4 rounded-xl border-2 border-amber-300 shadow-2xl max-w-sm animate-in fade-in zoom-in-95 duration-150">
+          <div className="absolute bottom-4 left-4 z-20 bg-[#0F0F12]/95 backdrop-blur-md p-4 rounded-xl border-2 border-amber-600/50 shadow-2xl max-w-sm animate-in fade-in zoom-in-95 duration-150">
             {selectedEntity.type === 'TANKER' && (
               <div className="space-y-2.5">
-                <div className="flex items-center justify-between border-b border-neutral-200 pb-2">
+                <div className="flex items-center justify-between border-b border-[#2A2A30] pb-2">
                   <div className="flex items-center gap-2">
-                    <Truck className="w-4 h-4 text-[#854D0E]" />
-                    <span className="font-display font-black text-xs uppercase tracking-tight text-neutral-900">
+                    <Truck className="w-4 h-4 text-amber-400" />
+                    <span className="font-display font-black text-xs uppercase tracking-tight text-gray-100">
                       {selectedEntity.data.vehicleNo}
                     </span>
                   </div>
                   <span className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold uppercase ${
-                    selectedEntity.data.status === 'CRITICAL' ? 'bg-red-100 text-red-800' : 'bg-emerald-100 text-emerald-800'
+                    selectedEntity.data.status === 'CRITICAL' ? 'bg-red-100 text-red-400' : 'bg-emerald-900/30 text-emerald-400'
                   }`}>
                     {selectedEntity.data.temp}°C • {selectedEntity.data.status}
                   </span>
                 </div>
 
-                <div className="space-y-1 text-[11px] font-mono text-neutral-700">
+                <div className="space-y-1 text-[11px] font-mono text-gray-300">
                   <div><strong>Route:</strong> {selectedEntity.data.origin} → {selectedEntity.data.destination}</div>
                   <div><strong>Highway:</strong> {selectedEntity.data.highway}</div>
                   <div><strong>Driver:</strong> {selectedEntity.data.driver}</div>
@@ -647,13 +647,13 @@ export const InteractiveIndiaMap: React.FC<InteractiveIndiaMapProps> = ({
                 <div className="pt-2 flex gap-2">
                   <button
                     onClick={() => setSelectedEntity(null)}
-                    className="flex-1 bg-[#854D0E] hover:bg-[#A16207] text-white py-1.5 rounded text-[10px] font-bold uppercase tracking-wider font-mono cursor-pointer"
+                    className="flex-1 bg-amber-500 hover:bg-amber-400 text-white py-1.5 rounded text-[10px] font-bold uppercase tracking-wider font-mono cursor-pointer"
                   >
                     Lock GPS Track
                   </button>
                   <button
                     onClick={() => setSelectedEntity(null)}
-                    className="px-3 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 py-1.5 rounded text-[10px] font-mono uppercase cursor-pointer"
+                    className="px-3 bg-[#252529] hover:bg-[#2A2A30] text-gray-300 py-1.5 rounded text-[10px] font-mono uppercase cursor-pointer"
                   >
                     Close
                   </button>
@@ -663,26 +663,26 @@ export const InteractiveIndiaMap: React.FC<InteractiveIndiaMapProps> = ({
 
             {selectedEntity.type === 'FACILITY' && (
               <div className="space-y-2.5">
-                <div className="flex items-center justify-between border-b border-neutral-200 pb-2">
+                <div className="flex items-center justify-between border-b border-[#2A2A30] pb-2">
                   <div className="flex items-center gap-2">
-                    <Building2 className="w-4 h-4 text-[#854D0E]" />
-                    <span className="font-display font-black text-xs uppercase tracking-tight text-neutral-900">
+                    <Building2 className="w-4 h-4 text-amber-400" />
+                    <span className="font-display font-black text-xs uppercase tracking-tight text-gray-100">
                       {selectedEntity.data.name}
                     </span>
                   </div>
                   <span className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold uppercase ${
-                    selectedEntity.data.temp > 4.5 ? 'bg-red-100 text-red-800' : 'bg-emerald-100 text-emerald-800'
+                    selectedEntity.data.temp > 4.5 ? 'bg-red-100 text-red-400' : 'bg-emerald-900/30 text-emerald-400'
                   }`}>
                     TEMP: {selectedEntity.data.temp}°C
                   </span>
                 </div>
 
-                <div className="space-y-1 text-[11px] font-mono text-neutral-700">
+                <div className="space-y-1 text-[11px] font-mono text-gray-300">
                   <div><strong>Location:</strong> {selectedEntity.data.city}</div>
                   <div><strong>Storage Batches:</strong> {selectedEntity.data.batchCount} Lots</div>
                   <div><strong>Power Source:</strong> {selectedEntity.data.powerStatus}</div>
                   {selectedEntity.data.criticalAnomaly && (
-                    <div className="text-red-700 font-bold bg-red-50 p-1.5 rounded border border-red-200">
+                    <div className="text-red-400 font-bold bg-red-900/20 p-1.5 rounded border border-red-800/40">
                       ⚠️ {selectedEntity.data.criticalAnomaly}
                     </div>
                   )}
@@ -691,13 +691,13 @@ export const InteractiveIndiaMap: React.FC<InteractiveIndiaMapProps> = ({
                 <div className="pt-2 flex gap-2">
                   <button
                     onClick={() => setSelectedEntity(null)}
-                    className="flex-1 bg-[#854D0E] hover:bg-[#A16207] text-white py-1.5 rounded text-[10px] font-bold uppercase tracking-wider font-mono cursor-pointer"
+                    className="flex-1 bg-amber-500 hover:bg-amber-400 text-white py-1.5 rounded text-[10px] font-bold uppercase tracking-wider font-mono cursor-pointer"
                   >
                     Dispatch Field Inspector
                   </button>
                   <button
                     onClick={() => setSelectedEntity(null)}
-                    className="px-3 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 py-1.5 rounded text-[10px] font-mono uppercase cursor-pointer"
+                    className="px-3 bg-[#252529] hover:bg-[#2A2A30] text-gray-300 py-1.5 rounded text-[10px] font-mono uppercase cursor-pointer"
                   >
                     Close
                   </button>
@@ -707,22 +707,22 @@ export const InteractiveIndiaMap: React.FC<InteractiveIndiaMapProps> = ({
 
             {selectedEntity.type === 'STATE' && (
               <div className="space-y-2">
-                <div className="flex items-center justify-between border-b border-neutral-200 pb-1.5">
-                  <span className="font-display font-black text-xs uppercase tracking-tight text-neutral-900">
+                <div className="flex items-center justify-between border-b border-[#2A2A30] pb-1.5">
+                  <span className="font-display font-black text-xs uppercase tracking-tight text-gray-100">
                     {selectedEntity.data.stateName}
                   </span>
-                  <span className="px-2 py-0.5 rounded text-[9px] font-mono font-black bg-red-100 text-red-800 border border-red-200">
+                  <span className="px-2 py-0.5 rounded text-[9px] font-mono font-black bg-red-100 text-red-400 border border-red-800/40">
                     SCORE {selectedEntity.data.riskScore}
                   </span>
                 </div>
-                <p className="text-[10px] font-mono text-neutral-600 line-clamp-3">
+                <p className="text-[10px] font-mono text-gray-400 line-clamp-3">
                   {selectedEntity.data.aiExplanation}
                 </p>
                 <div className="pt-1 flex justify-between items-center text-[10px] font-mono">
-                  <span className="text-neutral-500">{selectedEntity.data.activeIncidents} Active Cases</span>
+                  <span className="text-gray-500">{selectedEntity.data.activeIncidents} Active Cases</span>
                   <button
                     onClick={() => setSelectedEntity(null)}
-                    className="text-[#854D0E] font-bold uppercase hover:underline cursor-pointer"
+                    className="text-amber-400 font-bold uppercase hover:underline cursor-pointer"
                   >
                     Close ✕
                   </button>
@@ -734,30 +734,30 @@ export const InteractiveIndiaMap: React.FC<InteractiveIndiaMapProps> = ({
       </div>
 
       {/* Map Legend Footer Bar */}
-      <div className="bg-[#FAF8F2] border-t border-amber-200/90 px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+      <div className="bg-[#18181C] border-t border-amber-800/40/90 px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
         <div className="flex items-center gap-4 text-[10px]">
-          <span className="flex items-center gap-1.5 text-neutral-700">
+          <span className="flex items-center gap-1.5 text-gray-300">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-600" /> Low Risk (0-40)
           </span>
-          <span className="flex items-center gap-1.5 text-neutral-700">
+          <span className="flex items-center gap-1.5 text-gray-300">
             <span className="w-2.5 h-2.5 rounded-full bg-amber-500" /> Watch (41-65)
           </span>
-          <span className="flex items-center gap-1.5 text-neutral-700">
+          <span className="flex items-center gap-1.5 text-gray-300">
             <span className="w-2.5 h-2.5 rounded-full bg-orange-500" /> High (66-80)
           </span>
-          <span className="flex items-center gap-1.5 text-neutral-700">
+          <span className="flex items-center gap-1.5 text-gray-300">
             <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse" /> Critical Excursion (81-100)
           </span>
         </div>
 
-        <div className="flex items-center gap-4 text-[10px] text-neutral-600 font-bold uppercase tracking-wider">
+        <div className="flex items-center gap-4 text-[10px] text-gray-400 font-bold uppercase tracking-wider">
           <span className="flex items-center gap-1">
             <span className="w-3 h-1 bg-[#DC2626] rounded-full inline-block" /> NH-44 Cold Corridor
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-3 h-1 bg-[#854D0E] rounded-full inline-block" /> NH-48 Western Freight
+            <span className="w-3 h-1 bg-amber-500 rounded-full inline-block" /> NH-48 Western Freight
           </span>
-          <span className="text-[#854D0E]">3.3s Algorand TestNet Finality</span>
+          <span className="text-amber-400">3.3s Algorand TestNet Finality</span>
         </div>
       </div>
     </div>

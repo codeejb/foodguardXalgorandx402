@@ -200,7 +200,7 @@ const MainAppContent: React.FC = () => {
   const unreadCount = notifications.filter((n) => !n.read).length;
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAFAF8] text-[#1A1A18] selection:bg-amber-100 selection:text-[#78350F]">
+    <div className="min-h-screen flex flex-col bg-[#0F0F12] text-[#E5E7EB] selection:bg-amber-500/30 selection:text-amber-100">
       {/* Top Fixed Navigation with White & Dark Yellow Theme */}
       <Navbar
         currentView={currentView}

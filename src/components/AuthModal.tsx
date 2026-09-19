@@ -166,30 +166,30 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
-      <div className="bg-white rounded-lg border border-neutral-300 shadow-2xl max-w-md w-full overflow-hidden text-neutral-900 animate-in zoom-in-95 duration-200">
+      <div className="bg-[#18181C] rounded-lg border border-[#3A3A42] shadow-2xl max-w-md w-full overflow-hidden text-gray-100 animate-in zoom-in-95 duration-200">
         {/* Header with Dark Yellow Brand Bar */}
-        <div className="px-6 py-4 bg-[#FBF8EF] border-b border-amber-200/80 flex items-center justify-between">
+        <div className="px-6 py-4 bg-[#18181C] border-b border-amber-800/40/80 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img src="/foodguardx-logo.png" alt="FoodGuardX" className="h-10 w-auto" />
             <div>
-              <h3 className="font-display font-black text-base uppercase tracking-tight text-neutral-900">
-                Sign In to FoodGuard <span className="text-[#854D0E]">X</span>
+              <h3 className="font-display font-black text-base uppercase tracking-tight text-gray-100">
+                Sign In to FoodGuard <span className="text-amber-400">X</span>
               </h3>
-              <p className="text-[10px] font-mono text-[#854D0E] uppercase tracking-wider font-bold">
+              <p className="text-[10px] font-mono text-amber-400 uppercase tracking-wider font-bold">
                 NATIONAL INTELLIGENCE & BLOCKCHAIN ACCESS
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded text-neutral-500 hover:text-neutral-900 hover:bg-neutral-200 transition-colors cursor-pointer"
+            className="p-1 rounded text-gray-500 hover:text-gray-100 hover:bg-[#2A2A30] transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Method Switcher Tabs */}
-        <div className="grid grid-cols-2 p-2 bg-neutral-100 border-b border-neutral-200 text-xs font-bold uppercase tracking-wider font-mono">
+        <div className="grid grid-cols-2 p-2 bg-[#252529] border-b border-[#2A2A30] text-xs font-bold uppercase tracking-wider font-mono">
           <button
             onClick={() => {
               setAuthMethod('google');
@@ -197,8 +197,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             }}
             className={`py-2.5 rounded flex items-center justify-center gap-2 transition-all cursor-pointer ${
               authMethod === 'google'
-                ? 'bg-white text-neutral-900 shadow-xs border border-neutral-300'
-                : 'text-neutral-600 hover:text-neutral-900'
+                ? 'bg-[#18181C] text-gray-100 shadow-md shadow-black/20 border border-[#3A3A42]'
+                : 'text-gray-400 hover:text-gray-100'
             }`}
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24">
@@ -229,27 +229,27 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             }}
             className={`py-2.5 rounded flex items-center justify-center gap-2 transition-all cursor-pointer ${
               authMethod === 'phone'
-                ? 'bg-white text-neutral-900 shadow-xs border border-neutral-300'
-                : 'text-neutral-600 hover:text-neutral-900'
+                ? 'bg-[#18181C] text-gray-100 shadow-md shadow-black/20 border border-[#3A3A42]'
+                : 'text-gray-400 hover:text-gray-100'
             }`}
           >
-            <Smartphone className="w-4 h-4 text-[#854D0E]" />
+            <Smartphone className="w-4 h-4 text-amber-400" />
             <span>Phone OTP</span>
           </button>
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 space-y-5 bg-white">
+        <div className="p-6 space-y-5 bg-[#18181C]">
           {/* Role Selection Badge */}
           <div className="space-y-1.5">
-            <label className="text-[10px] font-mono uppercase tracking-wider font-bold text-neutral-600 flex items-center justify-between">
+            <label className="text-[10px] font-mono uppercase tracking-wider font-bold text-gray-400 flex items-center justify-between">
               <span>Select Access Role:</span>
-              <span className="text-[#854D0E] font-bold">FSSAI / Enterprise Profile</span>
+              <span className="text-amber-400 font-bold">FSSAI / Enterprise Profile</span>
             </label>
             <select
               value={selectedRole}
               onChange={(e) => setSelectedRole(e.target.value as UserRole)}
-              className="w-full text-xs font-mono bg-neutral-50 border border-neutral-300 rounded px-3 py-2 text-neutral-900 focus:outline-none focus:border-[#854D0E] focus:bg-white"
+              className="w-full text-xs font-mono bg-[#1F1F24] border border-[#3A3A42] rounded px-3 py-2 text-gray-100 focus:outline-none focus:border-amber-600 focus:bg-[#252529]"
             >
               <option value="FOOD_SAFETY_AUTHORITY">Food Safety Authority (Full Command)</option>
               <option value="INSPECTOR">Field Food Inspector (Mobile Checklists)</option>
@@ -263,7 +263,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
           {/* Error Message */}
           {error && (
-            <div className="p-3 bg-red-50 border border-red-200 rounded text-xs text-red-700 flex items-start gap-2 font-mono">
+            <div className="p-3 bg-red-900/20 border border-red-800/40 rounded text-xs text-red-400 flex items-start gap-2 font-mono">
               <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
               <span>{error}</span>
             </div>
@@ -272,8 +272,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           {/* METHOD 1: GOOGLE SIGN IN */}
           {authMethod === 'google' && (
             <div className="space-y-4 pt-1">
-              <div className="p-4 bg-[#FBF8EF] border border-amber-200 rounded-lg text-center space-y-2">
-                <div className="w-12 h-12 bg-white rounded-full mx-auto flex items-center justify-center shadow-sm border border-neutral-200">
+              <div className="p-4 bg-[#18181C] border border-amber-800/40 rounded-lg text-center space-y-2">
+                <div className="w-12 h-12 bg-[#18181C] rounded-full mx-auto flex items-center justify-center shadow-md shadow-black/30 border border-[#2A2A30]">
                   <svg className="w-6 h-6" viewBox="0 0 24 24">
                     <path
                       fill="#4285F4"
@@ -293,10 +293,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     />
                   </svg>
                 </div>
-                <h4 className="font-display font-bold text-sm text-neutral-900">
+                <h4 className="font-display font-bold text-sm text-gray-100">
                   Fast Single-Click Google Authentication
                 </h4>
-                <p className="text-xs text-neutral-600 font-mono">
+                <p className="text-xs text-gray-400 font-mono">
                   Sign in instantly with your authorized Google Account. Generates Algorand keypair for verifiable actions.
                 </p>
               </div>
@@ -305,11 +305,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 type="button"
                 onClick={handleGoogleSignIn}
                 disabled={loading}
-                className="w-full bg-white hover:bg-neutral-50 text-neutral-900 border-2 border-neutral-300 hover:border-[#854D0E] font-black text-xs uppercase tracking-wider py-3.5 px-4 rounded-lg flex items-center justify-center gap-3 transition-all cursor-pointer shadow-sm hover:shadow"
+                className="w-full bg-[#18181C] hover:bg-[#1F1F24] text-gray-100 border-2 border-[#3A3A42] hover:border-amber-600 font-black text-xs uppercase tracking-wider py-3.5 px-4 rounded-lg flex items-center justify-center gap-3 transition-all cursor-pointer shadow-md shadow-black/30 hover:shadow"
               >
                 {loading ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin text-[#854D0E]" />
+                    <Loader2 className="w-4 h-4 animate-spin text-amber-400" />
                     <span>Connecting Google Identity...</span>
                   </>
                 ) : (
@@ -345,14 +345,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               {!otpSent ? (
                 <form onSubmit={handleSendPhoneOtp} className="space-y-4">
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-mono uppercase tracking-wider font-bold text-neutral-600">
+                    <label className="text-[10px] font-mono uppercase tracking-wider font-bold text-gray-400">
                       Mobile Number
                     </label>
                     <div className="flex gap-2">
                       <select
                         value={countryCode}
                         onChange={(e) => setCountryCode(e.target.value)}
-                        className="w-24 text-xs font-mono bg-neutral-50 border border-neutral-300 rounded px-2 py-2.5 text-neutral-900 focus:outline-none focus:border-[#854D0E]"
+                        className="w-24 text-xs font-mono bg-[#1F1F24] border border-[#3A3A42] rounded px-2 py-2.5 text-gray-100 focus:outline-none focus:border-amber-600"
                       >
                         <option value="+91">🇮🇳 +91</option>
                         <option value="+1">🇺🇸 +1</option>
@@ -364,7 +364,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, '').slice(0, 10))}
                         placeholder="98765 43210"
-                        className="flex-1 text-sm font-mono tracking-wider bg-neutral-50 border border-neutral-300 rounded px-3 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-[#854D0E] focus:bg-white"
+                        className="flex-1 text-sm font-mono tracking-wider bg-[#1F1F24] border border-[#3A3A42] rounded px-3 py-2.5 text-gray-100 placeholder:text-gray-500 focus:outline-none focus:border-amber-600 focus:bg-[#252529]"
                         autoFocus
                       />
                     </div>
@@ -375,8 +375,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     disabled={loading || phoneNumber.length < 10}
                     className={`w-full font-black text-xs uppercase tracking-wider py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all cursor-pointer ${
                       phoneNumber.length >= 10 && !loading
-                        ? 'bg-[#854D0E] hover:bg-[#A16207] text-white shadow-md'
-                        : 'bg-neutral-200 text-neutral-400 cursor-not-allowed'
+                        ? 'bg-amber-500 hover:bg-amber-400 text-white shadow-md'
+                        : 'bg-[#2A2A30] text-gray-500 cursor-not-allowed'
                     }`}
                   >
                     {loading ? (
@@ -395,14 +395,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               ) : (
                 <form onSubmit={handleVerifyOtp} className="space-y-4">
                   {/* Demo OTP Helper Banner */}
-                  <div className="p-3 bg-[#FEF3C7] border border-[#FDE68A] rounded-md text-xs flex items-center justify-between text-[#78350F] font-mono">
+                  <div className="p-3 bg-amber-900/20 border border-amber-500/30 rounded-md text-xs flex items-center justify-between text-amber-400 font-mono">
                     <div>
-                      <span className="font-bold">Test OTP:</span> <span className="font-black text-sm tracking-widest text-[#854D0E]">{generatedDemoOtp}</span>
+                      <span className="font-bold">Test OTP:</span> <span className="font-black text-sm tracking-widest text-amber-400">{generatedDemoOtp}</span>
                     </div>
                     <button
                       type="button"
                       onClick={handleFillDemoOtp}
-                      className="text-[10px] bg-[#854D0E] text-white px-2 py-1 rounded font-bold uppercase tracking-wider hover:bg-[#A16207] transition-colors cursor-pointer"
+                      className="text-[10px] bg-amber-500 text-white px-2 py-1 rounded font-bold uppercase tracking-wider hover:bg-amber-400 transition-colors cursor-pointer"
                     >
                       Auto Fill
                     </button>
@@ -410,10 +410,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <label className="text-[10px] font-mono uppercase tracking-wider font-bold text-neutral-600">
+                      <label className="text-[10px] font-mono uppercase tracking-wider font-bold text-gray-400">
                         Enter 6-Digit Code
                       </label>
-                      <span className="text-[10px] font-mono text-neutral-500">
+                      <span className="text-[10px] font-mono text-gray-500">
                         Sent to {countryCode} {phoneNumber}
                       </span>
                     </div>
@@ -427,7 +427,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                           maxLength={1}
                           value={digit}
                           onChange={(e) => handleOtpChange(idx, e.target.value)}
-                          className="w-11 h-12 text-center text-lg font-mono font-bold bg-neutral-50 border border-neutral-300 rounded text-neutral-900 focus:outline-none focus:border-[#854D0E] focus:bg-white"
+                          className="w-11 h-12 text-center text-lg font-mono font-bold bg-[#1F1F24] border border-[#3A3A42] rounded text-gray-100 focus:outline-none focus:border-amber-600 focus:bg-[#252529]"
                         />
                       ))}
                     </div>
@@ -438,8 +438,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     disabled={loading || otpCode.join('').length !== 6}
                     className={`w-full font-black text-xs uppercase tracking-wider py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all cursor-pointer ${
                       otpCode.join('').length === 6 && !loading
-                        ? 'bg-[#854D0E] hover:bg-[#A16207] text-white shadow-md'
-                        : 'bg-neutral-200 text-neutral-400 cursor-not-allowed'
+                        ? 'bg-amber-500 hover:bg-amber-400 text-white shadow-md'
+                        : 'bg-[#2A2A30] text-gray-500 cursor-not-allowed'
                     }`}
                   >
                     {loading ? (
@@ -455,11 +455,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     )}
                   </button>
 
-                  <div className="flex items-center justify-between text-xs font-mono text-neutral-500 pt-1">
+                  <div className="flex items-center justify-between text-xs font-mono text-gray-500 pt-1">
                     <button
                       type="button"
                       onClick={() => setOtpSent(false)}
-                      className="hover:underline text-neutral-600 cursor-pointer"
+                      className="hover:underline text-gray-400 cursor-pointer"
                     >
                       Change Number
                     </button>
@@ -469,7 +469,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                       <button
                         type="button"
                         onClick={handleSendPhoneOtp}
-                        className="text-[#854D0E] font-bold hover:underline cursor-pointer"
+                        className="text-amber-400 font-bold hover:underline cursor-pointer"
                       >
                         Resend OTP
                       </button>
@@ -482,9 +482,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         </div>
 
         {/* Footer Security Badges */}
-        <div className="px-6 py-3 bg-neutral-50 border-t border-neutral-200 flex items-center justify-between text-[10px] font-mono text-neutral-500 uppercase">
+        <div className="px-6 py-3 bg-[#1F1F24] border-t border-[#2A2A30] flex items-center justify-between text-[10px] font-mono text-gray-500 uppercase">
           <span className="flex items-center gap-1">
-            <Lock className="w-3 h-3 text-[#854D0E]" /> 256-BIT ENCRYPTED
+            <Lock className="w-3 h-3 text-amber-400" /> 256-BIT ENCRYPTED
           </span>
           <span className="flex items-center gap-1">
             <Shield className="w-3 h-3 text-emerald-600" /> FSSAI COMPLIANT

@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import { createServer as createViteServer } from 'vite';
+import { getVakhBatch } from './vakhMcp';
 import {
   runXGBoostInference,
   runWhatIfSimulation,
@@ -805,7 +806,41 @@ Perform an instant algorithmic assessment and return strict JSON with this exact
     res.status(500).json({ success: false, error: err.message || 'Pipeline processing failed.' });
   }
 });
+// ==========================================
+// VAKH MCP
+// ==========================================
 
+app.get("/api/vakh/batch/:batchId", async (req, res) => {
+  try {
+    const { batchId } = req.params;
+
+    if (!batchId) {
+      return res.status(400).json({
+        error: "Batch ID is required",
+      });
+    }
+
+    const batch = await getVakhBatch(batchId);
+
+    if (!batch) {
+      return res.status(404).json({
+        error: "Batch not found in Vakh",
+        batchId,
+      });
+    }
+
+    return res.json({
+      source: "vakh",
+      batch,
+    });
+  } catch (error) {
+    console.error("Vakh batch lookup failed:", error);
+
+    return res.status(500).json({
+      error: "Failed to retrieve batch from Vakh",
+    });
+  }
+});
 // ==========================================
 // 9B. FOODGUARD X DATA UPLOAD & INTELLIGENCE API
 // ==========================================

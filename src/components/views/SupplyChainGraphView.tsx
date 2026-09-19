@@ -102,25 +102,25 @@ export const SupplyChainGraphView: React.FC<SupplyChainGraphViewProps> = ({
   const getNodeColor = (status: GraphNode['status']) => {
     switch (status) {
       case 'CRITICAL':
-        return 'border-red-500 bg-red-50 text-red-700 shadow-md ring-2 ring-red-200';
+        return 'border-red-500 bg-red-900/20 text-red-400 shadow-md ring-2 ring-red-200';
       case 'WARNING':
-        return 'border-amber-500 bg-amber-50 text-amber-800 ring-2 ring-amber-200';
+        return 'border-amber-500 bg-amber-900/20 text-amber-400 ring-2 ring-amber-200';
       default:
-        return 'border-emerald-500 bg-emerald-50 text-emerald-800';
+        return 'border-emerald-500 bg-emerald-900/20 text-emerald-400';
     }
   };
 
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 space-y-8">
       {/* Header */}
-      <div className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-xl p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-white border border-[#EBEBE6] text-xs font-mono font-medium text-[#8F6B00] mb-2">
+          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-[#18181C] border border-[#2A2A30] text-xs font-mono font-medium text-[#8F6B00] mb-2">
             <span>GRAPH TOPOLOGY ENGINE: /supply-chain</span>
             <span>•</span>
-            <span className="text-[#1A1A18]">MULTI-TIER BOTTLENECK DISCOVERY</span>
+            <span className="text-gray-100">MULTI-TIER BOTTLENECK DISCOVERY</span>
           </div>
-          <h1 className="font-serif text-3xl font-bold tracking-tight text-[#1A1A18]">
+          <h1 className="font-serif text-3xl font-bold tracking-tight text-gray-100">
             Interactive Supply Chain Graph
           </h1>
           <p className="text-xs sm:text-sm text-[#666660] font-sans mt-1">
@@ -130,7 +130,7 @@ export const SupplyChainGraphView: React.FC<SupplyChainGraphViewProps> = ({
 
         <button
           onClick={onOpenCanonicalModal}
-          className="bg-[#1A1A18] hover:bg-[#8F6B00] text-white px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-colors cursor-pointer shadow-2xs"
+          className="bg-[#18181C] hover:bg-amber-600 text-white px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-colors cursor-pointer shadow-lg shadow-black/30"
         >
           <Sparkles className="w-4 h-4 text-[#C49200]" />
           <span>Walkthrough Graph Discovery</span>
@@ -140,17 +140,17 @@ export const SupplyChainGraphView: React.FC<SupplyChainGraphViewProps> = ({
       {/* Graph Visualizer Canvas & Detail Sidebar */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Canvas: Tiered Visual Graph */}
-        <div className="lg:col-span-8 bg-white border border-[#EBEBE6] rounded-xl p-6 shadow-xs flex flex-col justify-between">
+        <div className="lg:col-span-8 bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 flex flex-col justify-between">
           <div className="flex items-center justify-between border-b border-[#F0F0EB] pb-4 mb-6">
             <div>
-              <h3 className="font-serif text-lg font-bold text-[#1A1A18]">
+              <h3 className="font-serif text-lg font-bold text-gray-100">
                 Batch M492 Multi-Tier Graph Topology
               </h3>
-              <p className="text-xs text-[#777]">
+              <p className="text-xs text-gray-500">
                 Click any node in the flow to inspect telemetry and attached lots.
               </p>
             </div>
-            <span className="font-mono text-xs text-red-600 bg-red-50 border border-red-200 px-2.5 py-1 rounded font-semibold">
+            <span className="font-mono text-xs text-red-600 bg-red-900/20 border border-red-800/40 px-2.5 py-1 rounded font-semibold">
               CRITICAL BOTTLENECK: WH-17
             </span>
           </div>
@@ -166,10 +166,10 @@ export const SupplyChainGraphView: React.FC<SupplyChainGraphViewProps> = ({
                   onClick={() => setSelectedNode(node)}
                   className={`p-4 rounded-xl border transition-all cursor-pointer relative ${
                     isSelected
-                      ? 'bg-[#FDF9EE] border-[#8F6B00] shadow-md ring-2 ring-[#8F6B00]/20'
+                      ? 'bg-amber-500/10 border-amber-500/30 shadow-md ring-2 ring-amber-500/10'
                       : isCulprit
-                      ? 'bg-red-50/60 border-red-300 hover:bg-red-50 shadow-2xs'
-                      : 'bg-[#FAFAF7] hover:bg-white border-[#EBEBE6]'
+                      ? 'bg-red-900/20/60 border-red-300 hover:bg-red-900/20 shadow-lg shadow-black/30'
+                      : 'bg-[#18181C] hover:bg-[#18181C] border-[#2A2A30]'
                   }`}
                 >
                   <div className="flex items-center justify-between gap-3">
@@ -179,22 +179,22 @@ export const SupplyChainGraphView: React.FC<SupplyChainGraphViewProps> = ({
                           node.status === 'CRITICAL'
                             ? 'bg-red-600 text-white'
                             : node.status === 'WARNING'
-                            ? 'bg-[#8F6B00] text-white'
-                            : 'bg-[#1A1A18] text-white'
+                            ? 'bg-amber-600 text-white'
+                            : 'bg-[#18181C] text-white'
                         }`}
                       >
                         T{idx + 1}
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-semibold text-xs text-[#1A1A18]">
+                          <span className="font-semibold text-xs text-gray-100">
                             {node.label}
                           </span>
                           <span className="text-[10px] font-mono text-[#888]">
                             ({node.tier})
                           </span>
                         </div>
-                        <p className="text-[11px] text-[#666] mt-0.5">
+                        <p className="text-[11px] text-gray-400 mt-0.5">
                           {node.location}
                         </p>
                       </div>
@@ -204,10 +204,10 @@ export const SupplyChainGraphView: React.FC<SupplyChainGraphViewProps> = ({
                       <span
                         className={`px-2.5 py-1 rounded text-xs font-mono font-bold border ${
                           node.status === 'CRITICAL'
-                            ? 'bg-red-50 text-red-700 border-red-200'
+                            ? 'bg-red-900/20 text-red-400 border-red-800/40'
                             : node.status === 'WARNING'
-                            ? 'bg-amber-50 text-amber-800 border-amber-200'
-                            : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                            ? 'bg-amber-900/20 text-amber-400 border-amber-800/40'
+                            : 'bg-emerald-900/20 text-emerald-400 border-emerald-800/40'
                         }`}
                       >
                         RISK {node.riskScore}
@@ -219,37 +219,37 @@ export const SupplyChainGraphView: React.FC<SupplyChainGraphViewProps> = ({
             })}
           </div>
 
-          <div className="pt-4 border-t border-[#F0F0EB] text-xs text-[#777] flex items-center justify-between font-mono">
+          <div className="pt-4 border-t border-[#F0F0EB] text-xs text-gray-500 flex items-center justify-between font-mono">
             <span>Root Causality: Common Cold Storage Chamber 3</span>
             <span className="text-[#8F6B00]">Algorithm: Bidirectional Graph Traversal</span>
           </div>
         </div>
 
         {/* Right Sidebar: Selected Node Telemetry */}
-        <div className="lg:col-span-4 bg-[#FAFAF7] border border-[#EBEBE6] rounded-xl p-6 shadow-xs space-y-6">
+        <div className="lg:col-span-4 bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 space-y-6">
           <div>
-            <span className="text-[10px] font-mono text-[#777] uppercase tracking-wider block">
+            <span className="text-[10px] font-mono text-gray-500 uppercase tracking-wider block">
               Node Forensic Inspector
             </span>
-            <h3 className="font-serif text-2xl font-bold text-[#1A1A18] mt-0.5">
+            <h3 className="font-serif text-2xl font-bold text-gray-100 mt-0.5">
               {selectedNode.label}
             </h3>
-            <p className="text-xs text-[#666] font-sans">
+            <p className="text-xs text-gray-400 font-sans">
               Tier: {selectedNode.tier} • Location: {selectedNode.location}
             </p>
           </div>
 
-          <div className="bg-white p-4 rounded-xl border border-[#EBEBE6] space-y-2">
+          <div className="bg-[#18181C] p-4 rounded-xl border border-[#2A2A30] space-y-2">
             <span className="text-[10px] font-mono text-[#8F6B00] uppercase font-semibold block">
               TELEMETRY & OPERATIONAL STATUS
             </span>
-            <p className="text-xs text-[#333] leading-relaxed">
+            <p className="text-xs text-gray-300 leading-relaxed">
               {selectedNode.details}
             </p>
           </div>
 
-          <div className="bg-white p-4 rounded-xl border border-[#EBEBE6] space-y-2">
-            <span className="text-[10px] font-mono text-[#1A1A18] uppercase font-semibold block">
+          <div className="bg-[#18181C] p-4 rounded-xl border border-[#2A2A30] space-y-2">
+            <span className="text-[10px] font-mono text-gray-100 uppercase font-semibold block">
               ATTACHED BATCHES
             </span>
             <div className="flex flex-wrap gap-1.5">
@@ -257,7 +257,7 @@ export const SupplyChainGraphView: React.FC<SupplyChainGraphViewProps> = ({
                 <button
                   key={bId}
                   onClick={() => onNavigate('food-dna')}
-                  className="font-mono text-xs bg-[#FDF9EE] hover:bg-[#F9F0D9] text-[#8F6B00] border border-[#EEDBB3] px-2.5 py-1 rounded transition-colors cursor-pointer"
+                  className="font-mono text-xs bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2.5 py-1 rounded transition-colors cursor-pointer"
                 >
                   Batch #{bId} →
                 </button>
@@ -266,11 +266,11 @@ export const SupplyChainGraphView: React.FC<SupplyChainGraphViewProps> = ({
           </div>
 
           {selectedNode.id === 'WH-17' && (
-            <div className="bg-red-50 border border-red-200 rounded-xl p-4 space-y-2">
-              <span className="text-[10px] font-mono text-red-700 uppercase font-bold block">
+            <div className="bg-red-900/20 border border-red-800/40 rounded-xl p-4 space-y-2">
+              <span className="text-[10px] font-mono text-red-400 uppercase font-bold block">
                 CRITICAL ACTION REQUIRED
               </span>
-              <p className="text-xs text-red-800 leading-relaxed">
+              <p className="text-xs text-red-400 leading-relaxed">
                 Warehouse #17 Chamber 3 is the common bottleneck causing milk spoilage in South Delhi. Immediate quarantine recommended.
               </p>
               <button

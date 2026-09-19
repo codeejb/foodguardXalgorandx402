@@ -51,14 +51,14 @@ export const BlockchainView: React.FC<BlockchainViewProps> = ({
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 space-y-8">
       {/* Header */}
-      <div className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-xl p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-white border border-[#EBEBE6] text-xs font-mono font-medium text-[#8F6B00] mb-2">
+          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-[#18181C] border border-[#2A2A30] text-xs font-mono font-medium text-[#8F6B00] mb-2">
             <span>ALGORAND TESTNET: /blockchain</span>
             <span>•</span>
-            <span className="text-[#1A1A18]">APP ID #72938104</span>
+            <span className="text-gray-100">APP ID #72938104</span>
           </div>
-          <h1 className="font-serif text-3xl font-bold tracking-tight text-[#1A1A18]">
+          <h1 className="font-serif text-3xl font-bold tracking-tight text-gray-100">
             Algorand Blockchain Food Passport Ledger
           </h1>
           <p className="text-xs sm:text-sm text-[#666660] font-sans mt-1">
@@ -70,7 +70,7 @@ export const BlockchainView: React.FC<BlockchainViewProps> = ({
           href="https://testnet.algoexplorer.io"
           target="_blank"
           rel="noreferrer"
-          className="bg-[#1A1A18] hover:bg-[#8F6B00] text-white px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-colors shadow-2xs"
+          className="bg-[#18181C] hover:bg-amber-600 text-white px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-colors shadow-lg shadow-black/30"
         >
           <span>Open Algorand Explorer</span>
           <ExternalLink className="w-3.5 h-3.5" />
@@ -81,7 +81,7 @@ export const BlockchainView: React.FC<BlockchainViewProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Col: Live Ledger Events */}
         <div className="lg:col-span-6 space-y-3">
-          <h3 className="font-serif text-base font-bold text-[#1A1A18] mb-2">
+          <h3 className="font-serif text-base font-bold text-gray-100 mb-2">
             Live Blockchain Transaction Feed ({INITIAL_BLOCKCHAIN_EVENTS.length})
           </h3>
 
@@ -94,28 +94,28 @@ export const BlockchainView: React.FC<BlockchainViewProps> = ({
                   onClick={() => handleVerifyTx(event.txHash)}
                   className={`p-4 rounded-xl border transition-all cursor-pointer ${
                     isSelected
-                      ? 'bg-white border-[#8F6B00] shadow-md ring-2 ring-[#8F6B00]/10'
-                      : 'bg-[#FAFAF7] hover:bg-white border-[#EBEBE6]'
+                      ? 'bg-[#18181C] border-[#8F6B00] shadow-md ring-2 ring-[#8F6B00]/10'
+                      : 'bg-[#18181C] hover:bg-[#18181C] border-[#2A2A30]'
                   }`}
                 >
                   <div className="flex items-center justify-between gap-2 mb-1.5">
                     <span className="font-mono text-xs font-bold text-purple-700">
                       ROUND #{event.blockRound}
                     </span>
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-900/20 text-emerald-400 border border-emerald-800/40">
                       {event.verificationStatus}
                     </span>
                   </div>
 
-                  <h4 className="font-serif text-sm font-bold text-[#1A1A18]">
+                  <h4 className="font-serif text-sm font-bold text-gray-100">
                     {event.eventType.replace(/_/g, ' ')}
                   </h4>
 
-                  <p className="font-mono text-[11px] text-[#666] break-all mt-1 bg-white p-2 rounded border border-[#EBEBE6]">
+                  <p className="font-mono text-[11px] text-gray-400 break-all mt-1 bg-[#18181C] p-2 rounded border border-[#2A2A30]">
                     Tx: {event.txHash}
                   </p>
 
-                  <div className="flex items-center justify-between text-[11px] text-[#777] pt-2 mt-2 border-t border-[#F0F0EB]">
+                  <div className="flex items-center justify-between text-[11px] text-gray-500 pt-2 mt-2 border-t border-[#F0F0EB]">
                     <span>Batch #{event.batchId}</span>
                     <span className="text-[#8F6B00] font-semibold">Verify Proof →</span>
                   </div>
@@ -126,22 +126,22 @@ export const BlockchainView: React.FC<BlockchainViewProps> = ({
         </div>
 
         {/* Right Col: Cryptographic Verification Proof */}
-        <div className="lg:col-span-6 bg-white border border-[#EBEBE6] rounded-xl p-6 shadow-xs space-y-6">
+        <div className="lg:col-span-6 bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 space-y-6">
           <div className="border-b border-[#F0F0EB] pb-4">
             <span className="text-[10px] font-mono text-[#8F6B00] uppercase font-bold block">
               CRYPTOGRAPHIC PROOF VERIFIER
             </span>
-            <h3 className="font-serif text-2xl font-bold text-[#1A1A18]">
+            <h3 className="font-serif text-2xl font-bold text-gray-100">
               {selectedEvent.eventType.replace(/_/g, ' ')}
             </h3>
-            <p className="text-xs text-[#777] font-sans">
+            <p className="text-xs text-gray-500 font-sans">
               Algorand Smart Contract App ID #72938104 • Round #{selectedEvent.blockRound}
             </p>
           </div>
 
           {/* Verification Result Box */}
-          <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 space-y-2">
-            <div className="flex items-center gap-2 text-emerald-800 font-semibold text-xs">
+          <div className="bg-emerald-900/20 border border-emerald-800/40 rounded-xl p-4 space-y-2">
+            <div className="flex items-center gap-2 text-emerald-400 font-semibold text-xs">
               <ShieldCheck className="w-5 h-5" />
               <span>CRYPTOGRAPHIC SIGNATURE VALID & ANCHORED</span>
             </div>
@@ -152,21 +152,21 @@ export const BlockchainView: React.FC<BlockchainViewProps> = ({
 
           {/* Proof Details Grid */}
           <div className="space-y-2 text-xs">
-            <div className="bg-[#FAFAF7] p-3 rounded-lg border border-[#EBEBE6] flex justify-between">
-              <span className="text-[#777]">Transaction ID:</span>
-              <span className="font-mono font-semibold text-[#1A1A18]">{selectedEvent.txHash}</span>
+            <div className="bg-[#18181C] p-3 rounded-lg border border-[#2A2A30] flex justify-between">
+              <span className="text-gray-500">Transaction ID:</span>
+              <span className="font-mono font-semibold text-gray-100">{selectedEvent.txHash}</span>
             </div>
-            <div className="bg-[#FAFAF7] p-3 rounded-lg border border-[#EBEBE6] flex justify-between">
-              <span className="text-[#777]">Target Batch:</span>
+            <div className="bg-[#18181C] p-3 rounded-lg border border-[#2A2A30] flex justify-between">
+              <span className="text-gray-500">Target Batch:</span>
               <span className="font-mono font-semibold text-[#8F6B00]">Batch #{selectedEvent.batchId}</span>
             </div>
-            <div className="bg-[#FAFAF7] p-3 rounded-lg border border-[#EBEBE6] flex justify-between">
-              <span className="text-[#777]">Timestamp:</span>
-              <span className="font-mono font-semibold text-[#1A1A18]">{selectedEvent.timestamp}</span>
+            <div className="bg-[#18181C] p-3 rounded-lg border border-[#2A2A30] flex justify-between">
+              <span className="text-gray-500">Timestamp:</span>
+              <span className="font-mono font-semibold text-gray-100">{selectedEvent.timestamp}</span>
             </div>
-            <div className="bg-[#FAFAF7] p-3 rounded-lg border border-[#EBEBE6] flex justify-between">
-              <span className="text-[#777]">Consensus Finality:</span>
-              <span className="font-mono font-semibold text-emerald-700">Instant (3.3s)</span>
+            <div className="bg-[#18181C] p-3 rounded-lg border border-[#2A2A30] flex justify-between">
+              <span className="text-gray-500">Consensus Finality:</span>
+              <span className="font-mono font-semibold text-emerald-400">Instant (3.3s)</span>
             </div>
           </div>
 
@@ -174,7 +174,7 @@ export const BlockchainView: React.FC<BlockchainViewProps> = ({
             <button
               onClick={() => handleVerifyTx(selectedEvent.txHash)}
               disabled={verifying}
-              className="w-full bg-[#1A1A18] hover:bg-[#8F6B00] text-white py-2.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-xs"
+              className="w-full bg-[#18181C] hover:bg-amber-600 text-white py-2.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-md shadow-black/20"
             >
               <Lock className="w-4 h-4 text-[#C49200]" />
               <span>{verifying ? 'Verifying on Algorand...' : 'Re-verify Cryptographic Merkle Root'}</span>

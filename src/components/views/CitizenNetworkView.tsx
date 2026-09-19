@@ -68,14 +68,14 @@ export const CitizenNetworkView: React.FC<CitizenNetworkViewProps> = ({
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 space-y-8">
       {/* Header */}
-      <div className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-xl p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-white border border-[#EBEBE6] text-xs font-mono font-medium text-[#8F6B00] mb-2">
+          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-[#18181C] border border-[#2A2A30] text-xs font-mono font-medium text-[#8F6B00] mb-2">
             <span>GRASSROOTS INTELLIGENCE: /citizen</span>
             <span>•</span>
-            <span className="text-[#1A1A18]">GEOCODED EPIDEMIC CLUSTERING</span>
+            <span className="text-gray-100">GEOCODED EPIDEMIC CLUSTERING</span>
           </div>
-          <h1 className="font-serif text-3xl font-bold tracking-tight text-[#1A1A18]">
+          <h1 className="font-serif text-3xl font-bold tracking-tight text-gray-100">
             Citizen Food Safety Intelligence Network
           </h1>
           <p className="text-xs sm:text-sm text-[#666660] font-sans mt-1">
@@ -85,7 +85,7 @@ export const CitizenNetworkView: React.FC<CitizenNetworkViewProps> = ({
 
         <button
           onClick={onOpenCanonicalModal}
-          className="bg-[#1A1A18] hover:bg-[#8F6B00] text-white px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-colors cursor-pointer shadow-2xs"
+          className="bg-[#18181C] hover:bg-amber-600 text-white px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-colors cursor-pointer shadow-lg shadow-black/30"
         >
           <Sparkles className="w-4 h-4 text-[#C49200]" />
           <span>Walkthrough South Delhi Cluster</span>
@@ -95,58 +95,58 @@ export const CitizenNetworkView: React.FC<CitizenNetworkViewProps> = ({
       {/* Main Grid: Submit Report & Cluster Feed */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Col: Anonymous Citizen Report Form */}
-        <div className="lg:col-span-5 bg-white border border-[#EBEBE6] rounded-xl p-6 shadow-xs space-y-4">
+        <div className="lg:col-span-5 bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 space-y-4">
           <div className="border-b border-[#F0F0EB] pb-3">
-            <h3 className="font-serif text-xl font-bold text-[#1A1A18]">
+            <h3 className="font-serif text-xl font-bold text-gray-100">
               Report a Food Safety Anomaly
             </h3>
-            <p className="text-xs text-[#777] mt-0.5">
+            <p className="text-xs text-gray-500 mt-0.5">
               Your report is cryptographically anonymized and fed directly into the national multi-agent risk twin.
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-3 text-xs">
             <div>
-              <label className="block font-medium text-[#1A1A18] mb-1">Product Purchased</label>
+              <label className="block font-medium text-gray-100 mb-1">Product Purchased</label>
               <input
                 type="text"
                 value={newProduct}
                 onChange={(e) => setNewProduct(e.target.value)}
-                className="w-full border border-[#DDDCD6] rounded-lg px-3 py-2 bg-[#FAFAF7] focus:bg-white focus:outline-none focus:border-[#8F6B00]"
+                className="w-full border border-[#2A2A30] rounded-lg px-3 py-2 bg-[#18181C] focus:bg-[#252529] focus:outline-none focus:border-amber-600"
                 required
               />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block font-medium text-[#1A1A18] mb-1">City / Region</label>
+                <label className="block font-medium text-gray-100 mb-1">City / Region</label>
                 <input
                   type="text"
                   value={newCity}
                   onChange={(e) => setNewCity(e.target.value)}
-                  className="w-full border border-[#DDDCD6] rounded-lg px-3 py-2 bg-[#FAFAF7] focus:bg-white focus:outline-none focus:border-[#8F6B00]"
+                  className="w-full border border-[#2A2A30] rounded-lg px-3 py-2 bg-[#18181C] focus:bg-[#252529] focus:outline-none focus:border-amber-600"
                   required
                 />
               </div>
               <div>
-                <label className="block font-medium text-[#1A1A18] mb-1">Locality / Pin Code</label>
+                <label className="block font-medium text-gray-100 mb-1">Locality / Pin Code</label>
                 <input
                   type="text"
                   value={newLocation}
                   onChange={(e) => setNewLocation(e.target.value)}
-                  className="w-full border border-[#DDDCD6] rounded-lg px-3 py-2 bg-[#FAFAF7] focus:bg-white focus:outline-none focus:border-[#8F6B00]"
+                  className="w-full border border-[#2A2A30] rounded-lg px-3 py-2 bg-[#18181C] focus:bg-[#252529] focus:outline-none focus:border-amber-600"
                   required
                 />
               </div>
             </div>
 
             <div>
-              <label className="block font-medium text-[#1A1A18] mb-1">Observed Issue / Symptoms</label>
+              <label className="block font-medium text-gray-100 mb-1">Observed Issue / Symptoms</label>
               <textarea
                 value={newSymptoms}
                 onChange={(e) => setNewSymptoms(e.target.value)}
                 placeholder="e.g. Milk curdled upon boiling, swollen packet, chemical smell..."
-                className="w-full h-24 border border-[#DDDCD6] rounded-lg p-3 bg-[#FAFAF7] focus:bg-white focus:outline-none focus:border-[#8F6B00]"
+                className="w-full h-24 border border-[#2A2A30] rounded-lg p-3 bg-[#18181C] focus:bg-[#252529] focus:outline-none focus:border-amber-600"
                 required
               />
             </div>
@@ -154,7 +154,7 @@ export const CitizenNetworkView: React.FC<CitizenNetworkViewProps> = ({
             <div className="pt-2">
               <button
                 type="submit"
-                className="w-full bg-[#1A1A18] hover:bg-[#8F6B00] text-white py-2.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-xs"
+                className="w-full bg-[#18181C] hover:bg-amber-600 text-white py-2.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-md shadow-black/20"
               >
                 <Send className="w-3.5 h-3.5" />
                 <span>Submit Geocoded Report</span>
@@ -166,10 +166,10 @@ export const CitizenNetworkView: React.FC<CitizenNetworkViewProps> = ({
         {/* Right Col: Live Geocoded Report Stream */}
         <div className="lg:col-span-7 space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="font-serif text-lg font-bold text-[#1A1A18]">
+            <h3 className="font-serif text-lg font-bold text-gray-100">
               South Delhi Active Incident Cluster ({reports.length} Reports Correlated)
             </h3>
-            <span className="font-mono text-xs text-red-600 bg-red-50 border border-red-200 px-2 py-0.5 rounded font-semibold">
+            <span className="font-mono text-xs text-red-600 bg-red-900/20 border border-red-800/40 px-2 py-0.5 rounded font-semibold">
               EPIDEMIC CLUSTER ACTIVE
             </span>
           </div>
@@ -178,25 +178,25 @@ export const CitizenNetworkView: React.FC<CitizenNetworkViewProps> = ({
             {reports.map((rep) => (
               <div
                 key={rep.id}
-                className="bg-white border border-[#EBEBE6] rounded-xl p-4 shadow-2xs space-y-2 hover:border-[#8F6B00] transition-colors"
+                className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-4 shadow-lg shadow-black/30 space-y-2 hover:border-[#8F6B00] transition-colors"
               >
                 <div className="flex flex-wrap items-center justify-between gap-1">
                   <div className="flex items-center gap-2">
                     <span className="font-mono text-xs font-bold text-[#8F6B00]">
                       #{rep.id}
                     </span>
-                    <span className="font-semibold text-xs text-[#1A1A18]">
+                    <span className="font-semibold text-xs text-gray-100">
                       {rep.productName}
                     </span>
                   </div>
                   <span className="font-mono text-[10px] text-[#888]">{rep.timestamp}</span>
                 </div>
 
-                <p className="text-xs text-[#555] leading-relaxed">
+                <p className="text-xs text-gray-400 leading-relaxed">
                   "{rep.description || (Array.isArray(rep.symptoms) ? rep.symptoms.join(', ') : rep.symptoms)}"
                 </p>
 
-                <div className="flex flex-wrap items-center justify-between text-[11px] text-[#777] pt-2 border-t border-[#F0F0EB] gap-2">
+                <div className="flex flex-wrap items-center justify-between text-[11px] text-gray-500 pt-2 border-t border-[#F0F0EB] gap-2">
                   <span className="flex items-center gap-1">
                     <MapPin className="w-3 h-3 text-[#8F6B00]" />
                     <span>{rep.locationCity}, {rep.locationState}</span>

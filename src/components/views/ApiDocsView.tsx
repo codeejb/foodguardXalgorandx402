@@ -58,14 +58,14 @@ export const ApiDocsView: React.FC<ApiDocsViewProps> = ({
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 space-y-8">
       {/* Header */}
-      <div className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-xl p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-white border border-[#EBEBE6] text-xs font-mono font-medium text-[#8F6B00] mb-2">
+          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-[#18181C] border border-[#2A2A30] text-xs font-mono font-medium text-[#8F6B00] mb-2">
             <span>DEVELOPER GATEWAY: /api-docs</span>
             <span>•</span>
-            <span className="text-[#1A1A18]">OPEN API SPECIFICATION</span>
+            <span className="text-gray-100">OPEN API SPECIFICATION</span>
           </div>
-          <h1 className="font-serif text-3xl font-bold tracking-tight text-[#1A1A18]">
+          <h1 className="font-serif text-3xl font-bold tracking-tight text-gray-100">
             API Documentation & Machine Interface
           </h1>
           <p className="text-xs sm:text-sm text-[#666660] font-sans mt-1">
@@ -75,7 +75,7 @@ export const ApiDocsView: React.FC<ApiDocsViewProps> = ({
 
         <button
           onClick={() => onNavigate('x402')}
-          className="bg-[#1A1A18] hover:bg-[#8F6B00] text-white px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-colors shadow-2xs"
+          className="bg-[#18181C] hover:bg-amber-600 text-white px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-colors shadow-lg shadow-black/30"
         >
           <Coins className="w-4 h-4 text-[#C49200]" />
           <span>Launch x402 Protocol Sandbox</span>
@@ -85,28 +85,28 @@ export const ApiDocsView: React.FC<ApiDocsViewProps> = ({
       {/* Endpoints List */}
       <div className="space-y-4">
         {endpoints.map((ep, i) => (
-          <div key={i} className="bg-white border border-[#EBEBE6] rounded-xl p-6 shadow-xs space-y-3">
+          <div key={i} className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 space-y-3">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2.5">
-                <span className="bg-[#1A1A18] text-white font-mono text-xs font-bold px-2 py-1 rounded">
+                <span className="bg-[#18181C] text-white font-mono text-xs font-bold px-2 py-1 rounded">
                   {ep.method}
                 </span>
-                <span className="font-mono text-sm font-bold text-[#1A1A18]">
+                <span className="font-mono text-sm font-bold text-gray-100">
                   {ep.path}
                 </span>
               </div>
-              <span className="font-mono text-[11px] bg-[#FAFAF7] text-[#666] px-2 py-1 rounded border border-[#EBEBE6]">
+              <span className="font-mono text-[11px] bg-[#18181C] text-gray-400 px-2 py-1 rounded border border-[#2A2A30]">
                 Auth: {ep.auth}
               </span>
             </div>
 
-            <p className="text-xs text-[#555] leading-relaxed">
+            <p className="text-xs text-gray-400 leading-relaxed">
               {ep.desc}
             </p>
 
             <div className="space-y-1">
               <span className="text-[10px] font-mono text-[#888] uppercase block">Example Request:</span>
-              <pre className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-lg p-3 text-[11px] font-mono text-[#333] overflow-x-auto">
+              <pre className="bg-[#18181C] border border-[#2A2A30] rounded-lg p-3 text-[11px] font-mono text-gray-300 overflow-x-auto">
                 {ep.exampleBody}
               </pre>
             </div>

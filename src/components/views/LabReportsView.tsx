@@ -73,27 +73,27 @@ export const LabReportsView: React.FC<LabReportsViewProps> = ({
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'PASS':
-        return 'text-emerald-700 bg-emerald-50 border-emerald-200';
+        return 'text-emerald-400 bg-emerald-900/20 border-emerald-800/40';
       case 'BORDERLINE':
-        return 'text-amber-800 bg-amber-50 border-amber-200';
+        return 'text-amber-400 bg-amber-900/20 border-amber-800/40';
       case 'VIOLATION':
-        return 'text-red-700 bg-red-50 border-red-200';
+        return 'text-red-400 bg-red-900/20 border-red-800/40';
       default:
-        return 'text-gray-700 bg-gray-50 border-gray-200';
+        return 'text-gray-300 bg-[#1F1F24] border-[#2A2A30]';
     }
   };
 
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 space-y-8">
       {/* Header */}
-      <div className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-xl p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-white border border-[#EBEBE6] text-xs font-mono font-medium text-[#8F6B00] mb-2">
+          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-[#18181C] border border-[#2A2A30] text-xs font-mono font-medium text-[#8F6B00] mb-2">
             <span>NABL ASSAY ENGINE: /labs</span>
             <span>•</span>
-            <span className="text-[#1A1A18]">STATUTORY FSSAI CONFORMITY</span>
+            <span className="text-gray-100">STATUTORY FSSAI CONFORMITY</span>
           </div>
-          <h1 className="font-serif text-3xl font-bold tracking-tight text-[#1A1A18]">
+          <h1 className="font-serif text-3xl font-bold tracking-tight text-gray-100">
             Lab Report Analyzer & Chemical Assay
           </h1>
           <p className="text-xs sm:text-sm text-[#666660] font-sans mt-1">
@@ -108,8 +108,8 @@ export const LabReportsView: React.FC<LabReportsViewProps> = ({
               onClick={() => setSelectedReport(r)}
               className={`px-3 py-2 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer ${
                 selectedReport.id === r.id
-                  ? 'bg-[#1A1A18] text-white shadow-xs'
-                  : 'bg-white hover:bg-[#F0F0EB] text-[#444] border border-[#DDDCD6]'
+                  ? 'bg-[#18181C] text-white shadow-md shadow-black/20'
+                  : 'bg-[#18181C] hover:bg-[#F0F0EB] text-gray-400 border border-[#2A2A30]'
               }`}
             >
               #{r.id} (Batch {r.batchId})
@@ -121,26 +121,26 @@ export const LabReportsView: React.FC<LabReportsViewProps> = ({
       {/* Main Grid: Lab Report Workspace */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Col: Dossier Overview & Parameters */}
-        <div className="lg:col-span-8 bg-white border border-[#EBEBE6] rounded-xl p-6 shadow-xs space-y-6">
+        <div className="lg:col-span-8 bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 space-y-6">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#F0F0EB] pb-4">
             <div>
               <span className="font-mono text-xs font-bold text-[#8F6B00]">
                 ASSAY REPORT #{selectedReport.id}
               </span>
-              <h2 className="font-serif text-2xl font-bold text-[#1A1A18]">
+              <h2 className="font-serif text-2xl font-bold text-gray-100">
                 Batch #{selectedReport.batchId} Laboratory Certificate
               </h2>
-              <p className="text-xs text-[#777] font-sans">
+              <p className="text-xs text-gray-500 font-sans">
                 Laboratory: {selectedReport.labName}
               </p>
             </div>
             <span
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold border ${
                 selectedReport.verdict === 'PASS'
-                  ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                  ? 'bg-emerald-900/20 text-emerald-400 border-emerald-800/40'
                   : selectedReport.verdict === 'WATCH'
-                  ? 'bg-amber-50 text-amber-800 border-amber-200'
-                  : 'bg-red-50 text-red-700 border-red-200'
+                  ? 'bg-amber-900/20 text-amber-400 border-amber-800/40'
+                  : 'bg-red-900/20 text-red-400 border-red-800/40'
               }`}
             >
               VERDICT: {selectedReport.verdict}
@@ -148,25 +148,25 @@ export const LabReportsView: React.FC<LabReportsViewProps> = ({
           </div>
 
           {/* AI Executive Summary */}
-          <div className="bg-[#FAFAF7] border border-[#EBEBE6] rounded-xl p-4 space-y-1.5">
-            <span className="text-[10px] font-mono text-[#1A1A18] uppercase font-semibold flex items-center gap-1.5">
+          <div className="bg-[#18181C] border border-[#2A2A30] rounded-xl p-4 space-y-1.5">
+            <span className="text-[10px] font-mono text-gray-100 uppercase font-semibold flex items-center gap-1.5">
               <Cpu className="w-3.5 h-3.5 text-[#8F6B00]" />
               <span>AI BIOCHEMICAL INTERPRETATION</span>
             </span>
-            <p className="text-xs text-[#333] leading-relaxed">
+            <p className="text-xs text-gray-300 leading-relaxed">
               {selectedReport.summary}
             </p>
           </div>
 
           {/* Parameters Table */}
           <div className="space-y-3">
-            <h4 className="font-serif text-base font-bold text-[#1A1A18]">
+            <h4 className="font-serif text-base font-bold text-gray-100">
               Microbiological & Chemical Parameters
             </h4>
 
-            <div className="overflow-x-auto border border-[#EBEBE6] rounded-lg">
+            <div className="overflow-x-auto border border-[#2A2A30] rounded-lg">
               <table className="w-full text-left text-xs">
-                <thead className="bg-[#FAFAF7] border-b border-[#EBEBE6] font-mono text-[10px] text-[#777] uppercase">
+                <thead className="bg-[#18181C] border-b border-[#2A2A30] font-mono text-[10px] text-gray-500 uppercase">
                   <tr>
                     <th className="py-2.5 px-3">Parameter Tested</th>
                     <th className="py-2.5 px-3">Observed Value</th>
@@ -176,10 +176,10 @@ export const LabReportsView: React.FC<LabReportsViewProps> = ({
                 </thead>
                 <tbody className="divide-y divide-[#F0F0EB]">
                   {selectedReport.parameters.map((p, idx) => (
-                    <tr key={idx} className="hover:bg-[#FAFAF7]">
-                      <td className="py-3 px-3 font-medium text-[#1A1A18]">{p.name}</td>
-                      <td className="py-3 px-3 font-mono font-semibold text-[#1A1A18]">{p.value} {p.unit}</td>
-                      <td className="py-3 px-3 font-mono text-[#666]">{p.fssaiLimit}</td>
+                    <tr key={idx} className="hover:bg-[#18181C]">
+                      <td className="py-3 px-3 font-medium text-gray-100">{p.name}</td>
+                      <td className="py-3 px-3 font-mono font-semibold text-gray-100">{p.value} {p.unit}</td>
+                      <td className="py-3 px-3 font-mono text-gray-400">{p.fssaiLimit}</td>
                       <td className="py-3 px-3 text-right">
                         <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border ${getStatusColor(p.status)}`}>
                           {p.status}
@@ -194,12 +194,12 @@ export const LabReportsView: React.FC<LabReportsViewProps> = ({
         </div>
 
         {/* Right Col: Custom Text Analyzer */}
-        <div className="lg:col-span-4 bg-[#FAFAF7] border border-[#EBEBE6] rounded-xl p-6 shadow-xs space-y-4">
+        <div className="lg:col-span-4 bg-[#18181C] border border-[#2A2A30] rounded-xl p-6 shadow-md shadow-black/20 space-y-4">
           <div>
-            <h3 className="font-serif text-lg font-bold text-[#1A1A18]">
+            <h3 className="font-serif text-lg font-bold text-gray-100">
               Paste New Lab Report
             </h3>
-            <p className="text-xs text-[#666]">
+            <p className="text-xs text-gray-400">
               Paste unstructured lab test text to parse parameters with Gemini AI.
             </p>
           </div>
@@ -208,7 +208,7 @@ export const LabReportsView: React.FC<LabReportsViewProps> = ({
             value={customReportText}
             onChange={(e) => setCustomReportText(e.target.value)}
             placeholder="Paste text like: 'Sample Milk M492: TPC 58000 CFU/ml, Coliforms 12 CFU/ml, MBRT 2.8 hrs, Urea negative...'"
-            className="w-full h-40 text-xs border border-[#DDDCD6] rounded-lg p-3 bg-white focus:outline-none focus:border-[#8F6B00] transition-colors"
+            className="w-full h-40 text-xs border border-[#2A2A30] rounded-lg p-3 bg-[#18181C] focus:outline-none focus:border-amber-600 transition-colors"
           />
 
           <button
@@ -216,7 +216,7 @@ export const LabReportsView: React.FC<LabReportsViewProps> = ({
             disabled={!customReportText.trim() || loading}
             className={`w-full py-2.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer ${
               customReportText.trim() && !loading
-                ? 'bg-[#1A1A18] hover:bg-[#8F6B00] text-white shadow-xs'
+                ? 'bg-[#18181C] hover:bg-amber-600 text-white shadow-md shadow-black/20'
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
           >

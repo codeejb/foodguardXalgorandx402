@@ -37,7 +37,7 @@ const CANONICAL_STEPS: DemoStep[] = [
     description: 'Chamber 3 secondary compressor tripped at 14:28 IST. Temperature climbed from 4.0°C baseline to 14.8°C, threatening 28,500L of fresh milk in Batch #M492.',
     highlightAction: 'Sensor alert logged directly to time-series stream',
     targetView: 'dashboard',
-    badgeColor: 'bg-red-100 text-red-800 border-red-300'
+    badgeColor: 'bg-red-100 text-red-400 border-red-300'
   },
   {
     stepNumber: 2,
@@ -48,7 +48,7 @@ const CANONICAL_STEPS: DemoStep[] = [
     description: 'Bacterial doubling kinetics indicate standard plate count is multiplying at 3.8x baseline. The batch risk status immediately flips to HIGH RISK.',
     highlightAction: 'Digital Food DNA updated with live safety degradation',
     targetView: 'food-dna',
-    badgeColor: 'bg-amber-100 text-amber-900 border-amber-300'
+    badgeColor: 'bg-amber-900/30 text-amber-900 border-amber-600/50'
   },
   {
     stepNumber: 3,
@@ -92,7 +92,7 @@ const CANONICAL_STEPS: DemoStep[] = [
     description: 'National Testing Laboratory Report #LAB-2026-948 confirmed severe bacterial growth. Automatic digital attestation issued.',
     highlightAction: 'Lab certificate cryptographically linked to batch',
     targetView: 'labs',
-    badgeColor: 'bg-red-100 text-red-800 border-red-300'
+    badgeColor: 'bg-red-100 text-red-400 border-red-300'
   },
   {
     stepNumber: 7,
@@ -114,7 +114,7 @@ const CANONICAL_STEPS: DemoStep[] = [
     description: 'A consumer scanning the carton barcode in a convenience store is instantly alerted not to consume, with instant refund token.',
     highlightAction: 'Real-time consumer safety verdict delivered in <100ms',
     targetView: 'consumer',
-    badgeColor: 'bg-red-100 text-red-800 border-red-300'
+    badgeColor: 'bg-red-100 text-red-400 border-red-300'
   },
   {
     stepNumber: 9,
@@ -136,7 +136,7 @@ const CANONICAL_STEPS: DemoStep[] = [
     description: 'Authority issues instant digital quarantine. Secondary clean supply routed from Ambala processing plant in 3.5 hours.',
     highlightAction: 'Intervention executed live in platform twin',
     targetView: 'simulator',
-    badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300'
+    badgeColor: 'bg-emerald-900/30 text-emerald-900 border-emerald-600'
   },
   {
     stepNumber: 11,
@@ -147,7 +147,7 @@ const CANONICAL_STEPS: DemoStep[] = [
     description: 'Early intervention contained the outbreak within 8 hours, preventing an estimated 4,200 acute gastroenteritis cases and ₹2.4 Cr in economic damage.',
     highlightAction: 'Success metric recorded to National Analytics',
     targetView: 'analytics',
-    badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300'
+    badgeColor: 'bg-emerald-900/30 text-emerald-900 border-emerald-600'
   },
   {
     stepNumber: 12,
@@ -169,7 +169,7 @@ const CANONICAL_STEPS: DemoStep[] = [
     description: 'HedgeShield Cargo Insurance AI requested predictive underwriting risk on Batch M492, settled via Algorand USDC micro-payment, and received verified telemetry.',
     highlightAction: 'Machine economy transaction logged to ledger',
     targetView: 'x402',
-    badgeColor: 'bg-amber-100 text-amber-900 border-amber-300'
+    badgeColor: 'bg-amber-900/30 text-amber-900 border-amber-600/50'
   },
   {
     stepNumber: 14,
@@ -180,7 +180,7 @@ const CANONICAL_STEPS: DemoStep[] = [
     description: 'You have witnessed the complete digital twin journey: from raw sensor spike to multi-agent correlation, public health prevention, blockchain verification, and machine economy intelligence.',
     highlightAction: 'Platform fully operational in real-time',
     targetView: 'dashboard',
-    badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300'
+    badgeColor: 'bg-emerald-900/30 text-emerald-900 border-emerald-600'
   }
 ];
 
@@ -226,85 +226,85 @@ export const CanonicalDemoModal: React.FC<CanonicalDemoModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
-      <div className="bg-white rounded-lg border border-neutral-300 shadow-2xl max-w-2xl w-full overflow-hidden flex flex-col max-h-[90vh] text-neutral-900">
+      <div className="bg-[#18181C] rounded-lg border border-[#3A3A42] shadow-2xl max-w-2xl w-full overflow-hidden flex flex-col max-h-[90vh] text-gray-100">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-amber-200 bg-[#FBF8EF] flex items-center justify-between">
+        <div className="px-6 py-4 border-b border-amber-800/40 bg-[#18181C] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded bg-[#854D0E] text-white flex items-center justify-center font-black shadow-xs">
+            <div className="w-8 h-8 rounded bg-amber-500 text-white flex items-center justify-center font-black shadow-md shadow-black/20">
               <Sparkles className="w-4 h-4 text-yellow-300" />
             </div>
             <div>
-              <h3 className="font-display font-black text-base uppercase tracking-tight text-neutral-900">
+              <h3 className="font-display font-black text-base uppercase tracking-tight text-gray-100">
                 Canonical Demonstration
               </h3>
-              <p className="text-[10px] font-mono text-[#854D0E] uppercase tracking-widest font-bold">
+              <p className="text-[10px] font-mono text-amber-400 uppercase tracking-widest font-bold">
                 BATCH #M492 COLD-CHAIN CRISIS TO RESOLUTION
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded text-neutral-500 hover:text-neutral-900 hover:bg-neutral-200 transition-colors cursor-pointer"
+            className="p-1 rounded text-gray-500 hover:text-gray-100 hover:bg-[#2A2A30] transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Step Progress Bar */}
-        <div className="px-6 pt-4 bg-white">
-          <div className="flex items-center justify-between text-xs text-neutral-500 mb-2 font-mono">
+        <div className="px-6 pt-4 bg-[#18181C]">
+          <div className="flex items-center justify-between text-xs text-gray-500 mb-2 font-mono">
             <span className="font-bold tracking-widest uppercase text-[10px]">
               STEP {currentStep.stepNumber} OF {CANONICAL_STEPS.length}
             </span>
-            <span className="text-[#854D0E] font-bold text-[10px] uppercase">
+            <span className="text-amber-400 font-bold text-[10px] uppercase">
               {Math.round(((currentStepIndex + 1) / CANONICAL_STEPS.length) * 100)}% COMPLETE
             </span>
           </div>
-          <div className="w-full h-1.5 bg-neutral-100 rounded-full overflow-hidden">
+          <div className="w-full h-1.5 bg-[#252529] rounded-full overflow-hidden">
             <div
-              className="h-full bg-[#854D0E] transition-all duration-300"
+              className="h-full bg-amber-500 transition-all duration-300"
               style={{ width: `${((currentStepIndex + 1) / CANONICAL_STEPS.length) * 100}%` }}
             />
           </div>
         </div>
 
         {/* Step Content */}
-        <div className="p-6 overflow-y-auto space-y-5 flex-1 font-sans bg-white">
+        <div className="p-6 overflow-y-auto space-y-5 flex-1 font-sans bg-[#18181C]">
           {/* Badge & Agent Tag */}
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span className={`px-2.5 py-1 rounded text-[10px] font-mono font-black border uppercase tracking-wider ${currentStep.badgeColor}`}>
               {currentStep.dataMetric}
             </span>
-            <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase text-[#78350F] bg-[#FEF3C7] px-2.5 py-1 rounded border border-[#FDE68A]">
-              <Cpu className="w-3.5 h-3.5 text-[#854D0E]" />
-              <span>AGENT: <strong className="text-neutral-900">{currentStep.agentInvoked}</strong></span>
+            <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase text-amber-400 bg-amber-900/20 px-2.5 py-1 rounded border border-amber-500/30">
+              <Cpu className="w-3.5 h-3.5 text-amber-400" />
+              <span>AGENT: <strong className="text-gray-100">{currentStep.agentInvoked}</strong></span>
             </div>
           </div>
 
           {/* Main Title & Subtitle */}
           <div>
-            <h2 className="font-display font-black text-2xl uppercase tracking-tight text-neutral-900">
+            <h2 className="font-display font-black text-2xl uppercase tracking-tight text-gray-100">
               {currentStep.title}
             </h2>
-            <p className="text-xs text-[#854D0E] font-mono font-semibold mt-1">
+            <p className="text-xs text-amber-400 font-mono font-semibold mt-1">
               {currentStep.subtitle}
             </p>
           </div>
 
           {/* Narrative Body */}
-          <div className="bg-[#FAFAF8] border border-neutral-200 rounded-lg p-4 text-xs text-neutral-700 leading-relaxed font-mono">
+          <div className="bg-[#0F0F12] border border-[#2A2A30] rounded-lg p-4 text-xs text-gray-300 leading-relaxed font-mono">
             {currentStep.description}
           </div>
 
           {/* Key Outcome / Highlight */}
-          <div className="flex items-center justify-between bg-[#FBF8EF] border border-amber-200 rounded-lg px-4 py-2.5 text-xs text-neutral-900">
+          <div className="flex items-center justify-between bg-[#18181C] border border-amber-800/40 rounded-lg px-4 py-2.5 text-xs text-gray-100">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
               <span className="font-mono text-[11px] font-medium">{currentStep.highlightAction}</span>
             </div>
             <button
               onClick={handleJumpToView}
-              className="text-[10px] font-bold uppercase tracking-wider text-[#854D0E] underline hover:text-[#A16207] ml-2 shrink-0 cursor-pointer"
+              className="text-[10px] font-bold uppercase tracking-wider text-amber-400 underline hover:text-amber-300 ml-2 shrink-0 cursor-pointer"
             >
               Open View →
             </button>
@@ -312,14 +312,14 @@ export const CanonicalDemoModal: React.FC<CanonicalDemoModalProps> = ({
         </div>
 
         {/* Footer Navigation */}
-        <div className="px-6 py-3.5 bg-neutral-50 border-t border-neutral-200 flex items-center justify-between">
+        <div className="px-6 py-3.5 bg-[#1F1F24] border-t border-[#2A2A30] flex items-center justify-between">
           <button
             onClick={handlePrev}
             disabled={isFirst}
             className={`flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded transition-colors ${
               isFirst
-                ? 'text-neutral-400 cursor-not-allowed'
-                : 'text-neutral-700 hover:text-neutral-900 hover:bg-neutral-200 cursor-pointer'
+                ? 'text-gray-500 cursor-not-allowed'
+                : 'text-gray-300 hover:text-gray-100 hover:bg-[#2A2A30] cursor-pointer'
             }`}
           >
             <ChevronLeft className="w-4 h-4" /> Previous Step
@@ -328,7 +328,7 @@ export const CanonicalDemoModal: React.FC<CanonicalDemoModalProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={handleJumpToView}
-              className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-neutral-700 hover:text-neutral-900 hover:bg-neutral-200 border border-neutral-300 rounded transition-colors cursor-pointer"
+              className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-gray-300 hover:text-gray-100 hover:bg-[#2A2A30] border border-[#3A3A42] rounded transition-colors cursor-pointer"
             >
               Inspect Module
             </button>
@@ -336,7 +336,7 @@ export const CanonicalDemoModal: React.FC<CanonicalDemoModalProps> = ({
             {isLast ? (
               <button
                 onClick={onClose}
-                className="bg-[#854D0E] hover:bg-[#A16207] text-white px-4 py-1.5 rounded text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+                className="bg-amber-500 hover:bg-amber-400 text-white px-4 py-1.5 rounded text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5 transition-colors cursor-pointer shadow-md shadow-black/20"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Finish Story</span>
@@ -344,7 +344,7 @@ export const CanonicalDemoModal: React.FC<CanonicalDemoModalProps> = ({
             ) : (
               <button
                 onClick={handleNext}
-                className="bg-[#854D0E] hover:bg-[#A16207] text-white px-4 py-1.5 rounded text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+                className="bg-amber-500 hover:bg-amber-400 text-white px-4 py-1.5 rounded text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5 transition-colors cursor-pointer shadow-md shadow-black/20"
               >
                 <span>Next Step</span>
                 <ChevronRight className="w-4 h-4" />

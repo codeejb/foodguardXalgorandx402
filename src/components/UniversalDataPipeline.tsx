@@ -176,39 +176,39 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
   const getRiskBadge = (level: string) => {
     switch (level) {
       case 'CRITICAL':
-        return 'bg-red-100 text-red-800 border-red-300';
+        return 'bg-red-100 text-red-400 border-red-300';
       case 'HIGH':
         return 'bg-orange-100 text-orange-800 border-orange-300';
       case 'WATCH':
-        return 'bg-amber-100 text-[#78350F] border-amber-300';
+        return 'bg-amber-900/30 text-amber-400 border-amber-600/50';
       default:
-        return 'bg-emerald-100 text-emerald-800 border-emerald-300';
+        return 'bg-emerald-900/30 text-emerald-400 border-emerald-600';
     }
   };
 
   return (
-    <div className="bg-white rounded-2xl border-2 border-amber-300 shadow-xl overflow-hidden text-neutral-900">
+    <div className="bg-[#18181C] rounded-2xl border-2 border-amber-600/50 shadow-xl overflow-hidden text-gray-100">
       {/* Top Banner with Dark Yellow Branding & Handwriting Note */}
-      <div className="bg-[#FAF8F2] border-b border-amber-200 p-6">
+      <div className="bg-[#18181C] border-b border-amber-800/40 p-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1">
-            <div className="inline-flex items-center gap-2 bg-[#FEF3C7] text-[#78350F] px-2.5 py-0.5 rounded border border-[#FDE68A] text-[10px] font-mono font-bold uppercase tracking-wider">
-              <Sparkles className="w-3 h-3 text-[#854D0E]" />
+            <div className="inline-flex items-center gap-2 bg-amber-900/20 text-amber-400 px-2.5 py-0.5 rounded border border-amber-500/30 text-[10px] font-mono font-bold uppercase tracking-wider">
+              <Sparkles className="w-3 h-3 text-amber-400" />
               <span>UNIVERSAL FOOD DATA INGESTION & PIPELINE</span>
             </div>
-            <h2 className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-neutral-900">
+            <h2 className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-gray-100">
               Drop Any File → AI Algo Runs → Task Completed Instantly
             </h2>
-            <p className="text-xs text-neutral-600 font-mono">
+            <p className="text-xs text-gray-400 font-mono">
               Accepts Images, Video Feeds, Excel spreadsheets (.xlsx), CSV data, and Word documents (.docx).
             </p>
           </div>
 
-          <div className="bg-white border border-[#FDE68A] px-4 py-2.5 rounded-lg shadow-2xs rotate-1 shrink-0">
-            <span className="text-[10px] font-mono font-bold text-[#854D0E] uppercase block">
+          <div className="bg-[#18181C] border border-amber-500/30 px-4 py-2.5 rounded-lg shadow-lg shadow-black/30 rotate-1 shrink-0">
+            <span className="text-[10px] font-mono font-bold text-amber-400 uppercase block">
               ✍️ Real Field Workflow:
             </span>
-            <p className="handwriting-note text-sm text-[#854D0E]">
+            <p className="handwriting-note text-sm text-amber-400">
               "Data upload karo, AI analyse karega, Algorand pe stamp hoga, aur decision instant ready!"
             </p>
           </div>
@@ -221,7 +221,7 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
           <div className="space-y-6">
             {/* Quick Presets Bar */}
             <div>
-              <label className="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-600 block mb-2">
+              <label className="text-[11px] font-mono font-bold uppercase tracking-wider text-gray-400 block mb-2">
                 Quick Sample Presets (Click to Test):
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
@@ -230,12 +230,12 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
                     key={idx}
                     type="button"
                     onClick={() => handleLoadPreset(preset)}
-                    className="p-3 bg-[#FAF8F2] hover:bg-[#FEF3C7]/60 border border-neutral-200 hover:border-[#854D0E] rounded-lg text-left transition-all cursor-pointer shadow-2xs group"
+                    className="p-3 bg-[#18181C] hover:bg-amber-900/20/60 border border-[#2A2A30] hover:border-amber-600 rounded-lg text-left transition-all cursor-pointer shadow-lg shadow-black/30 group"
                   >
-                    <div className="font-bold text-xs text-neutral-900 group-hover:text-[#854D0E] transition-colors">
+                    <div className="font-bold text-xs text-gray-100 group-hover:text-amber-400 transition-colors">
                       {preset.title}
                     </div>
-                    <div className="text-[10px] font-mono text-neutral-500 line-clamp-1 mt-1">
+                    <div className="text-[10px] font-mono text-gray-500 line-clamp-1 mt-1">
                       {preset.desc}
                     </div>
                   </button>
@@ -252,10 +252,10 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
               onClick={() => fileInputRef.current?.click()}
               className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all ${
                 dragActive
-                  ? 'border-[#854D0E] bg-[#FEF3C7]/40 scale-[1.01]'
+                  ? 'border-amber-600 bg-amber-900/20/40 scale-[1.01]'
                   : selectedFile
-                  ? 'border-emerald-500 bg-emerald-50/40'
-                  : 'border-neutral-300 hover:border-[#854D0E] bg-[#FAFAF8]'
+                  ? 'border-emerald-500 bg-emerald-900/20/40'
+                  : 'border-[#3A3A42] hover:border-amber-600 bg-[#0F0F12]'
               }`}
             >
               <input
@@ -267,7 +267,7 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
               />
 
               <div className="max-w-md mx-auto space-y-3">
-                <div className="w-14 h-14 rounded-full bg-[#FEF3C7] border border-[#FDE68A] text-[#854D0E] flex items-center justify-center mx-auto shadow-xs">
+                <div className="w-14 h-14 rounded-full bg-amber-900/20 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto shadow-md shadow-black/20">
                   {selectedFile ? (
                     <CheckCircle2 className="w-7 h-7 text-emerald-600" />
                   ) : (
@@ -276,19 +276,19 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
                 </div>
 
                 <div>
-                  <h4 className="font-display font-bold text-base text-neutral-900">
+                  <h4 className="font-display font-bold text-base text-gray-100">
                     {selectedFile ? selectedFile.name : 'Drop photo, video, Excel, CSV or Word file here'}
                   </h4>
-                  <p className="text-xs text-neutral-500 font-mono mt-1">
+                  <p className="text-xs text-gray-500 font-mono mt-1">
                     {selectedFile
                       ? `Type: ${selectedFile.type} • Size: ${selectedFile.size}`
                       : 'or click to browse from device (Any file format supported)'}
                   </p>
                 </div>
 
-                <div className="flex items-center justify-center gap-3 text-[10px] font-mono text-neutral-500 pt-1">
+                <div className="flex items-center justify-center gap-3 text-[10px] font-mono text-gray-500 pt-1">
                   <span className="flex items-center gap-1">
-                    <ImageIcon className="w-3.5 h-3.5 text-[#854D0E]" /> Image / Photo
+                    <ImageIcon className="w-3.5 h-3.5 text-amber-400" /> Image / Photo
                   </span>
                   <span>•</span>
                   <span className="flex items-center gap-1">
@@ -309,7 +309,7 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
             {/* Target Batch & Custom Notes Inputs */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
               <div>
-                <label className="text-[10px] uppercase font-bold text-neutral-600 block mb-1">
+                <label className="text-[10px] uppercase font-bold text-gray-400 block mb-1">
                   Target Batch Identifier
                 </label>
                 <input
@@ -317,12 +317,12 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
                   value={targetBatchId}
                   onChange={(e) => setTargetBatchId(e.target.value)}
                   placeholder="e.g. M492, C104, DAIRY-88"
-                  className="w-full bg-[#FAF8F2] border border-neutral-300 rounded px-3 py-2 font-bold text-neutral-900 focus:outline-none focus:border-[#854D0E] focus:bg-white"
+                  className="w-full bg-[#18181C] border border-[#3A3A42] rounded px-3 py-2 font-bold text-gray-100 focus:outline-none focus:border-amber-600 focus:bg-[#252529]"
                 />
               </div>
 
               <div className="md:col-span-2">
-                <label className="text-[10px] uppercase font-bold text-neutral-600 block mb-1">
+                <label className="text-[10px] uppercase font-bold text-gray-400 block mb-1">
                   Inspection Notes / Operational Context
                 </label>
                 <input
@@ -330,22 +330,22 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
                   value={userNotes}
                   onChange={(e) => setUserNotes(e.target.value)}
                   placeholder="e.g. Okhla Sector 17 cold storage dock inspection, tanker sample #4"
-                  className="w-full bg-[#FAF8F2] border border-neutral-300 rounded px-3 py-2 text-neutral-900 focus:outline-none focus:border-[#854D0E] focus:bg-white"
+                  className="w-full bg-[#18181C] border border-[#3A3A42] rounded px-3 py-2 text-gray-100 focus:outline-none focus:border-amber-600 focus:bg-[#252529]"
                 />
               </div>
             </div>
 
             {/* Run Button or Processing State */}
             {processing ? (
-              <div className="p-6 bg-[#FBF8EF] border border-amber-300 rounded-xl space-y-4">
+              <div className="p-6 bg-[#18181C] border border-amber-600/50 rounded-xl space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Loader2 className="w-5 h-5 text-[#854D0E] animate-spin" />
-                    <span className="font-display font-bold text-sm uppercase text-neutral-900">
+                    <Loader2 className="w-5 h-5 text-amber-400 animate-spin" />
+                    <span className="font-display font-bold text-sm uppercase text-gray-100">
                       Executing FoodGuard Pipeline & Algorand Ledger Anchor...
                     </span>
                   </div>
-                  <span className="font-mono text-xs text-[#854D0E] font-bold">
+                  <span className="font-mono text-xs text-amber-400 font-bold">
                     Step {currentStepIndex} of 4
                   </span>
                 </div>
@@ -362,8 +362,8 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
                       key={s.step}
                       className={`p-2 rounded border text-center transition-all ${
                         currentStepIndex >= s.step
-                          ? 'bg-[#FEF3C7] text-[#78350F] border-[#A16207]'
-                          : 'bg-white text-neutral-400 border-neutral-200'
+                          ? 'bg-amber-900/20 text-amber-400 border-[#A16207]'
+                          : 'bg-[#18181C] text-gray-500 border-[#2A2A30]'
                       }`}
                     >
                       <span>{s.step}. {s.label}</span>
@@ -378,8 +378,8 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
                 disabled={!selectedFile}
                 className={`w-full font-black text-xs uppercase tracking-widest py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all cursor-pointer ${
                   selectedFile
-                    ? 'bg-[#854D0E] hover:bg-[#A16207] text-white shadow-md hover:shadow-lg'
-                    : 'bg-neutral-200 text-neutral-400 cursor-not-allowed'
+                    ? 'bg-amber-500 hover:bg-amber-400 text-white shadow-md hover:shadow-lg'
+                    : 'bg-[#2A2A30] text-gray-500 cursor-not-allowed'
                 }`}
               >
                 <Sparkles className="w-4 h-4 text-yellow-300" />
@@ -394,21 +394,21 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
              ========================================================================= */
           <div className="space-y-6 animate-in fade-in zoom-in-95 duration-200">
             {/* Success Celebration Top Bar */}
-            <div className="p-4 bg-emerald-50 border border-emerald-300 rounded-xl flex flex-wrap items-center justify-between gap-4">
+            <div className="p-4 bg-emerald-900/20 border border-emerald-600 rounded-xl flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center">
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="font-display font-black text-lg uppercase tracking-tight text-neutral-900">
+                    <h3 className="font-display font-black text-lg uppercase tracking-tight text-gray-100">
                       Task Completed Successfully!
                     </h3>
                     <span className="font-mono text-[9px] font-bold px-2 py-0.5 rounded bg-emerald-200 text-emerald-900 uppercase">
                       JOB RESOLVED
                     </span>
                   </div>
-                  <p className="text-xs text-emerald-800 font-mono">
+                  <p className="text-xs text-emerald-400 font-mono">
                     Data analyzed, kinetic risk calculated, and blockchain passport sealed on Algorand TestNet.
                   </p>
                 </div>
@@ -417,7 +417,7 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
               <div className="flex items-center gap-2">
                 <button
                   onClick={handleReset}
-                  className="bg-white hover:bg-neutral-100 text-neutral-800 border border-neutral-300 px-3.5 py-2 rounded text-[10px] font-bold font-mono uppercase tracking-wider flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                  className="bg-[#18181C] hover:bg-[#252529] text-gray-200 border border-[#3A3A42] px-3.5 py-2 rounded text-[10px] font-bold font-mono uppercase tracking-wider flex items-center gap-1.5 cursor-pointer shadow-lg shadow-black/30"
                 >
                   <RefreshCw className="w-3 h-3" />
                   <span>Process Another File</span>
@@ -428,13 +428,13 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
             {/* Main Result Card Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
               {/* Left Column: Safety Score & Key Findings */}
-              <div className="lg:col-span-7 bg-[#FAF8F2] border border-neutral-300 rounded-xl p-6 space-y-5">
-                <div className="flex items-center justify-between border-b border-neutral-200 pb-3">
+              <div className="lg:col-span-7 bg-[#18181C] border border-[#3A3A42] rounded-xl p-6 space-y-5">
+                <div className="flex items-center justify-between border-b border-[#2A2A30] pb-3">
                   <div>
-                    <span className="text-[10px] font-mono uppercase text-neutral-500 font-bold block">
+                    <span className="text-[10px] font-mono uppercase text-gray-500 font-bold block">
                       Target Batch Assessment
                     </span>
-                    <h4 className="font-display font-black text-xl uppercase tracking-tight text-neutral-900">
+                    <h4 className="font-display font-black text-xl uppercase tracking-tight text-gray-100">
                       Batch #{pipelineResult.batchId}
                     </h4>
                   </div>
@@ -445,8 +445,8 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
 
                 {/* Score & Metrics Strip */}
                 <div className="grid grid-cols-3 gap-3">
-                  <div className="bg-white p-3.5 rounded-lg border border-neutral-200 text-center">
-                    <span className="text-[9px] font-mono uppercase text-neutral-500 font-bold block">
+                  <div className="bg-[#18181C] p-3.5 rounded-lg border border-[#2A2A30] text-center">
+                    <span className="text-[9px] font-mono uppercase text-gray-500 font-bold block">
                       Safety Score
                     </span>
                     <span className={`font-mono text-2xl font-black ${
@@ -460,34 +460,34 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
                     </span>
                   </div>
 
-                  <div className="bg-white p-3.5 rounded-lg border border-neutral-200 text-center">
-                    <span className="text-[9px] font-mono uppercase text-neutral-500 font-bold block">
+                  <div className="bg-[#18181C] p-3.5 rounded-lg border border-[#2A2A30] text-center">
+                    <span className="text-[9px] font-mono uppercase text-gray-500 font-bold block">
                       Adulteration
                     </span>
                     <span className={`font-mono text-xs font-black uppercase block mt-1 ${
-                      pipelineResult.adulterationStatus === 'PURE' ? 'text-emerald-700' : 'text-red-600'
+                      pipelineResult.adulterationStatus === 'PURE' ? 'text-emerald-400' : 'text-red-600'
                     }`}>
                       {pipelineResult.adulterationStatus}
                     </span>
                   </div>
 
-                  <div className="bg-white p-3.5 rounded-lg border border-neutral-200 text-center">
-                    <span className="text-[9px] font-mono uppercase text-neutral-500 font-bold block">
+                  <div className="bg-[#18181C] p-3.5 rounded-lg border border-[#2A2A30] text-center">
+                    <span className="text-[9px] font-mono uppercase text-gray-500 font-bold block">
                       FSSAI Compliance
                     </span>
-                    <span className="font-mono text-xs font-black text-[#854D0E] uppercase block mt-1">
+                    <span className="font-mono text-xs font-black text-amber-400 uppercase block mt-1">
                       {pipelineResult.complianceStatus}
                     </span>
                   </div>
                 </div>
 
                 {/* Summary Box */}
-                <div className="bg-white p-4 rounded-lg border border-neutral-200 space-y-1.5">
-                  <span className="text-[10px] font-mono uppercase text-[#854D0E] font-bold tracking-wider block flex items-center gap-1">
+                <div className="bg-[#18181C] p-4 rounded-lg border border-[#2A2A30] space-y-1.5">
+                  <span className="text-[10px] font-mono uppercase text-amber-400 font-bold tracking-wider block flex items-center gap-1">
                     <Cpu className="w-3.5 h-3.5" />
                     <span>Algorithmic Intelligence Output:</span>
                   </span>
-                  <p className="text-xs text-neutral-700 font-mono leading-relaxed">
+                  <p className="text-xs text-gray-300 font-mono leading-relaxed">
                     {pipelineResult.summary}
                   </p>
                 </div>
@@ -495,12 +495,12 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
                 {/* Extracted Parameters Table */}
                 {pipelineResult.parameters && pipelineResult.parameters.length > 0 && (
                   <div className="space-y-2">
-                    <span className="text-[10px] font-mono uppercase text-neutral-600 font-bold tracking-wider block">
+                    <span className="text-[10px] font-mono uppercase text-gray-400 font-bold tracking-wider block">
                       Extracted Laboratory & Sensory Parameters:
                     </span>
-                    <div className="bg-white rounded-lg border border-neutral-200 overflow-hidden text-xs font-mono">
+                    <div className="bg-[#18181C] rounded-lg border border-[#2A2A30] overflow-hidden text-xs font-mono">
                       <table className="w-full text-left">
-                        <thead className="bg-[#F6F4EB] text-neutral-600 text-[10px] uppercase font-bold border-b border-neutral-200">
+                        <thead className="bg-[#F6F4EB] text-gray-400 text-[10px] uppercase font-bold border-b border-[#2A2A30]">
                           <tr>
                             <th className="p-2.5">Parameter</th>
                             <th className="p-2.5">Value</th>
@@ -510,17 +510,17 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
                         </thead>
                         <tbody className="divide-y divide-neutral-100">
                           {pipelineResult.parameters.map((param, pIdx) => (
-                            <tr key={pIdx} className="hover:bg-neutral-50">
-                              <td className="p-2.5 font-medium text-neutral-900">{param.parameter}</td>
-                              <td className="p-2.5 font-bold text-neutral-800">{param.value}</td>
-                              <td className="p-2.5 text-neutral-500 text-[11px]">{param.standard}</td>
+                            <tr key={pIdx} className="hover:bg-[#1F1F24]">
+                              <td className="p-2.5 font-medium text-gray-100">{param.parameter}</td>
+                              <td className="p-2.5 font-bold text-gray-200">{param.value}</td>
+                              <td className="p-2.5 text-gray-500 text-[11px]">{param.standard}</td>
                               <td className="p-2.5">
                                 <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold uppercase ${
                                   param.status === 'NORMAL'
-                                    ? 'bg-emerald-100 text-emerald-800'
+                                    ? 'bg-emerald-900/30 text-emerald-400'
                                     : param.status === 'WARNING'
-                                    ? 'bg-amber-100 text-amber-800'
-                                    : 'bg-red-100 text-red-800'
+                                    ? 'bg-amber-900/30 text-amber-400'
+                                    : 'bg-red-100 text-red-400'
                                 }`}>
                                   {param.status}
                                 </span>
@@ -537,31 +537,31 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
               {/* Right Column: Algorand Blockchain Seal & Legal Directive */}
               <div className="lg:col-span-5 space-y-4">
                 {/* Algorand Blockchain Receipt Card */}
-                <div className="bg-[#FBF8EF] border-2 border-amber-300 rounded-xl p-5 space-y-3.5">
-                  <div className="flex items-center justify-between border-b border-amber-200 pb-2">
+                <div className="bg-[#18181C] border-2 border-amber-600/50 rounded-xl p-5 space-y-3.5">
+                  <div className="flex items-center justify-between border-b border-amber-800/40 pb-2">
                     <div className="flex items-center gap-2">
-                      <Coins className="w-4 h-4 text-[#854D0E]" />
-                      <span className="font-display font-black text-xs uppercase tracking-wider text-neutral-900">
+                      <Coins className="w-4 h-4 text-amber-400" />
+                      <span className="font-display font-black text-xs uppercase tracking-wider text-gray-100">
                         Algorand Passport Sealed
                       </span>
                     </div>
-                    <span className="font-mono text-[9px] font-bold bg-[#FEF3C7] text-[#78350F] px-2 py-0.5 rounded border border-[#FDE68A]">
+                    <span className="font-mono text-[9px] font-bold bg-amber-900/20 text-amber-400 px-2 py-0.5 rounded border border-amber-500/30">
                       FINALITY 3.3s
                     </span>
                   </div>
 
                   <div className="space-y-2 font-mono text-xs">
                     <div className="flex justify-between">
-                      <span className="text-neutral-500 text-[10px] uppercase font-bold">TxID:</span>
-                      <span className="font-bold text-neutral-900 text-[11px]">{pipelineResult.blockchainAnchor.txId}</span>
+                      <span className="text-gray-500 text-[10px] uppercase font-bold">TxID:</span>
+                      <span className="font-bold text-gray-100 text-[11px]">{pipelineResult.blockchainAnchor.txId}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-neutral-500 text-[10px] uppercase font-bold">Block Round:</span>
-                      <span className="font-bold text-[#854D0E]">#{pipelineResult.blockchainAnchor.round}</span>
+                      <span className="text-gray-500 text-[10px] uppercase font-bold">Block Round:</span>
+                      <span className="font-bold text-amber-400">#{pipelineResult.blockchainAnchor.round}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-neutral-500 text-[10px] uppercase font-bold">Passport Hash:</span>
-                      <span className="text-neutral-600 text-[10px] truncate max-w-[170px]">{pipelineResult.blockchainAnchor.anchorHash}</span>
+                      <span className="text-gray-500 text-[10px] uppercase font-bold">Passport Hash:</span>
+                      <span className="text-gray-400 text-[10px] truncate max-w-[170px]">{pipelineResult.blockchainAnchor.anchorHash}</span>
                     </div>
                   </div>
 
@@ -569,7 +569,7 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
                     href={pipelineResult.blockchainAnchor.explorerUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="w-full bg-[#854D0E] hover:bg-[#A16207] text-white p-2.5 rounded-lg text-center text-xs font-bold font-mono uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-xs block"
+                    className="w-full bg-amber-500 hover:bg-amber-400 text-white p-2.5 rounded-lg text-center text-xs font-bold font-mono uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-md shadow-black/20 block"
                   >
                     <span>Verify On AlgoExplorer</span>
                     <ExternalLink className="w-3.5 h-3.5" />
@@ -577,11 +577,11 @@ export const UniversalDataPipeline: React.FC<UniversalDataPipelineProps> = ({ on
                 </div>
 
                 {/* Real Handwriting Field Inspection Stamp */}
-                <div className="bg-white border border-[#FDE68A] p-4 rounded-xl shadow-xs">
-                  <span className="text-[10px] font-mono font-bold text-[#854D0E] uppercase block mb-1">
+                <div className="bg-[#18181C] border border-amber-500/30 p-4 rounded-xl shadow-md shadow-black/20">
+                  <span className="text-[10px] font-mono font-bold text-amber-400 uppercase block mb-1">
                     📋 Direct Action Checklist Dispatched:
                   </span>
-                  <ul className="text-xs font-mono text-neutral-700 space-y-1.5">
+                  <ul className="text-xs font-mono text-gray-300 space-y-1.5">
                     <li className="flex items-center gap-1.5">
                       <Check className="w-3.5 h-3.5 text-emerald-600" />
                       <span>Batch certificate generated & signed</span>

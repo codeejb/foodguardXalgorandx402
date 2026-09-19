@@ -144,59 +144,59 @@ export const PayWithAlgoModal: React.FC<PayWithAlgoModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
-      <div className="bg-white rounded-lg border border-neutral-300 shadow-2xl max-w-lg w-full overflow-hidden text-neutral-900 animate-in zoom-in-95 duration-200">
+      <div className="bg-[#18181C] rounded-lg border border-[#3A3A42] shadow-2xl max-w-lg w-full overflow-hidden text-gray-100 animate-in zoom-in-95 duration-200">
         {/* Modal Header with Algorand Yellow Branding */}
-        <div className="px-6 py-4 bg-[#FBF8EF] border-b border-amber-200 flex items-center justify-between">
+        <div className="px-6 py-4 bg-[#18181C] border-b border-amber-800/40 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded bg-[#854D0E] text-yellow-300 flex items-center justify-center font-black shadow-xs">
+            <div className="w-8 h-8 rounded bg-amber-500 text-yellow-300 flex items-center justify-center font-black shadow-md shadow-black/20">
               <Coins className="w-4 h-4" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-display font-black text-base uppercase tracking-tight text-neutral-900">
+                <h3 className="font-display font-black text-base uppercase tracking-tight text-gray-100">
                   Pay with ALGO
                 </h3>
-                <span className="bg-[#FEF3C7] text-[#78350F] text-[9px] font-mono font-bold px-2 py-0.5 rounded border border-[#FDE68A] uppercase tracking-wider">
+                <span className="bg-amber-900/20 text-amber-400 text-[9px] font-mono font-bold px-2 py-0.5 rounded border border-amber-500/30 uppercase tracking-wider">
                   ALGORAND TESTNET
                 </span>
               </div>
-              <p className="text-[10px] font-mono text-[#854D0E] uppercase tracking-wider font-bold">
+              <p className="text-[10px] font-mono text-amber-400 uppercase tracking-wider font-bold">
                 SUB-SECOND FINALITY • 0.001 ALGO NETWORK FEE
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded text-neutral-500 hover:text-neutral-900 hover:bg-neutral-200 transition-colors cursor-pointer"
+            className="p-1 rounded text-gray-500 hover:text-gray-100 hover:bg-[#2A2A30] transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Modal Content */}
-        <div className="p-6 space-y-5 bg-white">
+        <div className="p-6 space-y-5 bg-[#18181C]">
           {!txReceipt ? (
             <>
               {/* Wallet Status Card */}
-              <div className="p-3.5 bg-[#FAFAF8] border border-neutral-200 rounded-lg flex items-center justify-between">
+              <div className="p-3.5 bg-[#0F0F12] border border-[#2A2A30] rounded-lg flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded bg-black text-yellow-400 flex items-center justify-center font-bold text-xs">
                     <Wallet className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-500 block font-bold">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-gray-500 block font-bold">
                       Connected Account
                     </span>
-                    <span className="font-mono text-xs font-bold text-neutral-800">
+                    <span className="font-mono text-xs font-bold text-gray-200">
                       {senderAddress.slice(0, 8)}...{senderAddress.slice(-6)}
                     </span>
                   </div>
                 </div>
                 <div className="text-right">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-500 block font-bold">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-gray-500 block font-bold">
                     Available Balance
                   </span>
-                  <span className="font-mono text-sm font-black text-[#854D0E]">
+                  <span className="font-mono text-sm font-black text-amber-400">
                     {currentBalance.toFixed(3)} ALGO
                   </span>
                 </div>
@@ -204,7 +204,7 @@ export const PayWithAlgoModal: React.FC<PayWithAlgoModalProps> = ({
 
               {/* Quick Preset Selector */}
               <div className="space-y-2">
-                <label className="text-[10px] font-mono uppercase tracking-wider font-bold text-neutral-600">
+                <label className="text-[10px] font-mono uppercase tracking-wider font-bold text-gray-400">
                   Select Payment Preset
                 </label>
                 <div className="grid grid-cols-2 gap-2">
@@ -220,19 +220,19 @@ export const PayWithAlgoModal: React.FC<PayWithAlgoModalProps> = ({
                         }}
                         className={`p-3 rounded-lg border text-left transition-all cursor-pointer ${
                           isSelected
-                            ? 'bg-[#FEF3C7] border-[#A16207] shadow-xs ring-1 ring-[#A16207]'
-                            : 'bg-white hover:bg-neutral-50 border-neutral-200'
+                            ? 'bg-amber-900/20 border-[#A16207] shadow-md shadow-black/20 ring-1 ring-[#A16207]'
+                            : 'bg-[#18181C] hover:bg-[#1F1F24] border-[#2A2A30]'
                         }`}
                       >
                         <div className="flex items-center justify-between">
-                          <span className="font-display font-bold text-xs uppercase tracking-tight text-neutral-900">
+                          <span className="font-display font-bold text-xs uppercase tracking-tight text-gray-100">
                             {preset.title}
                           </span>
-                          <span className="font-mono text-xs font-black text-[#854D0E]">
+                          <span className="font-mono text-xs font-black text-amber-400">
                             {preset.amountAlgo} ALGO
                           </span>
                         </div>
-                        <p className="text-[10px] text-neutral-500 mt-1 font-mono line-clamp-1">
+                        <p className="text-[10px] text-gray-500 mt-1 font-mono line-clamp-1">
                           {preset.desc}
                         </p>
                       </button>
@@ -244,13 +244,13 @@ export const PayWithAlgoModal: React.FC<PayWithAlgoModalProps> = ({
               {/* Custom Amount Option */}
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <label className="text-[10px] font-mono uppercase tracking-wider font-bold text-neutral-600">
+                  <label className="text-[10px] font-mono uppercase tracking-wider font-bold text-gray-400">
                     Custom ALGO Amount
                   </label>
                   <button
                     type="button"
                     onClick={() => setIsCustom(!isCustom)}
-                    className="text-[10px] font-mono text-[#854D0E] font-bold uppercase hover:underline cursor-pointer"
+                    className="text-[10px] font-mono text-amber-400 font-bold uppercase hover:underline cursor-pointer"
                   >
                     {isCustom ? 'Use Presets' : 'Enter Custom'}
                   </button>
@@ -264,10 +264,10 @@ export const PayWithAlgoModal: React.FC<PayWithAlgoModalProps> = ({
                       value={customAmount}
                       onChange={(e) => setCustomAmount(e.target.value)}
                       placeholder="0.05"
-                      className="w-full text-sm font-mono font-bold bg-neutral-50 border border-neutral-300 rounded px-3 py-2 text-neutral-900 focus:outline-none focus:border-[#854D0E] focus:bg-white"
+                      className="w-full text-sm font-mono font-bold bg-[#1F1F24] border border-[#3A3A42] rounded px-3 py-2 text-gray-100 focus:outline-none focus:border-amber-600 focus:bg-[#252529]"
                       autoFocus
                     />
-                    <span className="absolute right-3 top-2 text-xs font-mono font-bold text-neutral-500">
+                    <span className="absolute right-3 top-2 text-xs font-mono font-bold text-gray-500">
                       ALGO
                     </span>
                   </div>
@@ -276,19 +276,19 @@ export const PayWithAlgoModal: React.FC<PayWithAlgoModalProps> = ({
 
               {/* Purpose field */}
               <div className="space-y-1.5">
-                <label className="text-[10px] font-mono uppercase tracking-wider font-bold text-neutral-600">
+                <label className="text-[10px] font-mono uppercase tracking-wider font-bold text-gray-400">
                   Transaction Purpose / Batch Memo
                 </label>
                 <input
                   type="text"
                   value={purpose}
                   onChange={(e) => setPurpose(e.target.value)}
-                  className="w-full text-xs font-mono bg-neutral-50 border border-neutral-300 rounded px-3 py-2 text-neutral-900 focus:outline-none focus:border-[#854D0E] focus:bg-white"
+                  className="w-full text-xs font-mono bg-[#1F1F24] border border-[#3A3A42] rounded px-3 py-2 text-gray-100 focus:outline-none focus:border-amber-600 focus:bg-[#252529]"
                 />
               </div>
 
               {/* Wallet Type */}
-              <div className="flex items-center justify-between text-xs font-mono text-neutral-600 bg-neutral-50 p-2.5 rounded border border-neutral-200">
+              <div className="flex items-center justify-between text-xs font-mono text-gray-400 bg-[#1F1F24] p-2.5 rounded border border-[#2A2A30]">
                 <span>Wallet Provider:</span>
                 <div className="flex items-center gap-2">
                   {(['PERA', 'DEFLY', 'TESTNET_DEV'] as const).map((w) => (
@@ -298,8 +298,8 @@ export const PayWithAlgoModal: React.FC<PayWithAlgoModalProps> = ({
                       onClick={() => setWalletType(w)}
                       className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider transition-colors cursor-pointer ${
                         walletType === w
-                          ? 'bg-[#854D0E] text-white shadow-xs'
-                          : 'bg-neutral-200 text-neutral-700 hover:bg-neutral-300'
+                          ? 'bg-amber-500 text-white shadow-md shadow-black/20'
+                          : 'bg-[#2A2A30] text-gray-300 hover:bg-neutral-300'
                       }`}
                     >
                       {w}
@@ -315,8 +315,8 @@ export const PayWithAlgoModal: React.FC<PayWithAlgoModalProps> = ({
                 disabled={loading || currentPaymentAmount <= 0}
                 className={`w-full font-black text-xs uppercase tracking-widest py-3.5 px-4 rounded-lg flex items-center justify-center gap-2.5 transition-all cursor-pointer ${
                   currentPaymentAmount > 0 && !loading
-                    ? 'bg-[#854D0E] hover:bg-[#A16207] text-white shadow-md hover:shadow-lg'
-                    : 'bg-neutral-200 text-neutral-400 cursor-not-allowed'
+                    ? 'bg-amber-500 hover:bg-amber-400 text-white shadow-md hover:shadow-lg'
+                    : 'bg-[#2A2A30] text-gray-500 cursor-not-allowed'
                 }`}
               >
                 {loading ? (
@@ -336,31 +336,31 @@ export const PayWithAlgoModal: React.FC<PayWithAlgoModalProps> = ({
           ) : (
             /* SUCCESS RECEIPT */
             <div className="space-y-4 text-center py-2">
-              <div className="w-14 h-14 bg-emerald-100 border border-emerald-300 text-emerald-700 rounded-full mx-auto flex items-center justify-center shadow-sm">
+              <div className="w-14 h-14 bg-emerald-900/30 border border-emerald-600 text-emerald-400 rounded-full mx-auto flex items-center justify-center shadow-md shadow-black/30">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
 
               <div>
-                <span className="font-mono text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded border border-emerald-200 uppercase tracking-widest">
+                <span className="font-mono text-[10px] font-bold text-emerald-400 bg-emerald-900/30 px-2.5 py-1 rounded border border-emerald-800/40 uppercase tracking-widest">
                   ALGORAND TESTNET CONFIRMED (3.3s FINALITY)
                 </span>
-                <h3 className="font-display font-black text-2xl uppercase tracking-tight text-neutral-900 mt-2">
+                <h3 className="font-display font-black text-2xl uppercase tracking-tight text-gray-100 mt-2">
                   Payment Confirmed!
                 </h3>
-                <p className="text-xs text-neutral-600 font-mono mt-1">
+                <p className="text-xs text-gray-400 font-mono mt-1">
                   Settled {txReceipt.amountAlgo} ALGO (~${txReceipt.amountUsdc?.toFixed(3)} USDC) on Algorand Ledger.
                 </p>
               </div>
 
               {/* Receipt Table */}
-              <div className="p-4 bg-[#FBF8EF] border border-amber-200 rounded-lg text-left space-y-2.5 font-mono text-xs">
-                <div className="flex items-center justify-between pb-1.5 border-b border-amber-200/80">
-                  <span className="text-neutral-500 uppercase text-[10px] font-bold">Transaction ID:</span>
+              <div className="p-4 bg-[#18181C] border border-amber-800/40 rounded-lg text-left space-y-2.5 font-mono text-xs">
+                <div className="flex items-center justify-between pb-1.5 border-b border-amber-800/40/80">
+                  <span className="text-gray-500 uppercase text-[10px] font-bold">Transaction ID:</span>
                   <div className="flex items-center gap-1.5">
-                    <span className="font-bold text-neutral-900">{txReceipt.txId}</span>
+                    <span className="font-bold text-gray-100">{txReceipt.txId}</span>
                     <button
                       onClick={handleCopyTx}
-                      className="p-1 hover:bg-neutral-200 rounded text-neutral-600 cursor-pointer"
+                      className="p-1 hover:bg-[#2A2A30] rounded text-gray-400 cursor-pointer"
                       title="Copy TX ID"
                     >
                       {copied ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
@@ -368,28 +368,28 @@ export const PayWithAlgoModal: React.FC<PayWithAlgoModalProps> = ({
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pb-1.5 border-b border-amber-200/80">
-                  <span className="text-neutral-500 uppercase text-[10px] font-bold">Block Round:</span>
-                  <span className="font-bold text-[#854D0E]">#{txReceipt.round}</span>
+                <div className="flex items-center justify-between pb-1.5 border-b border-amber-800/40/80">
+                  <span className="text-gray-500 uppercase text-[10px] font-bold">Block Round:</span>
+                  <span className="font-bold text-amber-400">#{txReceipt.round}</span>
                 </div>
 
-                <div className="flex items-center justify-between pb-1.5 border-b border-amber-200/80">
-                  <span className="text-neutral-500 uppercase text-[10px] font-bold">Sender:</span>
-                  <span className="text-neutral-700 font-mono">{txReceipt.from.slice(0, 10)}...</span>
+                <div className="flex items-center justify-between pb-1.5 border-b border-amber-800/40/80">
+                  <span className="text-gray-500 uppercase text-[10px] font-bold">Sender:</span>
+                  <span className="text-gray-300 font-mono">{txReceipt.from.slice(0, 10)}...</span>
                 </div>
 
-                <div className="flex items-center justify-between pb-1.5 border-b border-amber-200/80">
-                  <span className="text-neutral-500 uppercase text-[10px] font-bold">Purpose:</span>
-                  <span className="text-neutral-900 font-medium text-[11px] truncate max-w-[200px]">{txReceipt.purpose}</span>
+                <div className="flex items-center justify-between pb-1.5 border-b border-amber-800/40/80">
+                  <span className="text-gray-500 uppercase text-[10px] font-bold">Purpose:</span>
+                  <span className="text-gray-100 font-medium text-[11px] truncate max-w-[200px]">{txReceipt.purpose}</span>
                 </div>
 
                 <div className="flex items-center justify-between pt-1">
-                  <span className="text-neutral-500 uppercase text-[10px] font-bold">Public Explorer:</span>
+                  <span className="text-gray-500 uppercase text-[10px] font-bold">Public Explorer:</span>
                   <a
                     href="https://testnet.algoexplorer.io"
                     target="_blank"
                     rel="noreferrer"
-                    className="text-[#854D0E] font-bold hover:underline flex items-center gap-1 text-[11px]"
+                    className="text-amber-400 font-bold hover:underline flex items-center gap-1 text-[11px]"
                   >
                     View on AlgoExplorer <ExternalLink className="w-3 h-3" />
                   </a>
@@ -400,14 +400,14 @@ export const PayWithAlgoModal: React.FC<PayWithAlgoModalProps> = ({
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="flex-1 bg-white hover:bg-neutral-100 text-neutral-800 border border-neutral-300 font-bold text-xs uppercase tracking-wider py-2.5 rounded cursor-pointer"
+                  className="flex-1 bg-[#18181C] hover:bg-[#252529] text-gray-200 border border-[#3A3A42] font-bold text-xs uppercase tracking-wider py-2.5 rounded cursor-pointer"
                 >
                   Make Another Payment
                 </button>
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 bg-[#854D0E] hover:bg-[#A16207] text-white font-black text-xs uppercase tracking-wider py-2.5 rounded shadow cursor-pointer"
+                  className="flex-1 bg-amber-500 hover:bg-amber-400 text-white font-black text-xs uppercase tracking-wider py-2.5 rounded shadow cursor-pointer"
                 >
                   Done
                 </button>
