@@ -248,15 +248,34 @@ export async function connectVakh() {
 }
 
 export async function getVakhBatch(batchId: string) {
-  const mcp = await connectVakh();
+  let mcp: Client;
+  try {
+    mcp = await connectVakh();
+  } catch (err: any) {
+    console.warn('Vakh MCP connection failed:', err?.message || err);
+    return null;
+  }
 
-  const result = await mcp.callTool({
-    name: "list_posts",
-    arguments: {
-      form_id: VAKH_FORM_ID,
-      limit: 100,
-    },
-  });
+  let result: any;
+  try {
+    result = await Promise.race([
+      mcp.callTool({
+        name: "list_posts",
+        arguments: {
+          form_id: VAKH_FORM_ID,
+          limit: 100,
+        },
+      }),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('Vakh MCP call timed out (10s)')), 10_000)
+      ),
+    ]);
+  } catch (err: any) {
+    console.warn('Vakh MCP tool call failed:', err?.message || err);
+    client = null;
+    transport = null;
+    return null;
+  }
 
   const resultAny = result as any;
 

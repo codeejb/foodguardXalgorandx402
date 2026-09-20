@@ -24,7 +24,8 @@ import {
   FileText,
   Sliders,
   Thermometer,
-  ShieldCheck
+  ShieldCheck,
+  WifiOff
 } from 'lucide-react';
 import {
   NATIONAL_STATS,
@@ -81,14 +82,20 @@ export const CommandCenterView: React.FC<CommandCenterViewProps> = ({
   };
   const inspectVakhBatch = async (batchId: string) => {
   try {
+    setVakhError(null);
     const result = await ApiClient.getVakhBatch(batchId);
 
     if (!result?.batch) {
-      console.error('Batch not found in Vakh:', batchId);
+      setVakhError(result?.error || 'Batch not found in Vakh');
+      const existingBatch = foodBatches.find((b) => b.id === batchId);
+      if (existingBatch) {
+        setSelectedBatch(existingBatch);
+      }
+      onNavigate('food-dna');
       return;
     }
 
-    console.log('✅ Vakh batch loaded:', result.batch);
+    console.log('Vakh batch loaded:', result.batch);
 
     const vakh = result.batch.fields;
 
@@ -113,14 +120,14 @@ export const CommandCenterView: React.FC<CommandCenterViewProps> = ({
     onNavigate('food-dna');
   } catch (error) {
     console.error('Vakh inspection failed:', error);
-
-    // Keep the existing FoodGuard navigation working
+    setVakhError('Vakh service unavailable — using local data');
     onNavigate('food-dna');
   }
 };
 
   const [selectedState, setSelectedState] = useState<StateRiskData | null>(INDIA_STATE_RISKS[0]);
   const [riskFilter, setRiskFilter] = useState<'ALL' | 'CRITICAL' | 'HIGH' | 'WATCH' | 'LOW'>('ALL');
+  const [vakhError, setVakhError] = useState<string | null>(null);
 
   const filteredStates = INDIA_STATE_RISKS.filter((s) => {
     if (riskFilter === 'ALL') return true;
@@ -178,6 +185,22 @@ export const CommandCenterView: React.FC<CommandCenterViewProps> = ({
           </div>
         </div>
       </div>
+
+      {vakhError && (
+        <div className="will-animate animate-slide-up delay-75 bg-amber-950/40 border border-amber-600/40 rounded-xl p-3 flex items-center gap-3 text-xs font-mono text-amber-300">
+          <WifiOff className="w-4 h-4 text-amber-400 shrink-0" />
+          <span className="flex-1">
+            <span className="font-bold uppercase tracking-wider text-amber-400">Vakh Offline:</span>{' '}
+            {vakhError} — showing local data.
+          </span>
+          <button
+            onClick={() => setVakhError(null)}
+            className="text-amber-500 hover:text-amber-300 transition-colors cursor-pointer"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
 
       {/* Quick Actions & Dataset Ingestion Controls */}
       <div className="will-animate animate-slide-up delay-100 bg-[#18181C] border border-[#3A3A42] rounded-xl p-4 shadow-md shadow-black/20 flex flex-wrap items-center justify-between gap-3">

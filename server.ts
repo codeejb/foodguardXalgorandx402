@@ -833,11 +833,12 @@ app.get("/api/vakh/batch/:batchId", async (req, res) => {
       source: "vakh",
       batch,
     });
-  } catch (error) {
-    console.error("Vakh batch lookup failed:", error);
+  } catch (error: any) {
+    console.error("Vakh batch lookup failed:", error?.message || error);
 
-    return res.status(500).json({
-      error: "Failed to retrieve batch from Vakh",
+    return res.status(503).json({
+      error: "Vakh service unavailable",
+      detail: error?.message || "Connection to Vakh MCP failed",
     });
   }
 });

@@ -111,6 +111,15 @@ export const ApiClient = {
         `/api/vakh/batch/${encodeURIComponent(batchId)}`
       );
 
+      const contentType = res.headers.get('content-type') || '';
+      if (!contentType.includes('application/json')) {
+        throw new Error(
+          res.status === 404
+            ? 'Vakh API endpoint not available (server not running)'
+            : `Unexpected response type (${res.status})`
+        );
+      }
+
       const data = await res.json();
 
       if (!res.ok) {
@@ -119,7 +128,7 @@ export const ApiClient = {
 
       return data;
     } catch (error: any) {
-      console.error('Vakh batch lookup failed:', error);
+      console.warn('Vakh batch lookup unavailable:', error?.message);
 
       return {
         source: 'vakh',
@@ -142,7 +151,10 @@ export const ApiClient = {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
-      if (!res.ok) throw new Error('Pipeline processing failed');
+      const ct = res.headers.get('content-type') || '';
+      if (!ct.includes('application/json') || !res.ok) {
+        throw new Error('Pipeline API unavailable');
+      }
       return await res.json();
     } catch (e) {
       const txId = `TX-PIPE-${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
