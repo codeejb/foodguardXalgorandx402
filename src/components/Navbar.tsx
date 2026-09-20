@@ -191,15 +191,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Right Controls */}
           <div className="flex items-center gap-2 shrink-0">
-            {/* Pay with ALGO */}
-            <button
-              onClick={onOpenPayWithAlgo}
-              className="hidden md:flex items-center gap-1.5 bg-[#12121A] hover:bg-[#1A1A24] text-amber-400 border border-[#2A2A35] hover:border-amber-500/40 px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer"
-            >
-              <Coins className="w-3.5 h-3.5" />
-              <span className="font-mono">ALGO</span>
-            </button>
-
             {/* AI Copilot */}
             <button
               onClick={onOpenCopilot}
