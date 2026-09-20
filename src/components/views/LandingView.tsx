@@ -9,9 +9,7 @@ import {
   FileSpreadsheet,
   Sparkles,
   ChevronRight,
-  Zap,
-  Lock,
-  Globe
+  Zap
 } from 'lucide-react';
 import { useDataset } from '../../context/DatasetContext';
 import { QrScanModal } from '../QrScanModal';
@@ -77,9 +75,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
           <div className="flex flex-wrap items-center justify-center gap-3 mb-14 will-animate animate-slide-up delay-300">
             {[
               { icon: Zap, label: 'Real-time Monitoring' },
-              { icon: ShieldCheck, label: 'FSSAI Compliant' },
-              { icon: Lock, label: 'Algorand Secured' },
-              { icon: Globe, label: 'x402 Protocol' }
+              { icon: ShieldCheck, label: 'FSSAI Compliant' }
             ].map((f, i) => (
               <div key={i} className="flex items-center gap-2 px-4 py-2.5 bg-[#12121A] border border-[#1A1A24] rounded-xl text-sm text-gray-300 hover:border-amber-500/30 transition-all duration-300">
                 <f.icon className="w-4 h-4 text-amber-400" />
