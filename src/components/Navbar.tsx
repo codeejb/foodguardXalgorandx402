@@ -81,8 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'supply-chain', label: 'Supply Chain' },
     { id: 'blockchain', label: 'Blockchain' },
     { id: 'citizen', label: 'Citizen' },
-    { id: 'consumer', label: 'Consumer' },
-    { id: 'x402', label: 'x402' }
+    { id: 'consumer', label: 'Consumer' }
   ];
 
   return (
@@ -99,16 +98,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="flex items-center gap-1">
                 <Cpu className="w-3 h-3 text-amber-400" />
                 Gemini 3.7 Flash
-              </span>
-              <span className="text-gray-700">|</span>
-              <span className="flex items-center gap-1">
-                <Activity className="w-3 h-3 text-emerald-500" />
-                Algorand Testnet
-              </span>
-              <span className="text-gray-700">|</span>
-              <span className="flex items-center gap-1">
-                <Coins className="w-3 h-3 text-amber-400" />
-                x402 Protocol
               </span>
             </div>
           </div>
